@@ -1,0 +1,7 @@
+// impoer global rules
+@import './layout/global_rules';
+
+@import './variables/vars'; // global variable
+@import './helpers/mixins.scss';
+@import './functions/functions';
+@import './helpers/media-queries';

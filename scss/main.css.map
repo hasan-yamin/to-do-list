@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,CAAE;EACA,UAAU,EAAE,UAAU",
+"sources": ["layout/_global_rules.scss"],
+"names": [],
+"file": "main.css"
+}
