@@ -1,4 +1,74 @@
 * {
   box-sizing: border-box; }
 
+.containe {
+  width: 90%;
+  margin: auto; }
+  .containe .to-do-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.75rem;
+    background-color: #eff1f2;
+    overflow: hidden; }
+    .containe .to-do-list .title {
+      text-align: center;
+      margin: 50px auto;
+      color: #3838e8;
+      border-bottom: 3px dotted; }
+    .containe .to-do-list .crd {
+      padding: 15px;
+      margin: 5px auto;
+      width: 90%;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      align-items: center;
+      border-radius: 15px; }
+    .containe .to-do-list .add-crd {
+      background-color: #fff; }
+      .containe .to-do-list .add-crd input {
+        border: none;
+        width: 80%;
+        height: 50px;
+        outline: none; }
+      .containe .to-do-list .add-crd .date label {
+        color: red; }
+      .containe .to-do-list .add-crd .date input {
+        display: none; }
+      .containe .to-do-list .add-crd button {
+        border: 1px solid #3838e8;
+        cursor: pointer;
+        border-radius: 50%;
+        background-color: rgba(56, 56, 232, 0.272); }
+        .containe .to-do-list .add-crd button .fa-plus {
+          color: #3838e8;
+          width: 50px;
+          height: 50px; }
+    .containe .to-do-list .sort {
+      background-color: #d1d3d4; }
+      .containe .to-do-list .sort p {
+        margin-bottom: 0;
+        font-weight: lighter;
+        font-size: small;
+        letter-spacing: 1px; }
+    .containe .to-do-list .list {
+      flex-direction: column;
+      padding: 0; }
+      .containe .to-do-list .list .list-card {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 5px 10px;
+        background-color: #d1d3d4;
+        border-radius: 10px; }
+        .containe .to-do-list .list .list-card .edit {
+          display: flex;
+          justify-content: space-between; }
+        .containe .to-do-list .list .list-card .view {
+          display: flex; }
+          .containe .to-do-list .list .list-card .view input {
+            margin-right: 10px; }
+
 /*# sourceMappingURL=main.css.map */
