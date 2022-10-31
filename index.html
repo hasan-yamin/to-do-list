@@ -7,14 +7,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDoList</title>
     <!-- my main css file -->
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="stylesheet" href="scss/main.css">
 </head>
 
 <body>
+    <div class="containe">
+        <div class=" to-do-list">
+            <h1 class="title ">
+                <i class="fas fa-check-square me-1"></i>
+                <span>Let's do it</span>
+            </h1>
+            <div class=" crd add-crd">
+                <input type="text" id="in-text" placeholder="Add task ...">
+                <div class="date">
+                    <label for="deadtime"><i class="fas fa-calendar-alt fa-lg"></i></label>
+                    <input type="date" id="deadtime" name="deadtime">
+                </div>
+                <button id="add-task"><i class="fa fa-plus"></i></button>
+            </div>
 
+            <!-- <hr class="my-4"> -->
 
+            <div class=" crd sort">
+                <p>Filter</p>
+                <select>
+                    <option value="1">All</option>
+                    <option value="2">Completed</option>
+                    <option value="3">Active</option>
+                    <option value="4">Has due date</option>
+                </select>
+                <p>Sort</p>
+                <select>
+                    <option value="1">Added date</option>
+                    <option value="2">Due date</option>
+                </select>
+                <a href="#!" style="color: #23af89;" data-mdb-toggle="tooltip" title="Ascending"><i
+                        class="fas fa-sort-amount-down-alt ms-2"></i></a>
+            </div>
+            <div class="crd list">
+                <div class="list-card">
+                    <div class="edit">
+                        <div class="date">
+                            <i class="fas fa-info-circle me-2"></i>28th Jun 2020
+                        </div>
+                        <div class="edit-delete">
+                            <a href="#!" class="text-info" data-mdb-toggle="tooltip" title="Edit todo"><i
+                                    class="fas fa-pencil-alt me-3"></i></a>
+                            <span onclick="deleteCard(this)"><i class="fas fa-trash-alt"></i></span>
+                        </div>
+                    </div>
+                    <div class="view">
+                        <input type="checkbox" value="" checked />
+                        <!-- <textarea name="" id="" disabled>Buy groceries for nex</textarea> -->
+                        <p class="to-do-name">Buy groceries for next week</p>
+                        <!-- <p class="to-do-description">here we will write description about our task</p> -->
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
     <!-- my main js file -->
-    <script src="js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typescript/4.8.4/typescript.min.js"></script>
+    <script src="dist/main.js"></script>
 </body>
 
 </html>
