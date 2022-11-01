@@ -68,7 +68,9 @@
           justify-content: space-between; }
         .containe .to-do-list .list .list-card .view {
           display: flex; }
-          .containe .to-do-list .list .list-card .view input {
+          .containe .to-do-list .list .list-card .view input[type=checkbox]:checked {
             margin-right: 10px; }
+            .containe .to-do-list .list .list-card .view input[type=checkbox]:checked + p {
+              text-decoration: line-through; }
 
 /*# sourceMappingURL=main.css.map */

@@ -47,7 +47,7 @@
                         class="fas fa-sort-amount-down-alt ms-2"></i></a>
             </div>
             <div class="crd list">
-                <div class="list-card">
+                <!-- <div class="list-card" data-id="251359">
                     <div class="edit">
                         <div class="date">
                             <i class="fas fa-info-circle me-2"></i>28th Jun 2020
@@ -59,13 +59,12 @@
                         </div>
                     </div>
                     <div class="view">
-                        <input type="checkbox" value="" checked />
+                        <input type="checkbox" value="ff" checked  onclick="check(this)"/>
+                        <p class="to-do-name" ">Buy groceries for next week</p>
                         <!-- <textarea name="" id="" disabled>Buy groceries for nex</textarea> -->
-                        <p class="to-do-name">Buy groceries for next week</p>
-                        <!-- <p class="to-do-description">here we will write description about our task</p> -->
-                    </div>
-                </div>
-
+                <!-- <p class="to-do-description">here we will write description about our task</p> -->
+                <!-- </div>
+                </div>    -->
             </div>
 
         </div>
@@ -73,7 +72,8 @@
     <!-- my main js file -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typescript/4.8.4/typescript.min.js"></script>
-    <script src="dist/main.js"></script>
+    <script type="module" src="./dist/main.js"></script>
+    <!-- <script type="module" src="./dist/module.js"></script> -->
 </body>
 
 </html>
