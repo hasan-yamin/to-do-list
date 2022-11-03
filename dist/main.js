@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,14 +8,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import Taskq from './module';
-console.log(Taskq);
+// import Taskq from './module'
+// console.log(Taskq)
 class Task {
-    constructor(taskName, deadLine, done) {
+    constructor(taskName, deadLine, done, jsonId, taskId) {
         this._taskName = taskName;
         this._deadLine = deadLine;
         this._done = done;
-        this._taskId = new Date().toISOString();
+        this._jsonId = jsonId;
+        if (taskId) {
+            this._taskId = taskId;
+        }
+        else {
+            this._taskId = new Date().toISOString();
+        }
+    }
+    getJsonId() {
+        return this._jsonId;
     }
     getTaskId() {
         return this._taskId;
@@ -38,25 +48,41 @@ class Task {
         this._taskName = taskName;
     }
 }
-let tasks = getTasks();
-tasks.then((result) => {
-    console.log(result);
-});
+// array of all tasks
 let allTasks = [];
-allTasks.push(new Task('test task', '2022-11-15', true));
-showCards();
+// get all tasks from firebase
+tasks();
+function tasks() {
+    getTasks().then((result) => {
+        let taskObjId;
+        // loop on all tasks came from db
+        allTasks = [];
+        for ((taskObjId) in result) {
+            // add task to allTasks array
+            console.log(taskObjId);
+            allTasks.push(new Task(result[taskObjId].taskname, result[taskObjId].deadline, result[taskObjId].status, taskObjId, result[taskObjId].taskid));
+        }
+        // show tasks on screen 
+        showTasks();
+    });
+}
+// allTasks.push(new Task('test task', '2022-11-15', true, '5555555'))
+// showCards()
 let addToDo = document.getElementById('add-task');
-addToDo.style.backgroundColor = 'red';
-console.log(addToDo);
 addToDo.addEventListener('click', function () {
-    let inputText = document.getElementById('in-text');
-    let deaddate = document.getElementById('deadtime');
-    let newTask = new Task(inputText.value, deaddate.value, false);
-    saveTasks(newTask);
-    allTasks.push(newTask);
-    showCards();
+    return __awaiter(this, void 0, void 0, function* () {
+        let inputText = document.getElementById('in-text');
+        let deaddate = document.getElementById('deadtime');
+        let newTask = new Task(inputText.value, deaddate.value, false, 'n');
+        // save task localy
+        // allTasks.push(newTask)
+        // save task on db
+        saveTasks(newTask);
+        // show all tasks on screen
+        //   tasks()
+    });
 });
-function showCards() {
+function showTasks() {
     let list = document.getElementsByClassName('list')[0];
     list.innerHTML = '';
     allTasks.forEach(tsk => {
@@ -65,7 +91,7 @@ function showCards() {
 }
 function createCard(inputText, deaddate, taskDone, taskId) {
     let checkd = (taskDone) ? 'checked' : ' ';
-    console.log(checkd);
+    // console.log(checkd)
     if (inputText !== null && inputText !== '') {
         //edit
         let date = document.createElement('div');
@@ -102,29 +128,25 @@ function createCard(inputText, deaddate, taskDone, taskId) {
         //list
         let list = document.getElementsByClassName('list')[0];
         list.appendChild(listCard);
-        // inputText.value = ''
     }
-    console.log('tasks number: ' + allTasks.length);
 }
-function deleteCard(event) {
-    let id = event.parentElement.parentElement.parentElement.getAttribute('data-id');
-    let tsk = allTasks.find(tsk => tsk.getTaskId() === id);
-    let indx = allTasks.indexOf(tsk);
-    allTasks.splice(indx, 1);
-    console.log('Task ' + tsk.getTaskName() + ' deleted drom DB');
-    event.parentElement.parentElement.parentElement.remove();
+/* [1] 'GET' get all tasks from firebase db */
+function getTasks() {
+    return __awaiter(this, void 0, void 0, function* () {
+        let url = "https://todolist-42b5f-default-rtdb.firebaseio.com/hasan.json";
+        const response = yield fetch(url);
+        const responseData = yield response.json();
+        // console.log('responseData: ')
+        // console.log(responseData)
+        if (!response.ok) {
+            const error = new Error(responseData.message || 'Failed to fetch!');
+            // console.log(error)
+            throw error;
+        }
+        return responseData;
+    });
 }
-function check(event) {
-    let id = event.parentElement.parentElement.getAttribute('data-id');
-    allTasks.find(tsk => tsk.getTaskId() === id).setDone(event.checked);
-    // if (event.checked) {
-    //     console.log('task done')
-    //     console.log(event.checked)
-    // } else {
-    //     console.log('task not done yet')
-    //     console.log(event.checked)
-    // } 
-}
+/* [2] 'POST' save new task to firebase db */
 function saveTasks(tsk) {
     return __awaiter(this, void 0, void 0, function* () {
         let url = "https://todolist-42b5f-default-rtdb.firebaseio.com/hasan.json";
@@ -143,23 +165,39 @@ function saveTasks(tsk) {
             const error = new Error(responseData.message || 'failed to authenticate');
             throw error;
         }
+        else {
+            tasks();
+        }
     });
 }
-function getTasks() {
+/* [3] 'DELETE' delete a task from firebase db */
+function deleteCard(event) {
     return __awaiter(this, void 0, void 0, function* () {
-        let url = "https://todolist-42b5f-default-rtdb.firebaseio.com/hasan.json";
-        const response = yield fetch(url);
-        // console.log('response : ')
-        // console.log(response)
+        // delete task localy
+        let id = event.parentElement.parentElement.parentElement.getAttribute('data-id');
+        let tsk = allTasks.find(tsk => tsk.getTaskId() === id);
+        let indx = allTasks.indexOf(tsk);
+        allTasks.splice(indx, 1);
+        console.log('Task ' + tsk.getTaskName() + ' deleted drom DB');
+        event.parentElement.parentElement.parentElement.remove();
+        // delete task form firebase db
+        console.log(tsk.getJsonId());
+        let url = `https://todolist-42b5f-default-rtdb.firebaseio.com/hasan/${tsk.getJsonId()}.json`;
+        const response = yield fetch(url, {
+            method: 'DELETE',
+        });
         const responseData = yield response.json();
-        console.log('responseData: ');
-        console.log(responseData);
         if (!response.ok) {
-            const error = new Error(responseData.message || 'Failed to fetch!');
+            console.log(responseData);
+            const error = new Error(responseData.message || 'failed to authenticate');
             throw error;
         }
-        return responseData;
     });
+}
+/* [4] 'PUT' update data in task on firebase db */
+function check(event) {
+    let id = event.parentElement.parentElement.getAttribute('data-id');
+    allTasks.find(tsk => tsk.getTaskId() === id).setDone(event.checked);
 }
 // // XMLHttpRequest
 // // make function to do the request

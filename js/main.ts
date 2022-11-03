@@ -1,15 +1,24 @@
-import Taskq from './module'
-console.log(Taskq)
+// import Taskq from './module'
+// console.log(Taskq)
 class Task {
     private _taskName: string
     private _deadLine: string
     private _done: boolean
+    private _jsonId: string
     private _taskId: string
-    constructor(taskName: string, deadLine: string, done: boolean) {
+    constructor(taskName: string, deadLine: string, done: boolean, jsonId: string, taskId?: string) {
         this._taskName = taskName
         this._deadLine = deadLine
         this._done = done
-        this._taskId = new Date().toISOString()
+        this._jsonId = jsonId
+        if (taskId) {
+            this._taskId = taskId
+        } else {
+            this._taskId = new Date().toISOString()
+        }
+    }
+    public getJsonId(): string {
+        return this._jsonId
     }
     public getTaskId(): string {
         return this._taskId
@@ -41,26 +50,42 @@ class Task {
 
 
 }
-let tasks = getTasks()
-tasks.then((result) => {
-    console.log(result)
-})
+// array of all tasks
 let allTasks: Task[] = []
-allTasks.push(new Task('test task', '2022-11-15', true))
-showCards()
+// get all tasks from firebase
+tasks()
+function tasks() {
+    getTasks().then((result) => {
+        let taskObjId: string
+        // loop on all tasks came from db
+        allTasks = []
+        for ((taskObjId) in result) {
+            // add task to allTasks array
+            console.log(taskObjId)
+            allTasks.push(new Task(result[taskObjId].taskname, result[taskObjId].deadline, result[taskObjId].status, taskObjId, result[taskObjId].taskid))
+        }
+        // show tasks on screen 
+        showTasks()
+    })
+}
+
+// allTasks.push(new Task('test task', '2022-11-15', true, '5555555'))
+// showCards()
 let addToDo: any | null = document.getElementById('add-task');
-addToDo.style.backgroundColor = 'red'
-console.log(addToDo)
-addToDo.addEventListener('click', function () {
+addToDo.addEventListener('click', async function () {
     let inputText: HTMLInputElement | null = <HTMLInputElement>document.getElementById('in-text');
     let deaddate: HTMLInputElement | null = <HTMLInputElement>document.getElementById('deadtime');
 
-    let newTask: Task = new Task(inputText.value, deaddate.value, false)
+    let newTask: Task = new Task(inputText.value, deaddate.value, false, 'n')
+    // save task localy
+    // allTasks.push(newTask)
+    // save task on db
     saveTasks(newTask)
-    allTasks.push(newTask)
-    showCards()
+    // show all tasks on screen
+    //   tasks()
 })
-function showCards() {
+
+function showTasks() {
     let list = document.getElementsByClassName('list')[0]
     list.innerHTML = ''
     allTasks.forEach(tsk => {
@@ -70,7 +95,7 @@ function showCards() {
 
 function createCard(inputText: string, deaddate: string, taskDone: boolean, taskId: string) {
     let checkd: string = (taskDone) ? 'checked' : ' '
-    console.log(checkd)
+    // console.log(checkd)
     if (inputText !== null && inputText !== '') {
         //edit
         let date: HTMLDivElement = <HTMLDivElement>document.createElement('div');
@@ -109,35 +134,25 @@ function createCard(inputText: string, deaddate: string, taskDone: boolean, task
         //list
         let list = document.getElementsByClassName('list')[0]
         list.appendChild(listCard)
-        // inputText.value = ''
     }
-
-    console.log('tasks number: ' + allTasks.length)
-}
-function deleteCard(event: any) {
-
-    let id: string = event.parentElement.parentElement.parentElement.getAttribute('data-id')
-    let tsk: Task | undefined = allTasks.find(tsk => tsk.getTaskId() === id)
-    let indx: number = allTasks.indexOf(<Task>tsk)
-    allTasks.splice(indx, 1)
-    console.log('Task ' + tsk.getTaskName() + ' deleted drom DB')
-    event.parentElement.parentElement.parentElement.remove()
 }
 
-function check(event: any) {
-    let id: string = event.parentElement.parentElement.getAttribute('data-id')
-    allTasks.find(tsk => tsk.getTaskId() === id).setDone(event.checked)
-
-    // if (event.checked) {
-    //     console.log('task done')
-    //     console.log(event.checked)
-    // } else {
-
-    //     console.log('task not done yet')
-    //     console.log(event.checked)
-    // } 
+/* [1] 'GET' get all tasks from firebase db */
+async function getTasks() {
+    let url: string = "https://todolist-42b5f-default-rtdb.firebaseio.com/hasan.json"
+    const response = await fetch(url);
+    const responseData = await response.json();
+    // console.log('responseData: ')
+    // console.log(responseData)
+    if (!response.ok) {
+        const error = new Error(responseData.message || 'Failed to fetch!');
+        // console.log(error)
+        throw error;
+    }
+    return responseData
 }
 
+/* [2] 'POST' save new task to firebase db */
 async function saveTasks(tsk: Task) {
     let url: string = "https://todolist-42b5f-default-rtdb.firebaseio.com/hasan.json"
     const response = await fetch(url, {
@@ -154,23 +169,40 @@ async function saveTasks(tsk: Task) {
         console.log(responseData);
         const error = new Error(responseData.message || 'failed to authenticate');
         throw error;
+    }else{
+        tasks()
     }
 }
 
-async function getTasks() {
-    let url: string = "https://todolist-42b5f-default-rtdb.firebaseio.com/hasan.json"
-    const response = await fetch(url);
-    // console.log('response : ')
-    // console.log(response)
+/* [3] 'DELETE' delete a task from firebase db */
+async function deleteCard(event: any) {
+    // delete task localy
+    let id: string = event.parentElement.parentElement.parentElement.getAttribute('data-id')
+    let tsk: Task | undefined = allTasks.find(tsk => tsk.getTaskId() === id)
+    let indx: number = allTasks.indexOf(<Task>tsk)
+    allTasks.splice(indx, 1)
+    console.log('Task ' + tsk.getTaskName() + ' deleted drom DB')
+    event.parentElement.parentElement.parentElement.remove()
+    // delete task form firebase db
+    console.log(tsk.getJsonId())
+    let url: string = `https://todolist-42b5f-default-rtdb.firebaseio.com/hasan/${tsk.getJsonId()}.json`
+    const response = await fetch(url, {
+        method: 'DELETE',
+    });
     const responseData = await response.json();
-    console.log('responseData: ')
-    console.log(responseData)
     if (!response.ok) {
-        const error = new Error(responseData.message || 'Failed to fetch!');
+        console.log(responseData);
+        const error = new Error(responseData.message || 'failed to authenticate');
         throw error;
     }
-    return responseData
 }
+
+/* [4] 'PUT' update data in task on firebase db */
+function check(event: any) {
+    let id: string = event.parentElement.parentElement.getAttribute('data-id')
+    allTasks.find(tsk => tsk.getTaskId() === id).setDone(event.checked)
+}
+
 // // XMLHttpRequest
 // // make function to do the request
 // var btn = document.getElementsByClassName("btn-js");
