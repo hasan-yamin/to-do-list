@@ -67,15 +67,6 @@
         }
       }
     }
-    .sort {
-      background-color: #d1d3d4;
-      p {
-        margin-bottom: 0;
-        font-weight: lighter;
-        font-size: small;
-        letter-spacing: 1px;
-      }
-    }
     .no-task {
       display: block;
       color: red;
@@ -83,6 +74,29 @@
       text-transform: capitalize;
       font-weight: bold;
     }
+
+    .filter {
+      background-color: #d1d3d4;
+      display: flex;
+      justify-content: space-around;
+     .filter-card {
+       width: fit-content;
+       display: flex;
+       flex-direction: column;
+       padding: 5px;
+       border-radius: 5px;
+       gap: 5px;
+       background-color: #888;
+       text-transform: capitalize;
+      //  border: 1px solid ;
+      .date-card{
+        display: flex;
+        justify-content: space-between;
+        gap: 3px;
+      }
+      }
+    }
+    
     .list {
       flex-direction: column;
       padding: 0;

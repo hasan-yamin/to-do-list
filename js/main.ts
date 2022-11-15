@@ -50,10 +50,14 @@ class Task {
 
 
 }
-let taskFilter: HTMLSelectElement = <HTMLSelectElement>document.querySelector('#task-filter')
-console.log('taskFilter', taskFilter.value)
+let taskFilterStatus: HTMLSelectElement = <HTMLSelectElement>document.querySelector('#task-filter-status')
+let filterStartDate: HTMLInputElement = <HTMLInputElement>document.querySelector('#filter-start-date')
+let filterEndDate: HTMLInputElement = <HTMLInputElement>document.querySelector('#filter-end-date')
+filterStartDate.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
+filterEndDate.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
 
-// array of all tasks
+console.log("Today's Date: ", `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`)
+
 let allTasks: Task[] = []
 // get all tasks from firebase
 tasks()
@@ -91,26 +95,7 @@ addToDo.addEventListener('click', async function () {
     inputText.value = ''
 })
 
-taskFilter.addEventListener('change', () => {
-    console.log('taskFilter changed to : ', taskFilter.value)
-    let filterValue: boolean
-    if (taskFilter.value === 'completed') {
-        filterValue = true
-    } else if (taskFilter.value === 'active') {
-        filterValue = false
-    }
-    else {
-        showTasks(allTasks)
-        return
-    }
-    let filteredTasks: (Task)[] = allTasks.filter(task => {
-        if (task.getDone() === filterValue) {
-            return task
-        }
-    })
-    console.log('filteredTasks', filteredTasks)
-    showTasks(filteredTasks)
-})
+
 
 function showTasks(allTasks: (Task)[]) {
     let list = document.getElementsByClassName('list')[0]
@@ -319,31 +304,45 @@ function compareDates(d1: string, d2: string): number {
         return 0;
     }
 }
-// // XMLHttpRequest
-// // make function to do the request
-// var btn = document.getElementsByClassName("btn-js");
-// btn[0].addEventListener('click', function () {
-//     // assign the request object to variable
-//     var myRequest = new XMLHttpRequest();
-//     // https://api.github.com/users/elzerowebschool/repos
-//     myRequest.open("GET", "object.json", true);
-//     myRequest.send();
-//     // function called when readystate change
-//     myRequest.onreadystatechange = function () {
-//         console.log(this.readyState);
-//         console.log(this.status);
-//         if (this.readyState === 4 && this.status === 200) {
-//             // console.log(this.responseText);
-//             var myJsObj = JSON.parse(this.responseText);
-//             // console.log(myJsObj[0].age);
 
-//             let myText:string = "";
-//             for (var i = 0; i < myJsObj.length; i++) {
-//                 console.log(myJsObj[i].username);
-//                 myText += myJsObj[i].username + "<br>";
-//                 console.log(myText);
-//             }
-//             document.getElementById("show").innerHTML = myText;
-//         }
-//     };
-// });
+// filters
+// filter by status (complete, active)
+taskFilterStatus.addEventListener('change', () => {
+    // console.log('taskFilter changed to : ', taskFilterStatus.value)
+    let filterValue: boolean
+    if (taskFilterStatus.value === 'completed') {
+        filterValue = true
+    } else if (taskFilterStatus.value === 'active') {
+        filterValue = false
+    }
+    else {
+        showTasks(allTasks)
+        return
+    }
+    let filteredTasks: (Task)[] = allTasks.filter(task => {
+        if (task.getDone() === filterValue) {
+            return task
+        }
+    })
+    console.log('filteredTasks', filteredTasks)
+    showTasks(filteredTasks)
+})
+// filter by start date
+filterStartDate.addEventListener('change', () => {
+    filterDate()
+})
+// filter by end date
+filterEndDate.addEventListener('change', () => {
+    filterDate()
+})
+const filterDate = () => {
+    let filterStartValue: Date = new Date(filterStartDate.value)
+    let filterEndValue: Date = new Date(filterEndDate.value)
+    let filteredTasks: (Task)[] = allTasks.filter(task => {
+        let tskDate: Date = new Date(task.getDeadLine())
+        if (tskDate >= filterStartValue && tskDate <= filterEndValue) {
+            return task
+        }
+    })
+    showTasks(filteredTasks)
+}

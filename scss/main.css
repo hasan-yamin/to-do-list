@@ -49,19 +49,29 @@
           color: #3838e8;
           width: 50px;
           height: 50px; }
-    .containe .to-do-list .sort {
-      background-color: #d1d3d4; }
-      .containe .to-do-list .sort p {
-        margin-bottom: 0;
-        font-weight: lighter;
-        font-size: small;
-        letter-spacing: 1px; }
     .containe .to-do-list .no-task {
       display: block;
       color: red;
       text-align: center;
       text-transform: capitalize;
       font-weight: bold; }
+    .containe .to-do-list .filter {
+      background-color: #d1d3d4;
+      display: flex;
+      justify-content: space-around; }
+      .containe .to-do-list .filter .filter-card {
+        width: fit-content;
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        border-radius: 5px;
+        gap: 5px;
+        background-color: #888;
+        text-transform: capitalize; }
+        .containe .to-do-list .filter .filter-card .date-card {
+          display: flex;
+          justify-content: space-between;
+          gap: 3px; }
     .containe .to-do-list .list {
       flex-direction: column;
       padding: 0; }
