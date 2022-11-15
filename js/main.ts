@@ -50,10 +50,14 @@ class Task {
 
 
 }
+let taskFilter: HTMLSelectElement = <HTMLSelectElement>document.querySelector('#task-filter')
+console.log('taskFilter', taskFilter.value)
+
 // array of all tasks
 let allTasks: Task[] = []
 // get all tasks from firebase
 tasks()
+// console.log(new Date().toISOString().slice(0,10))
 function tasks() {
     getTasks().then((result) => {
         let taskObjId: string
@@ -61,16 +65,19 @@ function tasks() {
         allTasks = []
         for ((taskObjId) in result) {
             // add task to allTasks array
-            console.log(taskObjId)
+            // console.log(taskObjId)
             allTasks.push(new Task(result[taskObjId].taskname, result[taskObjId].deadline, result[taskObjId].status, taskObjId, result[taskObjId].taskid))
         }
+        if (allTasks.length > 0) {
+            let w: HTMLDivElement = <HTMLDivElement>document.getElementsByClassName('no-task')[0]
+            w.style.display = 'none'
+            //    console.log(w)
+        }
         // show tasks on screen 
-        showTasks()
+        showTasks(allTasks)
     })
 }
 
-// allTasks.push(new Task('test task', '2022-11-15', true, '5555555'))
-// showCards()
 let addToDo: any | null = document.getElementById('add-task');
 addToDo.addEventListener('click', async function () {
     let inputText: HTMLInputElement | null = <HTMLInputElement>document.getElementById('in-text');
@@ -81,17 +88,38 @@ addToDo.addEventListener('click', async function () {
     // allTasks.push(newTask)
     // save task on db
     saveTasks(newTask)
-    // show all tasks on screen
-    //   tasks()
+    inputText.value = ''
 })
 
-function showTasks() {
+taskFilter.addEventListener('change', () => {
+    console.log('taskFilter changed to : ', taskFilter.value)
+    let filterValue: boolean
+    if (taskFilter.value === 'completed') {
+        filterValue = true
+    } else if (taskFilter.value === 'active') {
+        filterValue = false
+    }
+    else {
+        showTasks(allTasks)
+        return
+    }
+    let filteredTasks: (Task)[] = allTasks.filter(task => {
+        if (task.getDone() === filterValue) {
+            return task
+        }
+    })
+    console.log('filteredTasks', filteredTasks)
+    showTasks(filteredTasks)
+})
+
+function showTasks(allTasks: (Task)[]) {
     let list = document.getElementsByClassName('list')[0]
     list.innerHTML = ''
     allTasks.forEach(tsk => {
         createCard(tsk.getTaskName(), tsk.getDeadLine(), tsk.getDone(), tsk.getTaskId())
     });
 }
+
 
 function createCard(inputText: string, deaddate: string, taskDone: boolean, taskId: string) {
     let checkd: string = (taskDone) ? 'checked' : ' '
@@ -100,31 +128,49 @@ function createCard(inputText: string, deaddate: string, taskDone: boolean, task
         //edit
         let date: HTMLDivElement = <HTMLDivElement>document.createElement('div');
         date.classList.add('date')
-        date.innerHTML = `<i class="fas fa-info-circle me-2">`
+        date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon">`
         let deadDate: HTMLSpanElement = <HTMLSpanElement>document.createElement('span');
         deadDate.innerText = deaddate
+        deadDate.style.fontWeight = 'bold'
+        compareDates(deaddate, new Date().toISOString().slice(0, 10))
+        if (compareDates(deaddate, new Date().toISOString().slice(0, 10)) === 0) {
+            deadDate.style.color = '#bc6100';
+        } else if (compareDates(deaddate, new Date().toISOString().slice(0, 10)) === 1) {
+            deadDate.style.color = 'green'
+        } else if (compareDates(deaddate, new Date().toISOString().slice(0, 10)) === -1) {
+            deadDate.style.color = 'red'
+        }
         date.appendChild(deadDate)
 
         let editDelete: HTMLDivElement = <HTMLDivElement>document.createElement('div');
         editDelete.classList.add('edit-delete')
         editDelete.innerHTML = `
-        <a href="#!" class="text-info" data-mdb-toggle="tooltip" title="Edit todo"><i
-        class="fas fa-pencil-alt me-3"></i></a>
-        <span onclick="deleteCard(this)"><i class="fas fa-trash-alt" ></i></span>`
+          
+         <span  class="edit-done" onclick="editDone(this)" data-mdb-toggle="tooltip" title="Edit todo">
+         <i class="fa-solid fa-check"></i></span>
+
+        <span  class="edit-task" onclick="editCard(this)" data-mdb-toggle="tooltip" title="Edit todo"><i
+        class="fas fa-pencil-alt me-3"></i></span>
+        
+        <span class="delete-task" onclick="deleteCard(this)"><i class="fas fa-trash-alt" ></i></span>`
 
         let edit: HTMLDivElement = <HTMLDivElement>document.createElement('div');
         edit.classList.add('edit')
         edit.appendChild(date)
         edit.appendChild(editDelete)
         //view
-        let name: HTMLParagraphElement = <HTMLParagraphElement>document.createElement('p');
-        name.innerText = inputText
+        let name: HTMLInputElement = <HTMLInputElement>document.createElement('input');
+        //    name.innerHTML= `<i class="fa-solid fa-check"></i>`
+        name.value = inputText
+        name.disabled = true
+        name.type = 'text'
         name.classList.add("to-do-name")
         let view: HTMLDivElement = <HTMLDivElement>document.createElement('div');
         view.classList.add('view')
         let ou: string = `<input type="checkbox" value="" ${checkd}  onclick="check(this)"/>`
         view.innerHTML = ou
         view.appendChild(name)
+        // view.innerHTML= view.innerHTML 
         //list-card
         let listCard: HTMLDivElement = <HTMLDivElement>document.createElement('div');
         listCard.classList.add('list-card')
@@ -141,6 +187,7 @@ function createCard(inputText: string, deaddate: string, taskDone: boolean, task
 async function getTasks() {
     let url: string = "https://todolist-42b5f-default-rtdb.firebaseio.com/hasan.json"
     const response = await fetch(url);
+    // console.log(response)
     const responseData = await response.json();
     // console.log('responseData: ')
     // console.log(responseData)
@@ -150,6 +197,11 @@ async function getTasks() {
         throw error;
     }
     return responseData
+    ////////////////////////
+    // fetch(url).then((response)=>{
+    //     const responseData = response.json();
+    //     return responseData
+    // })
 }
 
 /* [2] 'POST' save new task to firebase db */
@@ -169,7 +221,7 @@ async function saveTasks(tsk: Task) {
         console.log(responseData);
         const error = new Error(responseData.message || 'failed to authenticate');
         throw error;
-    }else{
+    } else {
         tasks()
     }
 }
@@ -181,10 +233,9 @@ async function deleteCard(event: any) {
     let tsk: Task | undefined = allTasks.find(tsk => tsk.getTaskId() === id)
     let indx: number = allTasks.indexOf(<Task>tsk)
     allTasks.splice(indx, 1)
-    console.log('Task ' + tsk.getTaskName() + ' deleted drom DB')
-    event.parentElement.parentElement.parentElement.remove()
+    // console.log('Task ' + tsk.getTaskName() + ' deleted drom DB')
     // delete task form firebase db
-    console.log(tsk.getJsonId())
+    // console.log(tsk.getJsonId())
     let url: string = `https://todolist-42b5f-default-rtdb.firebaseio.com/hasan/${tsk.getJsonId()}.json`
     const response = await fetch(url, {
         method: 'DELETE',
@@ -194,15 +245,80 @@ async function deleteCard(event: any) {
         console.log(responseData);
         const error = new Error(responseData.message || 'failed to authenticate');
         throw error;
+    } else {
+        event.parentElement.parentElement.parentElement.remove()
+        if (allTasks.length === 0) {
+            let w: HTMLDivElement = <HTMLDivElement>document.getElementsByClassName('no-task')[0]
+            w.style.display = 'block'
+            //    console.log(w)
+        }
     }
+
 }
 
 /* [4] 'PUT' update data in task on firebase db */
-function check(event: any) {
-    let id: string = event.parentElement.parentElement.getAttribute('data-id')
-    allTasks.find(tsk => tsk.getTaskId() === id).setDone(event.checked)
+function editCard(event: any) {
+    let id: string = event.parentElement.parentElement.parentElement.getAttribute('data-id')
+    let oldName = event.parentElement.parentElement.parentElement.childNodes[1].childNodes[1].value
+    event.parentElement.parentElement.parentElement.childNodes[1].childNodes[1].disabled = false
+    event.parentElement.childNodes[1].style.display = 'inline-block'
+    console.log(event.parentElement.childNodes[1])
+    console.log(oldName)
+
 }
 
+async function editDone(event: any) {
+    let id: string = event.parentElement.parentElement.parentElement.getAttribute('data-id')
+    let newName = event.parentElement.parentElement.parentElement.childNodes[1].childNodes[1].value
+    event.parentElement.parentElement.parentElement.childNodes[1].childNodes[1].disabled = true
+
+    let tsk: Task | undefined = allTasks.find(tsk => tsk.getTaskId() === id)
+    let indx: number = allTasks.indexOf(<Task>tsk)
+    allTasks[indx].setTaskName(newName)
+    console.log(allTasks[indx].getTaskName())
+
+    let url: string = `https://todolist-42b5f-default-rtdb.firebaseio.com/hasan/${tsk.getJsonId()}.json`
+    const response = await fetch(url, {
+        method: 'PUT',
+        body: JSON.stringify({
+            taskid: tsk.getTaskId(),
+            taskname: tsk.getTaskName(),
+            deadline: tsk.getDeadLine(),
+            status: tsk.getDone(),
+        }),
+    });
+
+}
+/* [5] 'PUT' update data in task on firebase db */
+async function check(event: any) {
+    let id: string = event.parentElement.parentElement.getAttribute('data-id')
+    let tsk = allTasks.find(tsk => tsk.getTaskId() === id)
+    tsk.setDone(event.checked)
+    let url: string = `https://todolist-42b5f-default-rtdb.firebaseio.com/hasan/${tsk.getJsonId()}.json`
+    const response = await fetch(url, {
+        method: 'PUT',
+        body: JSON.stringify({
+            taskid: tsk.getTaskId(),
+            taskname: tsk.getTaskName(),
+            deadline: tsk.getDeadLine(),
+            status: tsk.getDone(),
+        }),
+    });
+
+}
+
+function compareDates(d1: string, d2: string): number {
+    let date1 = new Date(d1).getTime();
+    let date2 = new Date(d2).getTime();
+
+    if (date1 < date2) {
+        return -1;
+    } else if (date1 > date2) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
 // // XMLHttpRequest
 // // make function to do the request
 // var btn = document.getElementsByClassName("btn-js");

@@ -29,22 +29,23 @@
             </div>
 
             <!-- <hr class="my-4"> -->
-
+            <div class="crd no-task">
+                No Tasks to view
+            </div>
             <div class=" crd sort">
                 <p>Filter</p>
-                <select>
-                    <option value="1">All</option>
-                    <option value="2">Completed</option>
-                    <option value="3">Active</option>
-                    <option value="4">Has due date</option>
+                <select id="task-filter">
+                    <option value="all">All</option>
+                    <option value="completed">Completed</option>
+                    <option value="active">Active</option>
                 </select>
-                <p>Sort</p>
-                <select>
+               <!-- <p>Sort</p>
+                 <select>
                     <option value="1">Added date</option>
                     <option value="2">Due date</option>
                 </select>
                 <a href="#!" style="color: #23af89;" data-mdb-toggle="tooltip" title="Ascending"><i
-                        class="fas fa-sort-amount-down-alt ms-2"></i></a>
+                        class="fas fa-sort-amount-down-alt ms-2"></i></a> -->
             </div>
             <div class="crd list">
                 <!-- <div class="list-card" data-id="251359">
@@ -61,7 +62,7 @@
                     <div class="view">
                         <input type="checkbox" value="ff" checked  onclick="check(this)"/>
                         <p class="to-do-name" ">Buy groceries for next week</p>
-                        <!-- <textarea name="" id="" disabled>Buy groceries for nex</textarea> -->
+                         <textarea name="" id="" disabled>Buy groceries for nex</textarea> -->
                 <!-- <p class="to-do-description">here we will write description about our task</p> -->
                 <!-- </div>
                 </div>    -->
@@ -72,7 +73,7 @@
     <!-- my main js file -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typescript/4.8.4/typescript.min.js"></script>
-    <script  src="./dist/main.js"></script>
+    <script src="./dist/main.js"></script>
     <!-- <script type="module" src="./dist/module.js"></script> -->
 </body>
 

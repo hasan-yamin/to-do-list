@@ -53,9 +53,13 @@
       }
       button {
         border: 1px solid rgb(56, 56, 232);
-        cursor: pointer;
+        cursor: copy;
         border-radius: 50%;
         background-color: rgba(56, 56, 232, 0.272);
+        transition: transform 0.3s;
+        :hover {
+          transform: scale(1.1);
+        }
         .fa-plus {
           color: rgb(56, 56, 232);
           width: 50px;
@@ -72,6 +76,13 @@
         letter-spacing: 1px;
       }
     }
+    .no-task {
+      display: block;
+      color: red;
+      text-align: center;
+      text-transform: capitalize;
+      font-weight: bold;
+    }
     .list {
       flex-direction: column;
       padding: 0;
@@ -86,15 +97,61 @@
         .edit {
           display: flex;
           justify-content: space-between;
+          .date {
+            .date-icon {
+              color: blue;
+              margin-right: 5px;
+            }
+            span {
+              // color: red;
+              font-size: 13px;
+            }
+          }
+          .edit-delete {
+            .edit-done {
+              // color: green;
+              margin-right: 5px;
+              transition: transform 0.3s;
+              display: none;
+              :hover {
+                transform: scale(1.1);
+              }
+            }
+            .edit-task {
+              color: green;
+              margin-right: 5px;
+              // cursor: text;
+              transition: transform 0.3s;
+              :hover {
+                transform: scale(1.1);
+              }
+            }
+            .delete-task {
+              color: rgb(179, 125, 6);
+              // cursor: not-allowed;
+              transition: transform 0.3s;
+              :hover {
+                transform: scale(1.1);
+              }
+            }
+          }
         }
         .view {
           display: flex;
-          input[type=checkbox]:checked {
+          input[type='checkbox']:checked {
             margin-right: 10px;
-            +p{
-              
+            + input {
               text-decoration: line-through;
             }
+          }
+          input[type='text'] {
+            background-color: #d1d3d4;
+            border: none;
+            text-transform: capitalize;
+            color: #000;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 17px;
+            width: 100%;
           }
         }
       }
