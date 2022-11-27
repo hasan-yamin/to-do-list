@@ -96,6 +96,7 @@ addToDo.addEventListener('click', async function () {
         saveTasks(newTask)
         inputText.value = ''
     } 
+    
 })
 
 
