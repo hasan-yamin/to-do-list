@@ -53,6 +53,10 @@ let filterStartDate = document.querySelector('#filter-start-date');
 let filterEndDate = document.querySelector('#filter-end-date');
 filterStartDate.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`;
 filterEndDate.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`;
+let editContent = document.querySelector('#edit-content');
+let editInText = document.querySelector('#edit-in-text');
+//this editID will used to edit task content
+let editID = '';
 console.log("Today's Date: ", `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`);
 let allTasks = [];
 // get all tasks from firebase
@@ -82,12 +86,13 @@ addToDo.addEventListener('click', function () {
     return __awaiter(this, void 0, void 0, function* () {
         let inputText = document.getElementById('in-text');
         let deaddate = document.getElementById('deadtime');
-        let newTask = new Task(inputText.value, deaddate.value, false, 'n');
-        // save task localy
-        // allTasks.push(newTask)
-        // save task on db
-        saveTasks(newTask);
-        inputText.value = '';
+        if (inputText.value.trim.length > 1) {
+            console.log('asdas');
+            let newTask = new Task(inputText.value, deaddate.value, false, 'n');
+            // save task on db
+            saveTasks(newTask);
+            inputText.value = '';
+        }
     });
 });
 function showTasks(allTasks) {
@@ -99,64 +104,55 @@ function showTasks(allTasks) {
 }
 function createCard(inputText, deaddate, taskDone, taskId) {
     let checkd = (taskDone) ? 'checked' : ' ';
-    // console.log(checkd)
-    if (inputText !== null && inputText !== '') {
-        //edit
-        let date = document.createElement('div');
-        date.classList.add('date');
-        date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon">`;
-        let deadDate = document.createElement('span');
-        deadDate.innerText = deaddate;
-        deadDate.style.fontWeight = 'bold';
-        compareDates(deaddate, new Date().toISOString().slice(0, 10));
-        if (compareDates(deaddate, new Date().toISOString().slice(0, 10)) === 0) {
-            deadDate.style.color = '#bc6100';
-        }
-        else if (compareDates(deaddate, new Date().toISOString().slice(0, 10)) === 1) {
-            deadDate.style.color = 'green';
-        }
-        else if (compareDates(deaddate, new Date().toISOString().slice(0, 10)) === -1) {
-            deadDate.style.color = 'red';
-        }
-        date.appendChild(deadDate);
-        let editDelete = document.createElement('div');
-        editDelete.classList.add('edit-delete');
-        editDelete.innerHTML = `
-          
-         <span  class="edit-done" onclick="editDone(this)" data-mdb-toggle="tooltip" title="Edit todo">
-         <i class="fa-solid fa-check"></i></span>
-
+    //edit
+    let date = document.createElement('div');
+    date.classList.add('date');
+    date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon">`;
+    let deadDate = document.createElement('span');
+    deadDate.innerText = deaddate;
+    deadDate.style.fontWeight = 'bold';
+    compareDates(deaddate, new Date().toISOString().slice(0, 10));
+    if (compareDates(deaddate, new Date().toISOString().slice(0, 10)) === 0) {
+        deadDate.style.color = '#bc6100';
+    }
+    else if (compareDates(deaddate, new Date().toISOString().slice(0, 10)) === 1) {
+        deadDate.style.color = 'green';
+    }
+    else if (compareDates(deaddate, new Date().toISOString().slice(0, 10)) === -1) {
+        deadDate.style.color = 'red';
+    }
+    date.appendChild(deadDate);
+    let editDelete = document.createElement('div');
+    editDelete.classList.add('edit-delete');
+    editDelete.innerHTML = ` 
         <span  class="edit-task" onclick="editCard(this)" data-mdb-toggle="tooltip" title="Edit todo"><i
         class="fas fa-pencil-alt me-3"></i></span>
         
         <span class="delete-task" onclick="deleteCard(this)"><i class="fas fa-trash-alt" ></i></span>`;
-        let edit = document.createElement('div');
-        edit.classList.add('edit');
-        edit.appendChild(date);
-        edit.appendChild(editDelete);
-        //view
-        let name = document.createElement('input');
-        //    name.innerHTML= `<i class="fa-solid fa-check"></i>`
-        name.value = inputText;
-        name.disabled = true;
-        name.type = 'text';
-        name.classList.add("to-do-name");
-        let view = document.createElement('div');
-        view.classList.add('view');
-        let ou = `<input type="checkbox" value="" ${checkd}  onclick="check(this)"/>`;
-        view.innerHTML = ou;
-        view.appendChild(name);
-        // view.innerHTML= view.innerHTML 
-        //list-card
-        let listCard = document.createElement('div');
-        listCard.classList.add('list-card');
-        listCard.setAttribute('data-id', taskId);
-        listCard.appendChild(edit);
-        listCard.appendChild(view);
-        //list
-        let list = document.getElementsByClassName('list')[0];
-        list.appendChild(listCard);
-    }
+    let edit = document.createElement('div');
+    edit.classList.add('edit');
+    edit.appendChild(date);
+    edit.appendChild(editDelete);
+    //view
+    let name = document.createElement('input');
+    name.value = inputText;
+    name.disabled = true;
+    name.type = 'text';
+    name.classList.add("to-do-name");
+    let view = document.createElement('div');
+    view.classList.add('view');
+    let ou = `<input type="checkbox" value="" ${checkd}  onclick="check(this)"/>`;
+    view.innerHTML = ou;
+    view.appendChild(name);
+    //list-card
+    let listCard = document.createElement('div');
+    listCard.classList.add('list-card');
+    listCard.setAttribute('data-id', taskId);
+    listCard.appendChild(edit);
+    listCard.appendChild(view);
+    //list
+    let list = document.getElementsByClassName('list')[0];
+    list.appendChild(listCard);
 }
 /* [1] 'GET' get all tasks from firebase db */
 function getTasks() {
@@ -210,59 +206,61 @@ function deleteCard(event) {
         // delete task localy
         let id = event.parentElement.parentElement.parentElement.getAttribute('data-id');
         let tsk = allTasks.find(tsk => tsk.getTaskId() === id);
-        let indx = allTasks.indexOf(tsk);
-        allTasks.splice(indx, 1);
-        // console.log('Task ' + tsk.getTaskName() + ' deleted drom DB')
-        // delete task form firebase db
-        // console.log(tsk.getJsonId())
-        let url = `https://todolist-42b5f-default-rtdb.firebaseio.com/hasan/${tsk.getJsonId()}.json`;
-        const response = yield fetch(url, {
-            method: 'DELETE',
-        });
-        const responseData = yield response.json();
-        if (!response.ok) {
-            console.log(responseData);
-            const error = new Error(responseData.message || 'failed to authenticate');
-            throw error;
-        }
-        else {
-            event.parentElement.parentElement.parentElement.remove();
-            if (allTasks.length === 0) {
-                let w = document.getElementsByClassName('no-task')[0];
-                w.style.display = 'block';
-                //    console.log(w)
+        if (tsk !== undefined) {
+            let indx = allTasks.indexOf(tsk);
+            allTasks.splice(indx, 1);
+            let url = `https://todolist-42b5f-default-rtdb.firebaseio.com/hasan/${tsk.getJsonId()}.json`;
+            const response = yield fetch(url, {
+                method: 'DELETE',
+            });
+            const responseData = yield response.json();
+            if (!response.ok) {
+                console.log(responseData);
+                const error = new Error(responseData.message || 'failed to authenticate');
+                throw error;
+            }
+            else {
+                event.parentElement.parentElement.parentElement.remove();
+                if (allTasks.length === 0) {
+                    let w = document.getElementsByClassName('no-task')[0];
+                    w.style.display = 'block';
+                    //    console.log(w)
+                }
             }
         }
     });
 }
 /* [4] 'PUT' update data in task on firebase db */
 function editCard(event) {
-    let id = event.parentElement.parentElement.parentElement.getAttribute('data-id');
+    editID = event.parentElement.parentElement.parentElement.getAttribute('data-id');
     let oldName = event.parentElement.parentElement.parentElement.childNodes[1].childNodes[1].value;
-    event.parentElement.parentElement.parentElement.childNodes[1].childNodes[1].disabled = false;
-    event.parentElement.childNodes[1].style.display = 'inline-block';
-    console.log(event.parentElement.childNodes[1]);
-    console.log(oldName);
+    editContent.style.display = 'flex';
+    editInText.value = oldName;
 }
 function editDone(event) {
     return __awaiter(this, void 0, void 0, function* () {
-        let id = event.parentElement.parentElement.parentElement.getAttribute('data-id');
-        let newName = event.parentElement.parentElement.parentElement.childNodes[1].childNodes[1].value;
-        event.parentElement.parentElement.parentElement.childNodes[1].childNodes[1].disabled = true;
-        let tsk = allTasks.find(tsk => tsk.getTaskId() === id);
-        let indx = allTasks.indexOf(tsk);
-        allTasks[indx].setTaskName(newName);
-        console.log(allTasks[indx].getTaskName());
-        let url = `https://todolist-42b5f-default-rtdb.firebaseio.com/hasan/${tsk.getJsonId()}.json`;
-        const response = yield fetch(url, {
-            method: 'PUT',
-            body: JSON.stringify({
-                taskid: tsk.getTaskId(),
-                taskname: tsk.getTaskName(),
-                deadline: tsk.getDeadLine(),
-                status: tsk.getDone(),
-            }),
-        });
+        let editDeadtime = document.getElementById('edit-deadtime');
+        const newName = editInText.value;
+        let tsk = allTasks.find(tsk => tsk.getTaskId() === editID);
+        // let indx: number = allTasks.indexOf(<Task>tsk)
+        if (tsk != undefined) {
+            tsk.setTaskName(newName);
+            tsk.setDeadLine(editDeadtime.value);
+            let url = `https://todolist-42b5f-default-rtdb.firebaseio.com/hasan/${tsk.getJsonId()}.json`;
+            const response = yield fetch(url, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    taskid: tsk.getTaskId(),
+                    taskname: tsk.getTaskName(),
+                    deadline: tsk.getDeadLine(),
+                    status: tsk.getDone(),
+                }),
+            });
+        }
+        editInText.value = '';
+        editID = '';
+        editContent.style.display = 'none';
+        tasks();
     });
 }
 /* [5] 'PUT' update data in task on firebase db */
@@ -270,17 +268,19 @@ function check(event) {
     return __awaiter(this, void 0, void 0, function* () {
         let id = event.parentElement.parentElement.getAttribute('data-id');
         let tsk = allTasks.find(tsk => tsk.getTaskId() === id);
-        tsk.setDone(event.checked);
-        let url = `https://todolist-42b5f-default-rtdb.firebaseio.com/hasan/${tsk.getJsonId()}.json`;
-        const response = yield fetch(url, {
-            method: 'PUT',
-            body: JSON.stringify({
-                taskid: tsk.getTaskId(),
-                taskname: tsk.getTaskName(),
-                deadline: tsk.getDeadLine(),
-                status: tsk.getDone(),
-            }),
-        });
+        if (tsk != undefined) {
+            tsk.setDone(event.checked);
+            let url = `https://todolist-42b5f-default-rtdb.firebaseio.com/hasan/${tsk.getJsonId()}.json`;
+            const response = yield fetch(url, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    taskid: tsk.getTaskId(),
+                    taskname: tsk.getTaskName(),
+                    deadline: tsk.getDeadLine(),
+                    status: tsk.getDone(),
+                }),
+            });
+        }
     });
 }
 function compareDates(d1, d2) {

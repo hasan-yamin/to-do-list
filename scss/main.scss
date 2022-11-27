@@ -9,20 +9,27 @@
 .containe {
   width: 90%;
   margin: auto;
+
   .to-do-list {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 0.75rem;
-    background-color: #eff1f2;
+    background-color: $color4;
     overflow: hidden;
+
     .title {
       text-align: center;
       margin: 50px auto;
-      color: rgb(56, 56, 232);
+      color: $color1;
       border-bottom: 3px dotted;
+
+      span {
+        color: $color2;
+      }
     }
+
     .crd {
       padding: 15px;
       margin: 5px auto;
@@ -31,42 +38,48 @@
       gap: 10px;
       justify-content: center;
       align-items: center;
-
-      // border: 1px solid;
-      border-radius: 15px;
+       border-radius: 15px;
     }
+
     .add-crd {
       background-color: #fff;
+
       input {
         border: none;
         width: 80%;
         height: 50px;
         outline: none;
       }
+
       .date {
         label {
           color: red;
         }
+
         input {
           display: none;
         }
       }
+
       button {
-        border: 1px solid rgb(56, 56, 232);
+        border: 1px solid $color1;
         cursor: copy;
         border-radius: 50%;
-        background-color: rgba(56, 56, 232, 0.272);
+        background-color: $color4;
         transition: transform 0.3s;
+
         :hover {
           transform: scale(1.1);
         }
+
         .fa-plus {
-          color: rgb(56, 56, 232);
+          color: $color1;
           width: 50px;
           height: 50px;
         }
       }
     }
+
     .no-task {
       display: block;
       color: red;
@@ -76,90 +89,136 @@
     }
 
     .filter {
-      background-color: #d1d3d4;
+      background-color: #FCDDB0;
       display: flex;
       justify-content: space-around;
-     .filter-card {
-       width: fit-content;
-       display: flex;
-       flex-direction: column;
-       padding: 5px;
-       border-radius: 5px;
-       gap: 5px;
-       background-color: #888;
-       text-transform: capitalize;
-      //  border: 1px solid ;
-      .date-card{
+
+      .filter-card {
+        width: fit-content;
         display: flex;
-        justify-content: space-between;
-        gap: 3px;
-      }
+        flex-direction: column;
+        padding: 5px;
+        border-radius: 5px;
+        gap: 5px;
+        background-color: #888;
+        text-transform: capitalize;
+
+        //  border: 1px solid ;
+        .date-card {
+          display: flex;
+          justify-content: space-between;
+          gap: 3px;
+        }
       }
     }
-    
+
+    .edit-content {
+      background-color: #fff;
+      display: none;
+
+      input {
+        border: none;
+        width: 80%;
+        height: 50px;
+        outline: none;
+      }
+
+      .edit-date {
+        label {
+          color: red;
+        }
+
+        input {
+          // display: none;
+        }
+      }
+
+      button {
+        border: 1px solid rgb(56, 56, 232);
+        cursor: copy;
+        border-radius: 50%;
+        background-color: rgba(56, 56, 232, 0.272);
+        transition: transform 0.3s;
+
+        :hover {
+          transform: scale(1.1);
+        }
+
+        .fa-check {
+          color: rgb(56, 56, 232);
+          width: 50px;
+          height: 50px;
+        }
+      }
+    }
+
     .list {
       flex-direction: column;
       padding: 0;
+
       .list-card {
         width: 100%;
         display: flex;
         flex-direction: column;
         // border: 1px solid;
         padding: 5px 10px;
-        background-color: #d1d3d4;
+        background-color: #FCDDB0;
         border-radius: 10px;
+
         .edit {
           display: flex;
           justify-content: space-between;
+
           .date {
             .date-icon {
-              color: blue;
+              color: $color1;
               margin-right: 5px;
             }
+
             span {
               // color: red;
               font-size: 13px;
             }
           }
+
           .edit-delete {
-            .edit-done {
-              // color: green;
-              margin-right: 5px;
-              transition: transform 0.3s;
-              display: none;
-              :hover {
-                transform: scale(1.1);
-              }
-            }
+
             .edit-task {
               color: green;
               margin-right: 5px;
               // cursor: text;
               transition: transform 0.3s;
+
               :hover {
                 transform: scale(1.1);
               }
             }
+
             .delete-task {
               color: rgb(179, 125, 6);
               // cursor: not-allowed;
               transition: transform 0.3s;
+
               :hover {
                 transform: scale(1.1);
               }
             }
           }
         }
+
         .view {
           display: flex;
+
           input[type='checkbox']:checked {
             margin-right: 10px;
-            + input {
+
+            +input {
               text-decoration: line-through;
             }
           }
+
           input[type='text'] {
-            background-color: #d1d3d4;
+            background-color: $color3;
             border: none;
             text-transform: capitalize;
             color: #000;

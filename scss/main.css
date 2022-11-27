@@ -10,13 +10,15 @@
     justify-content: center;
     align-items: center;
     border-radius: 0.75rem;
-    background-color: #eff1f2;
+    background-color: #FFFAD7;
     overflow: hidden; }
     .containe .to-do-list .title {
       text-align: center;
       margin: 50px auto;
-      color: #3838e8;
+      color: #E97777;
       border-bottom: 3px dotted; }
+      .containe .to-do-list .title span {
+        color: #FF9F9F; }
     .containe .to-do-list .crd {
       padding: 15px;
       margin: 5px auto;
@@ -38,15 +40,15 @@
       .containe .to-do-list .add-crd .date input {
         display: none; }
       .containe .to-do-list .add-crd button {
-        border: 1px solid #3838e8;
+        border: 1px solid #E97777;
         cursor: copy;
         border-radius: 50%;
-        background-color: rgba(56, 56, 232, 0.272);
+        background-color: #FFFAD7;
         transition: transform 0.3s; }
         .containe .to-do-list .add-crd button :hover {
           transform: scale(1.1); }
         .containe .to-do-list .add-crd button .fa-plus {
-          color: #3838e8;
+          color: #E97777;
           width: 50px;
           height: 50px; }
     .containe .to-do-list .no-task {
@@ -56,7 +58,7 @@
       text-transform: capitalize;
       font-weight: bold; }
     .containe .to-do-list .filter {
-      background-color: #d1d3d4;
+      background-color: #FCDDB0;
       display: flex;
       justify-content: space-around; }
       .containe .to-do-list .filter .filter-card {
@@ -72,6 +74,28 @@
           display: flex;
           justify-content: space-between;
           gap: 3px; }
+    .containe .to-do-list .edit-content {
+      background-color: #fff;
+      display: none; }
+      .containe .to-do-list .edit-content input {
+        border: none;
+        width: 80%;
+        height: 50px;
+        outline: none; }
+      .containe .to-do-list .edit-content .edit-date label {
+        color: red; }
+      .containe .to-do-list .edit-content button {
+        border: 1px solid #3838e8;
+        cursor: copy;
+        border-radius: 50%;
+        background-color: rgba(56, 56, 232, 0.272);
+        transition: transform 0.3s; }
+        .containe .to-do-list .edit-content button :hover {
+          transform: scale(1.1); }
+        .containe .to-do-list .edit-content button .fa-check {
+          color: #3838e8;
+          width: 50px;
+          height: 50px; }
     .containe .to-do-list .list {
       flex-direction: column;
       padding: 0; }
@@ -80,22 +104,16 @@
         display: flex;
         flex-direction: column;
         padding: 5px 10px;
-        background-color: #d1d3d4;
+        background-color: #FCDDB0;
         border-radius: 10px; }
         .containe .to-do-list .list .list-card .edit {
           display: flex;
           justify-content: space-between; }
           .containe .to-do-list .list .list-card .edit .date .date-icon {
-            color: blue;
+            color: #E97777;
             margin-right: 5px; }
           .containe .to-do-list .list .list-card .edit .date span {
             font-size: 13px; }
-          .containe .to-do-list .list .list-card .edit .edit-delete .edit-done {
-            margin-right: 5px;
-            transition: transform 0.3s;
-            display: none; }
-            .containe .to-do-list .list .list-card .edit .edit-delete .edit-done :hover {
-              transform: scale(1.1); }
           .containe .to-do-list .list .list-card .edit .edit-delete .edit-task {
             color: green;
             margin-right: 5px;
@@ -114,7 +132,7 @@
             .containe .to-do-list .list .list-card .view input[type='checkbox']:checked + input {
               text-decoration: line-through; }
           .containe .to-do-list .list .list-card .view input[type='text'] {
-            background-color: #d1d3d4;
+            background-color: #FCDDB0;
             border: none;
             text-transform: capitalize;
             color: #000;
