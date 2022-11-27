@@ -89,14 +89,13 @@ let addToDo: any | null = document.getElementById('add-task');
 addToDo.addEventListener('click', async function () {
     let inputText: HTMLInputElement | null = <HTMLInputElement>document.getElementById('in-text');
     let deaddate: HTMLInputElement | null = <HTMLInputElement>document.getElementById('deadtime');
-    if (inputText.value.trim.length > 1) {
-        console.log('asdas')
+    if (inputText.value.trim().length > 1) {
         let newTask: Task = new Task(inputText.value, deaddate.value, false, 'n')
         // save task on db
         saveTasks(newTask)
         inputText.value = ''
-    } 
-    
+    }
+
 })
 
 
@@ -187,7 +186,7 @@ async function getTasks() {
 
 /* [2] 'POST' save new task to firebase db */
 async function saveTasks(tsk: Task) {
-    let url: string = "https://todolist-42b5f-default-rtdb.firebaseio.com/hasan.json"
+    let url: string = "https://..."
     const response = await fetch(url, {
         method: 'POST',
         body: JSON.stringify({
@@ -215,7 +214,7 @@ async function deleteCard(event: any) {
     if (tsk !== undefined) {
         let indx: number = allTasks.indexOf(<Task>tsk)
         allTasks.splice(indx, 1)
-        let url: string = `https://todolist-42b5f-default-rtdb.firebaseio.com/hasan/${tsk.getJsonId()}.json`
+        let url: string = `https://...`
         const response = await fetch(url, {
             method: 'DELETE',
         });
@@ -275,7 +274,7 @@ async function check(event: any) {
     let tsk: Task | undefined = allTasks.find(tsk => tsk.getTaskId() === id)
     if (tsk != undefined) {
         tsk.setDone(event.checked)
-        let url: string = `https://todolist-42b5f-default-rtdb.firebaseio.com/hasan/${tsk.getJsonId()}.json`
+        let url: string = `https://...`
         const response = await fetch(url, {
             method: 'PUT',
             body: JSON.stringify({

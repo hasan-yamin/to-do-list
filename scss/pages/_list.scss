@@ -1,0 +1,87 @@
+.container {
+    .to-do-list {
+        .list {
+            flex-direction: column;
+            padding: 0;
+            gap: 0;
+
+            .list-card {
+                width: 100%;
+                min-height: 70px;
+                display: flex;
+                flex-direction: column;
+                padding: 5px 10px;
+                background: linear-gradient(180deg, $color2 0%, $color1 100%);
+
+                &:hover {
+                    .edit {
+                        .edit-delete {
+                            display: flex;
+                        }
+                    }
+                }
+
+                .edit {
+                    display: flex;
+                    justify-content: space-between;
+
+                    .date {
+                        .date-icon {
+                            color: $icon;
+                            margin-right: 5px;
+                        }
+
+                        span {
+                            font-size: 13px;
+                        }
+                    }
+
+                    .edit-delete {
+                        display: none;
+
+                        .edit-task {
+                            color: $edit;
+                            margin-right: 5px;
+                            transition: transform 0.3s;
+
+                            :hover {
+                                transform: scale(1.1);
+                            }
+                        }
+
+                        .delete-task {
+                            color: $delete;
+                            transition: transform 0.3s;
+
+                            :hover {
+                                transform: scale(1.1);
+                            }
+                        }
+                    }
+                }
+
+                .view {
+                    display: flex;
+
+                    input[type='checkbox']:checked {
+                        margin-right: 10px;
+
+                        +input {
+                            color: #888;
+                        }
+                    }
+
+                    input[type='text'] {
+                        background-color: inherit;
+                        border: none;
+                        text-transform: capitalize;
+                        color: #000;
+                        font-family: Arial, Helvetica, sans-serif;
+                        font-size: 17px;
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}

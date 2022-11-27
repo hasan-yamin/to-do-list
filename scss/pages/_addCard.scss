@@ -1,0 +1,42 @@
+.container {
+    .to-do-list {
+        .add-crd {
+            background-color: $inputBackG;
+
+            input {
+                border: none;
+                width: 80%;
+                height: 50px;
+                outline: none;
+            }
+
+            .date {
+                label {
+                    color: $icon;
+                }
+
+                input {
+                    display: none;
+                }
+            }
+
+            button {
+                border: 1px solid $color2;
+                cursor: copy;
+                border-radius: 50%;
+                background-color: $inputBackG;
+                transition: transform 0.3s;
+
+                :hover {
+                    transform: scale(1.1);
+                }
+
+                .fa-plus {
+                    color: $color2;
+                    width: 50px;
+                    height: 50px;
+                }
+            }
+        }
+    }
+}

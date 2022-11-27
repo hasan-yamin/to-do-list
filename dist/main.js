@@ -86,8 +86,7 @@ addToDo.addEventListener('click', function () {
     return __awaiter(this, void 0, void 0, function* () {
         let inputText = document.getElementById('in-text');
         let deaddate = document.getElementById('deadtime');
-        if (inputText.value.trim.length > 1) {
-            console.log('asdas');
+        if (inputText.value.trim().length > 1) {
             let newTask = new Task(inputText.value, deaddate.value, false, 'n');
             // save task on db
             saveTasks(newTask);
@@ -179,7 +178,7 @@ function getTasks() {
 /* [2] 'POST' save new task to firebase db */
 function saveTasks(tsk) {
     return __awaiter(this, void 0, void 0, function* () {
-        let url = "https://todolist-42b5f-default-rtdb.firebaseio.com/hasan.json";
+        let url = "https://...";
         const response = yield fetch(url, {
             method: 'POST',
             body: JSON.stringify({
@@ -209,7 +208,7 @@ function deleteCard(event) {
         if (tsk !== undefined) {
             let indx = allTasks.indexOf(tsk);
             allTasks.splice(indx, 1);
-            let url = `https://todolist-42b5f-default-rtdb.firebaseio.com/hasan/${tsk.getJsonId()}.json`;
+            let url = `https://...`;
             const response = yield fetch(url, {
                 method: 'DELETE',
             });
@@ -270,7 +269,7 @@ function check(event) {
         let tsk = allTasks.find(tsk => tsk.getTaskId() === id);
         if (tsk != undefined) {
             tsk.setDone(event.checked);
-            let url = `https://todolist-42b5f-default-rtdb.firebaseio.com/hasan/${tsk.getJsonId()}.json`;
+            let url = `https://...`;
             const response = yield fetch(url, {
                 method: 'PUT',
                 body: JSON.stringify({

@@ -1,0 +1,33 @@
+.container {
+    .to-do-list {
+        .edit-content {
+            background-color: #fff;
+            display: none;
+
+            input {
+                border: none;
+                width: 80%;
+                height: 50px;
+                outline: none;
+            }
+
+            button {
+                border: 1px solid $color2;
+                cursor: copy;
+                border-radius: 50%;
+                background-color: #fff;
+                transition: transform 0.3s;
+
+                :hover {
+                    transform: scale(1.1);
+                }
+
+                .fa-check {
+                    color: $color2;
+                    width: 50px;
+                    height: 50px;
+                }
+            }
+        }
+    }
+}

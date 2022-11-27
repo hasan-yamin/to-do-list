@@ -1,3 +1,68 @@
+@import '../helpers/media-queries';
+
+body {
+  background-color: #EEEEEE;
+}
+
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+ul {
+  list-style: none;
+}
+
+.container {
+  margin: auto;
+
+  @include breakpoint(xs) {
+    width: 95%;
+  }
+
+  @include breakpoint(sm) {
+    width: 540px;
+  }
+
+  @include breakpoint(md) {
+    width: 720px;
+  }
+
+  @include breakpoint(lg) {
+    width: 720px;
+  }
+
+  @include breakpoint(xl) {
+    width: 720px;
+  }
+
+  @include breakpoint(xxl) {
+    width: 720px;
+  }
+
+  .to-do-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.75rem;
+    overflow: hidden;
+
+    .crd {
+      padding: 15px;
+      margin: 5px auto;
+      width: 90%;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      align-items: center;
+      border-radius: 15px;
+    }
+  }
 }

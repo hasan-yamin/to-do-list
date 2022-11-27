@@ -1,25 +1,46 @@
-* {
-  box-sizing: border-box; }
+body {
+  background-color: #EEEEEE; }
 
-.containe {
-  width: 90%;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0; }
+
+a {
+  text-decoration: none;
+  color: #000; }
+
+ul {
+  list-style: none; }
+
+.container {
   margin: auto; }
-  .containe .to-do-list {
+  @media (max-width: 575px) {
+    .container {
+      width: 95%; } }
+  @media (min-width: 576px) and (max-width: 767px) {
+    .container {
+      width: 540px; } }
+  @media (min-width: 768px) and (max-width: 991px) {
+    .container {
+      width: 720px; } }
+  @media (min-width: 992px) and (max-width: 1199px) {
+    .container {
+      width: 720px; } }
+  @media (min-width: 1200px) and (max-width: 1399px) {
+    .container {
+      width: 720px; } }
+  @media (min-width: 1400px) {
+    .container {
+      width: 720px; } }
+  .container .to-do-list {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 0.75rem;
-    background-color: #FFFAD7;
     overflow: hidden; }
-    .containe .to-do-list .title {
-      text-align: center;
-      margin: 50px auto;
-      color: #E97777;
-      border-bottom: 3px dotted; }
-      .containe .to-do-list .title span {
-        color: #FF9F9F; }
-    .containe .to-do-list .crd {
+    .container .to-do-list .crd {
       padding: 15px;
       margin: 5px auto;
       width: 90%;
@@ -28,116 +49,134 @@
       justify-content: center;
       align-items: center;
       border-radius: 15px; }
-    .containe .to-do-list .add-crd {
-      background-color: #fff; }
-      .containe .to-do-list .add-crd input {
-        border: none;
-        width: 80%;
-        height: 50px;
-        outline: none; }
-      .containe .to-do-list .add-crd .date label {
-        color: red; }
-      .containe .to-do-list .add-crd .date input {
-        display: none; }
-      .containe .to-do-list .add-crd button {
-        border: 1px solid #E97777;
-        cursor: copy;
-        border-radius: 50%;
-        background-color: #FFFAD7;
-        transition: transform 0.3s; }
-        .containe .to-do-list .add-crd button :hover {
-          transform: scale(1.1); }
-        .containe .to-do-list .add-crd button .fa-plus {
-          color: #E97777;
-          width: 50px;
-          height: 50px; }
-    .containe .to-do-list .no-task {
-      display: block;
-      color: red;
-      text-align: center;
-      text-transform: capitalize;
-      font-weight: bold; }
-    .containe .to-do-list .filter {
-      background-color: #FCDDB0;
+
+.container .to-do-list .title {
+  text-align: center;
+  margin: 50px auto;
+  color: #85d4d5;
+  border-bottom: 3px dotted; }
+  .container .to-do-list .title span {
+    color: #85d4d5; }
+
+.container .to-do-list .add-crd {
+  background-color: #fff; }
+  .container .to-do-list .add-crd input {
+    border: none;
+    width: 80%;
+    height: 50px;
+    outline: none; }
+  .container .to-do-list .add-crd .date label {
+    color: red; }
+  .container .to-do-list .add-crd .date input {
+    display: none; }
+  .container .to-do-list .add-crd button {
+    border: 1px solid #85d4d5;
+    cursor: copy;
+    border-radius: 50%;
+    background-color: #fff;
+    transition: transform 0.3s; }
+    .container .to-do-list .add-crd button :hover {
+      transform: scale(1.1); }
+    .container .to-do-list .add-crd button .fa-plus {
+      color: #85d4d5;
+      width: 50px;
+      height: 50px; }
+
+.container .to-do-list .no-task {
+  display: block;
+  color: red;
+  text-align: center;
+  text-transform: capitalize;
+  font-weight: bold; }
+
+.container .to-do-list .filter {
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around; }
+  .container .to-do-list .filter .filter-card {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    border-radius: 5px;
+    gap: 5px;
+    text-transform: capitalize; }
+    .container .to-do-list .filter .filter-card .date-card {
       display: flex;
-      justify-content: space-around; }
-      .containe .to-do-list .filter .filter-card {
-        width: fit-content;
-        display: flex;
-        flex-direction: column;
-        padding: 5px;
-        border-radius: 5px;
-        gap: 5px;
-        background-color: #888;
-        text-transform: capitalize; }
-        .containe .to-do-list .filter .filter-card .date-card {
-          display: flex;
-          justify-content: space-between;
-          gap: 3px; }
-    .containe .to-do-list .edit-content {
-      background-color: #fff;
-      display: none; }
-      .containe .to-do-list .edit-content input {
+      justify-content: space-between;
+      gap: 3px; }
+      .container .to-do-list .filter .filter-card .date-card input {
         border: none;
-        width: 80%;
-        height: 50px;
-        outline: none; }
-      .containe .to-do-list .edit-content .edit-date label {
-        color: red; }
-      .containe .to-do-list .edit-content button {
-        border: 1px solid #3838e8;
-        cursor: copy;
-        border-radius: 50%;
-        background-color: rgba(56, 56, 232, 0.272);
-        transition: transform 0.3s; }
-        .containe .to-do-list .edit-content button :hover {
-          transform: scale(1.1); }
-        .containe .to-do-list .edit-content button .fa-check {
-          color: #3838e8;
-          width: 50px;
-          height: 50px; }
-    .containe .to-do-list .list {
-      flex-direction: column;
-      padding: 0; }
-      .containe .to-do-list .list .list-card {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        padding: 5px 10px;
-        background-color: #FCDDB0;
-        border-radius: 10px; }
-        .containe .to-do-list .list .list-card .edit {
-          display: flex;
-          justify-content: space-between; }
-          .containe .to-do-list .list .list-card .edit .date .date-icon {
-            color: #E97777;
-            margin-right: 5px; }
-          .containe .to-do-list .list .list-card .edit .date span {
-            font-size: 13px; }
-          .containe .to-do-list .list .list-card .edit .edit-delete .edit-task {
-            color: green;
-            margin-right: 5px;
-            transition: transform 0.3s; }
-            .containe .to-do-list .list .list-card .edit .edit-delete .edit-task :hover {
-              transform: scale(1.1); }
-          .containe .to-do-list .list .list-card .edit .edit-delete .delete-task {
-            color: #b37d06;
-            transition: transform 0.3s; }
-            .containe .to-do-list .list .list-card .edit .edit-delete .delete-task :hover {
-              transform: scale(1.1); }
-        .containe .to-do-list .list .list-card .view {
-          display: flex; }
-          .containe .to-do-list .list .list-card .view input[type='checkbox']:checked {
-            margin-right: 10px; }
-            .containe .to-do-list .list .list-card .view input[type='checkbox']:checked + input {
-              text-decoration: line-through; }
-          .containe .to-do-list .list .list-card .view input[type='text'] {
-            background-color: #FCDDB0;
-            border: none;
-            text-transform: capitalize;
-            color: #000;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 17px;
-            width: 100%; }
+        background-color: inherit; }
+
+.container .to-do-list .edit-content {
+  background-color: #fff;
+  display: none; }
+  .container .to-do-list .edit-content input {
+    border: none;
+    width: 80%;
+    height: 50px;
+    outline: none; }
+  .container .to-do-list .edit-content button {
+    border: 1px solid #85d4d5;
+    cursor: copy;
+    border-radius: 50%;
+    background-color: #fff;
+    transition: transform 0.3s; }
+    .container .to-do-list .edit-content button :hover {
+      transform: scale(1.1); }
+    .container .to-do-list .edit-content button .fa-check {
+      color: #85d4d5;
+      width: 50px;
+      height: 50px; }
+
+.container .to-do-list .list {
+  flex-direction: column;
+  padding: 0;
+  gap: 0; }
+  .container .to-do-list .list .list-card {
+    width: 100%;
+    min-height: 70px;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 10px;
+    background: linear-gradient(180deg, #85d4d5 0%, #d1fafa 100%); }
+    .container .to-do-list .list .list-card:hover .edit .edit-delete {
+      display: flex; }
+    .container .to-do-list .list .list-card .edit {
+      display: flex;
+      justify-content: space-between; }
+      .container .to-do-list .list .list-card .edit .date .date-icon {
+        color: red;
+        margin-right: 5px; }
+      .container .to-do-list .list .list-card .edit .date span {
+        font-size: 13px; }
+      .container .to-do-list .list .list-card .edit .edit-delete {
+        display: none; }
+        .container .to-do-list .list .list-card .edit .edit-delete .edit-task {
+          color: green;
+          margin-right: 5px;
+          transition: transform 0.3s; }
+          .container .to-do-list .list .list-card .edit .edit-delete .edit-task :hover {
+            transform: scale(1.1); }
+        .container .to-do-list .list .list-card .edit .edit-delete .delete-task {
+          color: #b37d06;
+          transition: transform 0.3s; }
+          .container .to-do-list .list .list-card .edit .edit-delete .delete-task :hover {
+            transform: scale(1.1); }
+    .container .to-do-list .list .list-card .view {
+      display: flex; }
+      .container .to-do-list .list .list-card .view input[type='checkbox']:checked {
+        margin-right: 10px; }
+        .container .to-do-list .list .list-card .view input[type='checkbox']:checked + input {
+          color: #888; }
+      .container .to-do-list .list .list-card .view input[type='text'] {
+        background-color: inherit;
+        border: none;
+        text-transform: capitalize;
+        color: #000;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 17px;
+        width: 100%; }
 
 /*# sourceMappingURL=main.css.map */

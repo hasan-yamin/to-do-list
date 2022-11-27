@@ -1,0 +1,30 @@
+.container {
+    .to-do-list {
+        .filter {
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+
+            .filter-card {
+                width: fit-content;
+                display: flex;
+                flex-direction: column;
+                padding: 5px;
+                border-radius: 5px;
+                gap: 5px;
+                text-transform: capitalize;
+
+                .date-card {
+                    display: flex;
+                    justify-content: space-between;
+                    gap: 3px;
+
+                    input {
+                        border: none;
+                        background-color: inherit;
+                    }
+                }
+            }
+        }
+    }
+}

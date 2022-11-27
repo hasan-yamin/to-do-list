@@ -1,0 +1,11 @@
+.container {
+    .to-do-list {
+        .no-task {
+            display: block;
+            color: $icon;
+            text-align: center;
+            text-transform: capitalize;
+            font-weight: bold;
+        }
+    }
+}

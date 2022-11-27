@@ -13,31 +13,65 @@
 /// example:
 ///
 /// .class {
+///    @include breakpoint(xs){
+///       font-size:10px
+///    }
+/// 
 ///    @include breakpoint(ms){
+///       font-size:10px
+///    }
+/// 
+///    @include breakpoint(md){
 ///       font-size:20px
+///    }
+/// 
+///    @include breakpoint(lg){
+///       font-size:30px
+///    }
+/// 
+///    @include breakpoint(xl){
+///       font-size:40px
+///    }
+/// 
+///    @include breakpoint(xxl){
+///       font-size:50px
 ///    }
 /// }
 ///
 
 @mixin breakpoint($break-name) {
-  @if $break-name == sm {
+  @if $break-name ==xs {
     @media (max-width: 575px) {
       @content;
     }
-  } @else if $break-name == md {
+  }
+
+  @else if $break-name ==sm {
     @media (min-width: 576px) and (max-width: 767px) {
       @content;
     }
-  } @else if $break-name == lg {
+  }
+
+  @else if $break-name ==md {
     @media (min-width: 768px) and (max-width: 991px) {
       @content;
     }
-  } @else if $break-name == xl {
+  }
+
+  @else if $break-name ==lg {
     @media (min-width: 992px) and (max-width: 1199px) {
       @content;
     }
-  } @else if $break-name == xxl {
-    @media (min-width: 1200px) {
+  }
+
+  @else if $break-name ==xl {
+    @media (min-width: 1200px) and (max-width: 1399px) {
+      @content;
+    }
+  }
+
+  @else if $break-name ==xxl {
+    @media (min-width: 1400px) {
       @content;
     }
   }
