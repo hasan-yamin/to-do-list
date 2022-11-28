@@ -14,6 +14,16 @@
                 gap: 5px;
                 text-transform: capitalize;
 
+                @include breakpoint(xs) {
+                    flex-direction: column;
+                    font-size: 12px;
+                }
+
+                @include breakpoint(sm) {
+                    flex-direction: column;
+                    font-size: 12px;
+                }
+
                 .date-card {
                     display: flex;
                     justify-content: space-between;
@@ -22,6 +32,16 @@
                     input {
                         border: none;
                         background-color: inherit;
+                    }
+
+                    @include breakpoint(xs) {
+                        flex-direction: column;
+                        font-size: 12px;
+                    }
+
+                    @include breakpoint(sm) {
+                        flex-direction: column;
+                        font-size: 12px;
                     }
                 }
             }

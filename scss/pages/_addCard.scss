@@ -3,11 +3,13 @@
         .add-crd {
             background-color: $inputBackG;
 
-            input {
+            textarea {
                 border: none;
                 width: 80%;
                 height: 50px;
                 outline: none;
+                resize: none;
+                
             }
 
             .date {

@@ -114,18 +114,25 @@ function createCard(inputText: string, deaddate: string, taskDone: boolean, task
     //edit
     let date: HTMLDivElement = <HTMLDivElement>document.createElement('div');
     date.classList.add('date')
-    date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon">`
+    // date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon" style="color:">`
     let deadDate: HTMLSpanElement = <HTMLSpanElement>document.createElement('span');
     deadDate.innerText = deaddate
     deadDate.style.fontWeight = 'bold'
     compareDates(deaddate, new Date().toISOString().slice(0, 10))
     if (compareDates(deaddate, new Date().toISOString().slice(0, 10)) === 0) {
         deadDate.style.color = '#bc6100';
+        date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon" style="color:#bc6100">`
+
     } else if (compareDates(deaddate, new Date().toISOString().slice(0, 10)) === 1) {
         deadDate.style.color = 'green'
+        date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon" style="color:green">`
+
     } else if (compareDates(deaddate, new Date().toISOString().slice(0, 10)) === -1) {
         deadDate.style.color = 'red'
+        date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon" style="color:red">`
+
     }
+ 
     date.appendChild(deadDate)
 
     let editDelete: HTMLDivElement = <HTMLDivElement>document.createElement('div');
@@ -141,10 +148,11 @@ function createCard(inputText: string, deaddate: string, taskDone: boolean, task
     edit.appendChild(date)
     edit.appendChild(editDelete)
     //view
-    let name: HTMLInputElement = <HTMLInputElement>document.createElement('input');
+    // let name: HTMLInputElement = <HTMLInputElement>document.createElement('input');
+    let name: HTMLTextAreaElement = <HTMLTextAreaElement>document.createElement('textarea');
     name.value = inputText
     name.disabled = true
-    name.type = 'text'
+    // name.type = 'text'
     name.classList.add("to-do-name")
     let view: HTMLDivElement = <HTMLDivElement>document.createElement('div');
     view.classList.add('view')
@@ -186,7 +194,7 @@ async function getTasks() {
 
 /* [2] 'POST' save new task to firebase db */
 async function saveTasks(tsk: Task) {
-    let url: string = "https://..."
+    let url: string = "https://todolist-42b5f-default-rtdb.firebaseio.com/hasan.json"
     const response = await fetch(url, {
         method: 'POST',
         body: JSON.stringify({
@@ -214,7 +222,7 @@ async function deleteCard(event: any) {
     if (tsk !== undefined) {
         let indx: number = allTasks.indexOf(<Task>tsk)
         allTasks.splice(indx, 1)
-        let url: string = `https://...`
+        let url: string = `https://todolist-42b5f-default-rtdb.firebaseio.com/hasan/${tsk.getJsonId()}.json`
         const response = await fetch(url, {
             method: 'DELETE',
         });
@@ -274,7 +282,7 @@ async function check(event: any) {
     let tsk: Task | undefined = allTasks.find(tsk => tsk.getTaskId() === id)
     if (tsk != undefined) {
         tsk.setDone(event.checked)
-        let url: string = `https://...`
+        let url: string = `https://todolist-42b5f-default-rtdb.firebaseio.com/hasan/${tsk.getJsonId()}.json`
         const response = await fetch(url, {
             method: 'PUT',
             body: JSON.stringify({

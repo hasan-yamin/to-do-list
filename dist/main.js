@@ -106,19 +106,22 @@ function createCard(inputText, deaddate, taskDone, taskId) {
     //edit
     let date = document.createElement('div');
     date.classList.add('date');
-    date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon">`;
+    // date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon" style="color:">`
     let deadDate = document.createElement('span');
     deadDate.innerText = deaddate;
     deadDate.style.fontWeight = 'bold';
     compareDates(deaddate, new Date().toISOString().slice(0, 10));
     if (compareDates(deaddate, new Date().toISOString().slice(0, 10)) === 0) {
         deadDate.style.color = '#bc6100';
+        date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon" style="color:#bc6100">`;
     }
     else if (compareDates(deaddate, new Date().toISOString().slice(0, 10)) === 1) {
         deadDate.style.color = 'green';
+        date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon" style="color:green">`;
     }
     else if (compareDates(deaddate, new Date().toISOString().slice(0, 10)) === -1) {
         deadDate.style.color = 'red';
+        date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon" style="color:red">`;
     }
     date.appendChild(deadDate);
     let editDelete = document.createElement('div');
@@ -133,10 +136,11 @@ function createCard(inputText, deaddate, taskDone, taskId) {
     edit.appendChild(date);
     edit.appendChild(editDelete);
     //view
-    let name = document.createElement('input');
+    // let name: HTMLInputElement = <HTMLInputElement>document.createElement('input');
+    let name = document.createElement('textarea');
     name.value = inputText;
     name.disabled = true;
-    name.type = 'text';
+    // name.type = 'text'
     name.classList.add("to-do-name");
     let view = document.createElement('div');
     view.classList.add('view');
@@ -178,7 +182,7 @@ function getTasks() {
 /* [2] 'POST' save new task to firebase db */
 function saveTasks(tsk) {
     return __awaiter(this, void 0, void 0, function* () {
-        let url = "https://...";
+        let url = "https://todolist-42b5f-default-rtdb.firebaseio.com/hasan.json";
         const response = yield fetch(url, {
             method: 'POST',
             body: JSON.stringify({
@@ -208,7 +212,7 @@ function deleteCard(event) {
         if (tsk !== undefined) {
             let indx = allTasks.indexOf(tsk);
             allTasks.splice(indx, 1);
-            let url = `https://...`;
+            let url = `https://todolist-42b5f-default-rtdb.firebaseio.com/hasan/${tsk.getJsonId()}.json`;
             const response = yield fetch(url, {
                 method: 'DELETE',
             });
@@ -269,7 +273,7 @@ function check(event) {
         let tsk = allTasks.find(tsk => tsk.getTaskId() === id);
         if (tsk != undefined) {
             tsk.setDone(event.checked);
-            let url = `https://...`;
+            let url = `https://todolist-42b5f-default-rtdb.firebaseio.com/hasan/${tsk.getJsonId()}.json`;
             const response = yield fetch(url, {
                 method: 'PUT',
                 body: JSON.stringify({

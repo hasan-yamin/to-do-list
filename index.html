@@ -20,16 +20,13 @@
                 <span>Let's do it</span>
             </h1>
             <div class=" crd add-crd">
-                <input type="text" id="in-text" placeholder="Add task ...">
+                <textarea name="in-text" id="in-text" placeholder="Add task ..."></textarea>
                 <div class="date">
                     <label for="deadtime"><i class="fas fa-calendar-alt fa-lg"></i></label>
                     <input type="date" id="deadtime" name="deadtime">
                 </div>
                 <button id="add-task"><i class="fa fa-plus"></i></button>
             </div>
-
-
-            <!-- <hr class="my-4"> -->
             <div class="crd no-task">
                 No Tasks to view
             </div>
@@ -42,7 +39,6 @@
                         <option value="active">Active</option>
                     </select>
                 </div>
-
                 <div class="filter-card">
                     <div class="date-card">
                         <label for="filter-start-date">Start Date</label>
@@ -62,12 +58,16 @@
                         class="fas fa-sort-amount-down-alt ms-2"></i></a> -->
             </div>
             <div class=" crd edit-content" id="edit-content">
-                <input type="text" id="edit-in-text">
+
                 <div class="edit-date">
-                    <!-- <label for="edit-deadtime"><i class="fas fa-calendar-alt fa-lg"></i></label> -->
-                    <input type="date" id="edit-deadtime" name="edit-deadtime">
+                    <div>
+                        <label for="edit-deadtime">Date:</label>
+                        <input type="date" id="edit-deadtime" name="edit-deadtime">
+
+                    </div>
+                    <button id="edit-done" onclick="editDone(this)"><i class="fa-solid fa-check"></i></button>
                 </div>
-                <button id="edit-done" onclick="editDone(this)"><i class="fa-solid fa-check"></i></button>
+                <textarea name="edit-in-text" id="edit-in-text" cols="30" rows="10"></textarea>
             </div>
             <div class="crd list">
                 <!-- <div class="list-card" data-id="251359">
