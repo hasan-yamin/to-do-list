@@ -1,6 +1,8 @@
 // import Taskq from './module'
 
 /* *********** Start Authentication **************/
+let userId: string = '',
+    userAuth: string = '';
 /* *********** Start login **************/
 let loginForm: HTMLFormElement | null = <HTMLFormElement>document.getElementById('login-form');
 loginForm.addEventListener('submit', async function (e) {
@@ -12,6 +14,7 @@ loginForm.addEventListener('submit', async function (e) {
             await signin(mail, pass)
             let authPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('auth');
             authPage.style.display = 'none'
+            tasks()
         } catch (err) {
             // console.log('Signin Error', err)
             //Show error message
@@ -36,6 +39,9 @@ async function signin(email: string, pass: string) {
         const error = new Error(responseData.error.message || 'Signin Error');
         throw error
     }
+    console.log(responseData)
+    userId = responseData.localId;
+    userAuth = responseData.idToken;
 }
 /* *********** end login **************/
 
@@ -178,7 +184,7 @@ console.log("Today's Date: ", `${new Date().getFullYear()}-${new Date().getMonth
 
 let allTasks: Task[] = []
 // get all tasks from firebase
-tasks()
+// tasks()
 // console.log(new Date().toISOString().slice(0,10))
 function tasks() {
     getTasks().then((result) => {
@@ -288,7 +294,7 @@ function createCard(inputText: string, deaddate: string, taskDone: boolean, task
 
 /* [1] 'GET' get all tasks from firebase db */
 async function getTasks() {
-    let url: string = "https://todolist-42b5f-default-rtdb.firebaseio.com/hasan.json"
+    let url: string = `https://todolist-42b5f-default-rtdb.firebaseio.com/users/${userId}.json?auth=${userAuth}`
     const response = await fetch(url);
     // console.log(response)
     const responseData = await response.json();
@@ -309,7 +315,7 @@ async function getTasks() {
 
 /* [2] 'POST' save new task to firebase db */
 async function saveTasks(tsk: Task) {
-    let url: string = "https://todolist-42b5f-default-rtdb.firebaseio.com/hasan.json"
+    let url: string = `https://todolist-42b5f-default-rtdb.firebaseio.com/users/${userId}.json?auth=${userAuth}`
     const response = await fetch(url, {
         method: 'POST',
         body: JSON.stringify({
@@ -337,7 +343,7 @@ async function deleteCard(event: any) {
     if (tsk !== undefined) {
         let indx: number = allTasks.indexOf(<Task>tsk)
         allTasks.splice(indx, 1)
-        let url: string = `https://todolist-42b5f-default-rtdb.firebaseio.com/hasan/${tsk.getJsonId()}.json`
+        let url: string = `https://todolist-42b5f-default-rtdb.firebaseio.com/users/${userId}/${tsk.getJsonId()}.json?auth=${userAuth}`
         const response = await fetch(url, {
             method: 'DELETE',
         });
@@ -375,7 +381,7 @@ async function editDone(event: any) {
     if (tsk != undefined) {
         tsk.setTaskName(newName)
         tsk.setDeadLine(editDeadtime.value)
-        let url: string = `https://todolist-42b5f-default-rtdb.firebaseio.com/hasan/${tsk.getJsonId()}.json`
+        let url: string = `https://todolist-42b5f-default-rtdb.firebaseio.com/users/${userId}/${tsk.getJsonId()}.json?auth=${userAuth}`
         const response = await fetch(url, {
             method: 'PUT',
             body: JSON.stringify({
@@ -397,7 +403,7 @@ async function check(event: any) {
     let tsk: Task | undefined = allTasks.find(tsk => tsk.getTaskId() === id)
     if (tsk != undefined) {
         tsk.setDone(event.checked)
-        let url: string = `https://todolist-42b5f-default-rtdb.firebaseio.com/hasan/${tsk.getJsonId()}.json`
+        let url: string = `https://todolist-42b5f-default-rtdb.firebaseio.com/users/${userId}/${tsk.getJsonId()}.json?auth=${userAuth}`
         const response = await fetch(url, {
             method: 'PUT',
             body: JSON.stringify({
