@@ -24,10 +24,10 @@
                 .logout {
                     padding: 5px;
                     background-color: transparent;
-                    border: 1px solid $color2;
+                    border: 1px solid $authColor;
                     border-radius: 10px;
                     text-transform: capitalize;
-                    color: $color2;
+                    color: $authColor;
                     cursor: pointer;
                     
                 }

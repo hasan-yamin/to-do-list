@@ -72,10 +72,10 @@ ul {
     .container .to-do-list .title .setting .logout {
       padding: 5px;
       background-color: transparent;
-      border: 1px solid #85d4d5;
+      border: 1px solid green;
       border-radius: 10px;
       text-transform: capitalize;
-      color: #85d4d5;
+      color: green;
       cursor: pointer; }
   .container .to-do-list .title .title-letsdo {
     width: fit-content;
@@ -259,7 +259,7 @@ ul {
     .container .auth .login h2,
     .container .auth .signup h2 {
       width: 100%;
-      background-color: greenyellow;
+      background-color: green;
       height: 50px;
       text-align: center;
       margin-bottom: 50px;
@@ -300,16 +300,24 @@ ul {
         text-transform: capitalize;
         cursor: pointer;
         font-size: 15px; }
+        @media (max-width: 575px) {
+          .container .auth .login form .forget-pass,
+          .container .auth .signup form .forget-pass {
+            font-size: 12px; } }
+        @media (min-width: 576px) and (max-width: 767px) {
+          .container .auth .login form .forget-pass,
+          .container .auth .signup form .forget-pass {
+            font-size: 12px; } }
       .container .auth .login form button,
       .container .auth .signup form button {
         margin-top: 10px;
         width: 100%;
-        background-color: greenyellow;
+        background-color: green;
         border: none;
         border-radius: 10px;
         font-size: 15px;
         line-height: 30px;
-        text-transform: uppercase;
+        text-transform: capitalize;
         letter-spacing: 1px;
         cursor: pointer; }
     .container .auth .login.show,
@@ -326,7 +334,7 @@ ul {
     color: green;
     background-color: transparent;
     border: none;
-    text-transform: uppercase;
+    text-transform: capitalize;
     letter-spacing: 1px;
     cursor: pointer; }
 

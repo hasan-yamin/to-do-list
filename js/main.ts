@@ -100,16 +100,16 @@ changeAuthPage.addEventListener('click', function () {
     let ErrorMsg: HTMLDivElement | null = <HTMLDivElement>document.getElementById('error');
     ErrorMsg.style.display = 'none'
 
-    if (changeAuthPage?.innerHTML === 'Signup insted') {
-        changeAuthPage.innerHTML = 'Login insted'
+    if (changeAuthPage?.innerHTML === 'Create new account') {
+        changeAuthPage.innerHTML = 'Sign in'
         let loginPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('login');
         loginPage.classList.remove('show')
 
         let signupPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('signup');
         signupPage.classList.add('show')
 
-    } else if (changeAuthPage?.innerHTML === 'Login insted') {
-        changeAuthPage.innerHTML = 'Signup insted'
+    } else if (changeAuthPage?.innerHTML === 'Sign in') {
+        changeAuthPage.innerHTML = 'Create new account'
         let loginPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('login');
         loginPage.classList.add('show')
 

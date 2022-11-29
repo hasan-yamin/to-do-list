@@ -113,15 +113,15 @@ changeAuthPage.addEventListener('click', function () {
     //Hide error message
     let ErrorMsg = document.getElementById('error');
     ErrorMsg.style.display = 'none';
-    if ((changeAuthPage === null || changeAuthPage === void 0 ? void 0 : changeAuthPage.innerHTML) === 'Signup insted') {
-        changeAuthPage.innerHTML = 'Login insted';
+    if ((changeAuthPage === null || changeAuthPage === void 0 ? void 0 : changeAuthPage.innerHTML) === 'Create new account') {
+        changeAuthPage.innerHTML = 'Sign in';
         let loginPage = document.getElementById('login');
         loginPage.classList.remove('show');
         let signupPage = document.getElementById('signup');
         signupPage.classList.add('show');
     }
-    else if ((changeAuthPage === null || changeAuthPage === void 0 ? void 0 : changeAuthPage.innerHTML) === 'Login insted') {
-        changeAuthPage.innerHTML = 'Signup insted';
+    else if ((changeAuthPage === null || changeAuthPage === void 0 ? void 0 : changeAuthPage.innerHTML) === 'Sign in') {
+        changeAuthPage.innerHTML = 'Create new account';
         let loginPage = document.getElementById('login');
         loginPage.classList.add('show');
         let signupPage = document.getElementById('signup');
