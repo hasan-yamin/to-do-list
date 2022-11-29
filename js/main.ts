@@ -1,4 +1,119 @@
 // import Taskq from './module'
+
+/* *********** Start Authentication **************/
+/* *********** Start login **************/
+let loginForm: HTMLFormElement | null = <HTMLFormElement>document.getElementById('login-form');
+loginForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const mail: string | null = e.target.email.value.trim()
+    const pass: string | null = e.target.password.value.trim()
+    if (pass != null && mail != null) {
+        try {
+            await signin(mail, pass)
+            let authPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('auth');
+            authPage.style.display = 'none'
+        } catch (err) {
+            // console.log('Signin Error', err)
+            //Show error message
+            let ErrorMsg: HTMLDivElement | null = <HTMLDivElement>document.getElementById('error');
+            ErrorMsg.innerHTML = err + '';
+            ErrorMsg.style.display = 'block'
+        }
+    }
+
+})
+async function signin(email: string, pass: string) {
+    const response = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key= AIzaSyAMPai0xIg6Rs5-7BaPVphtDONiMQAR2GM ", {
+        method: 'POST',
+        body: JSON.stringify({
+            email: email,
+            password: pass,
+            returnSecureToken: true,
+        })
+    });
+    const responseData = await response.json();
+    if (!response.ok) {
+        const error = new Error(responseData.error.message || 'Signin Error');
+        throw error
+    }
+}
+/* *********** end login **************/
+
+/* *********** Start Signup **************/
+let signupForm: HTMLFormElement | null = <HTMLFormElement>document.getElementById('signup-form');
+signupForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const mail: string | null = e.target.email.value.trim()
+    const pass: string | null = e.target.password.value.trim()
+    if (pass != null && mail != null) {
+        try {
+            await signup(mail, pass)
+            // hide signup page
+            let signupPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('signup');
+            signupPage.classList.remove('show')
+            // Show Signin Page
+            let loginPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('login');
+            loginPage.classList.add('show')
+            //Hide error message
+            let ErrorMsg: HTMLDivElement | null = <HTMLDivElement>document.getElementById('error');
+            ErrorMsg.style.display = 'none'
+
+        } catch (err) {
+            // console.log('Signup Error', err)
+            //Show error message
+            let ErrorMsg: HTMLDivElement | null = <HTMLDivElement>document.getElementById('error');
+            ErrorMsg.innerHTML = err + '';
+            ErrorMsg.style.display = 'block'
+        }
+    }
+})
+async function signup(email: string, pass: string) {
+    const response = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key= AIzaSyAMPai0xIg6Rs5-7BaPVphtDONiMQAR2GM ", {
+        method: 'POST',
+        body: JSON.stringify({
+            email: email,
+            password: pass,
+            returnSecureToken: true,
+        })
+    });
+    const responseData = await response.json();
+    if (!response.ok) {
+        const error = new Error(responseData.error.message || 'Signup Error');
+        throw error
+    }
+    // console.log(responseData)
+}
+/* *********** End Signup **************/
+
+/* *********** Start change aauth page **************/
+let changeAuthPage: HTMLButtonElement | null = <HTMLButtonElement>document.getElementById('change-auth');
+changeAuthPage.addEventListener('click', function () {
+    //Hide error message
+    let ErrorMsg: HTMLDivElement | null = <HTMLDivElement>document.getElementById('error');
+    ErrorMsg.style.display = 'none'
+
+    if (changeAuthPage?.innerHTML === 'Signup insted') {
+        changeAuthPage.innerHTML = 'Login insted'
+        let loginPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('login');
+        loginPage.classList.remove('show')
+
+        let signupPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('signup');
+        signupPage.classList.add('show')
+
+    } else if (changeAuthPage?.innerHTML === 'Login insted') {
+        changeAuthPage.innerHTML = 'Signup insted'
+        let loginPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('login');
+        loginPage.classList.add('show')
+
+        let signupPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('signup');
+        signupPage.classList.remove('show')
+
+    }
+})
+/* *********** End change aauth page **************/
+/* *********** End Authentication **************/
+
+
 // console.log(Taskq)
 class Task {
     private _taskName: string
@@ -132,7 +247,7 @@ function createCard(inputText: string, deaddate: string, taskDone: boolean, task
         date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon" style="color:red">`
 
     }
- 
+
     date.appendChild(deadDate)
 
     let editDelete: HTMLDivElement = <HTMLDivElement>document.createElement('div');

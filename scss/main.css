@@ -211,4 +211,81 @@ ul {
         height: auto;
         resize: none; }
 
+.container .auth {
+  margin: 100px auto;
+  width: 70%;
+  background: linear-gradient(180deg, #85d4d5 0%, #d1fafa 100%);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column; }
+  .container .auth .login,
+  .container .auth .signup {
+    display: none; }
+    .container .auth .login h2,
+    .container .auth .signup h2 {
+      width: 100%;
+      background-color: greenyellow;
+      height: 50px;
+      text-align: center;
+      margin-bottom: 50px;
+      font-size: 25px;
+      line-height: 50px; }
+    .container .auth .login form,
+    .container .auth .signup form {
+      width: 50%;
+      margin: auto;
+      display: flex;
+      flex-direction: column; }
+      .container .auth .login form .form-control,
+      .container .auth .signup form .form-control {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 5px; }
+        .container .auth .login form .form-control input,
+        .container .auth .signup form .form-control input {
+          width: 100%;
+          border: none;
+          border-radius: 10px;
+          padding: 10px;
+          height: 30px; }
+      .container .auth .login form .forget-pass,
+      .container .auth .signup form .forget-pass {
+        margin-top: 10px;
+        align-self: flex-end;
+        color: #888;
+        text-transform: capitalize;
+        cursor: pointer;
+        font-size: 15px; }
+      .container .auth .login form button,
+      .container .auth .signup form button {
+        margin-top: 10px;
+        width: 100%;
+        background-color: greenyellow;
+        border: none;
+        border-radius: 10px;
+        font-size: 15px;
+        line-height: 30px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer; }
+    .container .auth .login.show,
+    .container .auth .signup.show {
+      display: block; }
+  .container .auth .error {
+    width: 100%;
+    color: red;
+    text-align: center;
+    display: none; }
+  .container .auth > button {
+    margin-top: 50px;
+    margin-bottom: 20px;
+    color: green;
+    background-color: transparent;
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer; }
+
 /*# sourceMappingURL=main.css.map */
