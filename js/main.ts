@@ -119,6 +119,26 @@ changeAuthPage.addEventListener('click', function () {
     }
 })
 /* *********** End change aauth page **************/
+
+/* *********** Start Logout **************/
+let logOut: HTMLButtonElement | null = <HTMLButtonElement>document.getElementById('logout');
+logOut.addEventListener('click', function () {
+    userId = ''
+    userAuth = ''
+    //Hide to do list
+    let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
+    todo.classList.remove('show')
+    let authPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('auth');
+    authPage.style.display = 'flex'
+    // Show Signin Page
+    let loginPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('login');
+    loginPage.classList.add('show')
+    //Hide error message
+    let ErrorMsg: HTMLDivElement | null = <HTMLDivElement>document.getElementById('error');
+    ErrorMsg.style.display = 'none'
+})
+
+/* *********** End Logout **************/
 /* *********** End Authentication **************/
 
 

@@ -129,6 +129,24 @@ changeAuthPage.addEventListener('click', function () {
     }
 });
 /* *********** End change aauth page **************/
+/* *********** Start Logout **************/
+let logOut = document.getElementById('logout');
+logOut.addEventListener('click', function () {
+    userId = '';
+    userAuth = '';
+    //Hide to do list
+    let todo = document.getElementById('to-do-list');
+    todo.classList.remove('show');
+    let authPage = document.getElementById('auth');
+    authPage.style.display = 'flex';
+    // Show Signin Page
+    let loginPage = document.getElementById('login');
+    loginPage.classList.add('show');
+    //Hide error message
+    let ErrorMsg = document.getElementById('error');
+    ErrorMsg.style.display = 'none';
+});
+/* *********** End Logout **************/
 /* *********** End Authentication **************/
 // console.log(Taskq)
 class Task {

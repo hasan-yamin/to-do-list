@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToDoList</title>
+    <title>ToDoList-HKY</title>
     <!-- my main css file -->
     <!-- CSS only -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
@@ -43,10 +43,13 @@
             <div class="error" id="error">Error</div>
             <button type="button" id="change-auth">Signup insted</button>
         </div>
-        <div class=" to-do-list  " id="to-do-list">
+        <div class=" to-do-list " id="to-do-list">
             <h1 class="title ">
-                <i class="fas fa-check-square me-1"></i>
-                <span>Let's do it</span>
+                <div class="setting">
+                    <span class="user-name" id="user-name">Hi Hasan</span>
+                    <button type="button" class="logout" id="logout">Logout</button>
+                </div>
+                <span class="title-letsdo"><i class="fas fa-check-square me-1"></i>Let's do it</span>
             </h1>
             <div class=" crd add-crd">
                 <textarea name="in-text" id="in-text" placeholder="Add task ..."></textarea>
