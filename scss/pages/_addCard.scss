@@ -3,22 +3,30 @@
         .add-crd {
             background-color: $inputBackG;
 
-            textarea {
-                border: none;
+            .date-input {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
                 width: 80%;
-                height: 50px;
-                outline: none;
-                resize: none;
-                
-            }
 
-            .date {
-                label {
-                    color: $icon;
+                svg {
+                    color: $color2;
                 }
 
                 input {
-                    display: none;
+                    border: none;
+                    margin-bottom: 10px;
+                }
+
+                textarea {
+                    border: none;
+                    width: 100%;
+                    height: 40px;
+                    outline: none;
+                    resize: none;
+                    padding: 10px;
+                    caret-color: $color2;
+                    color: $color2;
                 }
             }
 

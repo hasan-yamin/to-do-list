@@ -43,7 +43,7 @@
             <div class="error" id="error">Error</div>
             <button type="button" id="change-auth">Signup insted</button>
         </div>
-        <div class=" to-do-list " id="to-do-list">
+        <div class=" to-do-list show" id="to-do-list">
             <h1 class="title ">
                 <div class="setting">
                     <span class="user-name" id="user-name">Hi Hasan</span>
@@ -52,10 +52,12 @@
                 <span class="title-letsdo"><i class="fas fa-check-square me-1"></i>Let's do it</span>
             </h1>
             <div class=" crd add-crd">
-                <textarea name="in-text" id="in-text" placeholder="Add task ..."></textarea>
-                <div class="date">
-                    <label for="deadtime"><i class="fas fa-calendar-alt fa-lg"></i></label>
-                    <input type="date" id="deadtime" name="deadtime">
+                <div class="date-input">
+                    <div>
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <input type="date" id="deadtime" name="deadtime">
+                    </div>
+                    <textarea name="in-text" id="in-text" placeholder="Add task ..."></textarea>
                 </div>
                 <button id="add-task"><i class="fa fa-plus"></i></button>
             </div>

@@ -2,14 +2,11 @@
     .auth {
         margin: 100px auto;
         width: 70%;
-        // padding: 50px 20px;
         background: linear-gradient(180deg, $color2 0%, $color1 100%);
         border-radius: 10px;
         overflow: hidden;
         display: flex;
         flex-direction: column;
-
-
 
         .login,
         .signup {
@@ -31,7 +28,14 @@
                 margin: auto;
                 display: flex;
                 flex-direction: column;
-                // align-items: center;
+
+                @include breakpoint(xs) {
+                    width: 65%;
+                }
+
+                @include breakpoint(sm) {
+                    width: 65%;
+                }
 
                 .form-control {
                     display: flex;
