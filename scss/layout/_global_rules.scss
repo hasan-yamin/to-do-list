@@ -47,12 +47,17 @@ ul {
   }
 
   .to-do-list {
-    display: flex;
+
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 0.75rem;
     overflow: hidden;
+    display: none;
+
+    &.show {
+      display: flex;
+    }
 
     .crd {
       padding: 15px;

@@ -14,6 +14,10 @@ loginForm.addEventListener('submit', async function (e) {
             await signin(mail, pass)
             let authPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('auth');
             authPage.style.display = 'none'
+
+            //Show to do list
+            let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
+            todo.classList.add('show')
             tasks()
         } catch (err) {
             // console.log('Signin Error', err)
@@ -39,7 +43,6 @@ async function signin(email: string, pass: string) {
         const error = new Error(responseData.error.message || 'Signin Error');
         throw error
     }
-    console.log(responseData)
     userId = responseData.localId;
     userAuth = responseData.idToken;
 }
@@ -63,7 +66,6 @@ signupForm.addEventListener('submit', async function (e) {
             //Hide error message
             let ErrorMsg: HTMLDivElement | null = <HTMLDivElement>document.getElementById('error');
             ErrorMsg.style.display = 'none'
-
         } catch (err) {
             // console.log('Signup Error', err)
             //Show error message
@@ -448,7 +450,7 @@ taskFilterStatus.addEventListener('change', () => {
             return task
         }
     })
-    console.log('filteredTasks', filteredTasks)
+    // console.log('filteredTasks', filteredTasks)
     showTasks(filteredTasks)
 })
 // filter by start date

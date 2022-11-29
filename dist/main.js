@@ -23,6 +23,9 @@ loginForm.addEventListener('submit', function (e) {
                 yield signin(mail, pass);
                 let authPage = document.getElementById('auth');
                 authPage.style.display = 'none';
+                //Show to do list
+                let todo = document.getElementById('to-do-list');
+                todo.classList.add('show');
                 tasks();
             }
             catch (err) {
@@ -50,7 +53,6 @@ function signin(email, pass) {
             const error = new Error(responseData.error.message || 'Signin Error');
             throw error;
         }
-        console.log(responseData);
         userId = responseData.localId;
         userAuth = responseData.idToken;
     });
@@ -438,7 +440,7 @@ taskFilterStatus.addEventListener('change', () => {
             return task;
         }
     });
-    console.log('filteredTasks', filteredTasks);
+    // console.log('filteredTasks', filteredTasks)
     showTasks(filteredTasks);
 });
 // filter by start date

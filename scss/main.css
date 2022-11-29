@@ -34,12 +34,14 @@ ul {
     .container {
       width: 720px; } }
   .container .to-do-list {
-    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 0.75rem;
-    overflow: hidden; }
+    overflow: hidden;
+    display: none; }
+    .container .to-do-list.show {
+      display: flex; }
     .container .to-do-list .crd {
       padding: 15px;
       margin: 5px auto;
