@@ -220,11 +220,13 @@ function tasks() {
         showTasks(allTasks);
     });
 }
+let deaddate = document.getElementById('deadtime');
+deaddate.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`;
 let addToDo = document.getElementById('add-task');
 addToDo.addEventListener('click', function () {
     return __awaiter(this, void 0, void 0, function* () {
         let inputText = document.getElementById('in-text');
-        let deaddate = document.getElementById('deadtime');
+        // let deaddate: HTMLInputElement | null = <HTMLInputElement>document.getElementById('deadtime');
         if (inputText.value.trim().length > 1) {
             let newTask = new Task(inputText.value, deaddate.value, false, 'n');
             // save task on db

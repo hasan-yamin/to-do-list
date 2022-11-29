@@ -227,11 +227,13 @@ function tasks() {
         showTasks(allTasks)
     })
 }
+let deaddate: HTMLInputElement | null = <HTMLInputElement>document.getElementById('deadtime');
+deaddate.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
 
 let addToDo: any | null = document.getElementById('add-task');
 addToDo.addEventListener('click', async function () {
     let inputText: HTMLInputElement | null = <HTMLInputElement>document.getElementById('in-text');
-    let deaddate: HTMLInputElement | null = <HTMLInputElement>document.getElementById('deadtime');
+    // let deaddate: HTMLInputElement | null = <HTMLInputElement>document.getElementById('deadtime');
     if (inputText.value.trim().length > 1) {
         let newTask: Task = new Task(inputText.value, deaddate.value, false, 'n')
         // save task on db
