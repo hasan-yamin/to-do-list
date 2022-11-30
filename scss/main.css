@@ -97,8 +97,9 @@ ul {
       color: #9E7676; }
     .container .to-do-list .add-crd .date-input input {
       border: none;
+      background-color: inherit;
       margin-bottom: 10px;
-      background-color: none; }
+      outline: none; }
     .container .to-do-list .add-crd .date-input textarea {
       border: none;
       width: 100%;
@@ -155,7 +156,8 @@ ul {
       gap: 3px; }
       .container .to-do-list .filter .filter-card .date-card input {
         border: none;
-        background-color: inherit; }
+        background-color: inherit;
+        outline: none; }
       @media (max-width: 575px) {
         .container .to-do-list .filter .filter-card .date-card {
           flex-direction: column;

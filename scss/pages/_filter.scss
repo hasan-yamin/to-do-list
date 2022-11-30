@@ -33,6 +33,7 @@
                     input {
                         border: none;
                         background-color: inherit;
+                        outline: none;
                     }
 
                     @include breakpoint(xs) {
