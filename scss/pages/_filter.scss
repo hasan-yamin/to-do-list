@@ -16,13 +16,25 @@
                 text-transform: capitalize;
 
                 @include breakpoint(xs) {
-                    flex-direction: column;
+                    // flex-direction: column;
                     font-size: 12px;
                 }
 
                 @include breakpoint(sm) {
                     flex-direction: column;
                     font-size: 12px;
+                }
+
+                select {
+                    border: none;
+                    background-color: inherit;
+                    outline: none;
+
+                    option {
+                        border: none;
+                        background-color: inherit;
+                        outline: none;
+                    }
                 }
 
                 .date-card {
@@ -37,7 +49,7 @@
                     }
 
                     @include breakpoint(xs) {
-                        flex-direction: column;
+                        // flex-direction: column;
                         font-size: 12px;
                     }
 

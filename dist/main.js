@@ -218,6 +218,7 @@ function tasks() {
         }
         // show tasks on screen 
         showTasks(allTasks);
+        filterDate();
     });
 }
 let deaddate = document.getElementById('deadtime');
@@ -443,6 +444,9 @@ function compareDates(d1, d2) {
 // filters
 // filter by status (complete, active)
 taskFilterStatus.addEventListener('change', () => {
+    filterStatus();
+});
+function filterStatus() {
     // console.log('taskFilter changed to : ', taskFilterStatus.value)
     let filterValue;
     if (taskFilterStatus.value === 'completed') {
@@ -462,7 +466,7 @@ taskFilterStatus.addEventListener('change', () => {
     });
     // console.log('filteredTasks', filteredTasks)
     showTasks(filteredTasks);
-});
+}
 // filter by start date
 filterStartDate.addEventListener('change', () => {
     filterDate();
@@ -471,7 +475,7 @@ filterStartDate.addEventListener('change', () => {
 filterEndDate.addEventListener('change', () => {
     filterDate();
 });
-const filterDate = () => {
+function filterDate() {
     let filterStartValue = new Date(filterStartDate.value);
     let filterEndValue = new Date(filterEndDate.value);
     let filteredTasks = allTasks.filter(task => {
@@ -481,4 +485,4 @@ const filterDate = () => {
         }
     });
     showTasks(filteredTasks);
-};
+}

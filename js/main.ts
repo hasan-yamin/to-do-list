@@ -225,6 +225,7 @@ function tasks() {
         }
         // show tasks on screen 
         showTasks(allTasks)
+        filterDate()
     })
 }
 let deaddate: HTMLInputElement | null = <HTMLInputElement>document.getElementById('deadtime');
@@ -456,6 +457,9 @@ function compareDates(d1: string, d2: string): number {
 // filters
 // filter by status (complete, active)
 taskFilterStatus.addEventListener('change', () => {
+    filterStatus()
+})
+function filterStatus() {
     // console.log('taskFilter changed to : ', taskFilterStatus.value)
     let filterValue: boolean
     if (taskFilterStatus.value === 'completed') {
@@ -474,7 +478,9 @@ taskFilterStatus.addEventListener('change', () => {
     })
     // console.log('filteredTasks', filteredTasks)
     showTasks(filteredTasks)
-})
+}
+
+
 // filter by start date
 filterStartDate.addEventListener('change', () => {
     filterDate()
@@ -483,7 +489,7 @@ filterStartDate.addEventListener('change', () => {
 filterEndDate.addEventListener('change', () => {
     filterDate()
 })
-const filterDate = () => {
+function filterDate() {
     let filterStartValue: Date = new Date(filterStartDate.value)
     let filterEndValue: Date = new Date(filterEndDate.value)
     let filteredTasks: (Task)[] = allTasks.filter(task => {
@@ -493,4 +499,4 @@ const filterDate = () => {
         }
     })
     showTasks(filteredTasks)
-}
+} 
