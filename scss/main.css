@@ -82,8 +82,7 @@ ul {
   .container .to-do-list .title .title-letsdo {
     width: fit-content;
     color: #9E7676;
-    font-size: 20px;
-    border-bottom: 3px dotted;
+    font-size: 30px;
     background-color: #FFF8EA; }
 
 .container .to-do-list .add-crd {

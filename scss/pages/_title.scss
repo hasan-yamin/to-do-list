@@ -29,16 +29,17 @@
                     text-transform: capitalize;
                     color: $authColor;
                     cursor: pointer;
-                    
+
                 }
-            } 
+            }
+
             .title-letsdo {
                 width: fit-content;
                 color: $color2;
-                font-size: 20px;
-                border-bottom: 3px dotted;
+                font-size: 30px;
+                // border-bottom: 3px dotted;
                 background-color: $color1;
-            } 
+            }
         }
     }
 }
