@@ -1,5 +1,5 @@
 body {
-  background-color: #EEEEEE; }
+  background-color: #FFF8EA; }
 
 * {
   box-sizing: border-box;
@@ -15,6 +15,8 @@ ul {
 
 .container {
   margin: auto; }
+  .container > img {
+    width: 100%; }
   @media (max-width: 575px) {
     .container {
       width: 95%; } }
@@ -72,16 +74,17 @@ ul {
     .container .to-do-list .title .setting .logout {
       padding: 5px;
       background-color: transparent;
-      border: 1px solid green;
+      border: 1px solid #594545;
       border-radius: 10px;
       text-transform: capitalize;
-      color: green;
+      color: #594545;
       cursor: pointer; }
   .container .to-do-list .title .title-letsdo {
     width: fit-content;
-    color: #85d4d5;
+    color: #9E7676;
     font-size: 20px;
-    border-bottom: 3px dotted; }
+    border-bottom: 3px dotted;
+    background-color: #FFF8EA; }
 
 .container .to-do-list .add-crd {
   background-color: #fff; }
@@ -91,10 +94,11 @@ ul {
     align-items: flex-start;
     width: 80%; }
     .container .to-do-list .add-crd .date-input svg {
-      color: #85d4d5; }
+      color: #9E7676; }
     .container .to-do-list .add-crd .date-input input {
       border: none;
-      margin-bottom: 10px; }
+      margin-bottom: 10px;
+      background-color: none; }
     .container .to-do-list .add-crd .date-input textarea {
       border: none;
       width: 100%;
@@ -102,10 +106,10 @@ ul {
       outline: none;
       resize: none;
       padding: 10px;
-      caret-color: #85d4d5;
-      color: #85d4d5; }
+      caret-color: #9E7676;
+      color: #9E7676; }
   .container .to-do-list .add-crd button {
-    border: 1px solid #85d4d5;
+    border: 1px solid #9E7676;
     cursor: copy;
     border-radius: 50%;
     background-color: #fff;
@@ -113,13 +117,13 @@ ul {
     .container .to-do-list .add-crd button :hover {
       transform: scale(1.1); }
     .container .to-do-list .add-crd button .fa-plus {
-      color: #85d4d5;
+      color: #9E7676;
       width: 50px;
       height: 50px; }
 
 .container .to-do-list .no-task {
   display: block;
-  color: red;
+  color: #D4522E;
   text-align: center;
   text-transform: capitalize;
   font-weight: bold; }
@@ -127,7 +131,8 @@ ul {
 .container .to-do-list .filter {
   margin: 0 auto;
   display: flex;
-  justify-content: space-around; }
+  justify-content: space-around;
+  background-color: #FFF8EA; }
   .container .to-do-list .filter .filter-card {
     width: fit-content;
     display: flex;
@@ -175,7 +180,7 @@ ul {
       height: 50px;
       outline: none; }
     .container .to-do-list .edit-content .edit-date button {
-      border: 1px solid #85d4d5;
+      border: 1px solid #9E7676;
       cursor: pointer;
       width: 25px;
       height: 25px;
@@ -185,7 +190,7 @@ ul {
       .container .to-do-list .edit-content .edit-date button :hover {
         transform: scale(1.1); }
       .container .to-do-list .edit-content .edit-date button .fa-check {
-        color: #85d4d5;
+        color: #9E7676;
         width: 100%;
         height: 100%; }
   .container .to-do-list .edit-content textarea {
@@ -205,7 +210,7 @@ ul {
     display: flex;
     flex-direction: column;
     padding: 5px 10px;
-    background: linear-gradient(180deg, #85d4d5 0%, #d1fafa 100%); }
+    background: linear-gradient(180deg, #9E7676 0%, #FFF8EA 100%); }
     .container .to-do-list .list .list-card:hover .edit .edit-delete {
       display: flex; }
     .container .to-do-list .list .list-card .edit {
@@ -218,7 +223,7 @@ ul {
       .container .to-do-list .list .list-card .edit .edit-delete {
         display: none; }
         .container .to-do-list .list .list-card .edit .edit-delete .edit-task {
-          color: green;
+          color: #815B5B;
           margin-right: 5px;
           transition: transform 0.3s; }
           .container .to-do-list .list .list-card .edit .edit-delete .edit-task :hover {
@@ -247,8 +252,9 @@ ul {
 
 .container .auth {
   margin: 100px auto;
+  position: relative;
   width: 70%;
-  background: linear-gradient(180deg, #85d4d5 0%, #d1fafa 100%);
+  background: linear-gradient(180deg, #9E7676 0%, #FFF8EA 100%);
   border-radius: 10px;
   overflow: hidden;
   display: flex;
@@ -259,12 +265,13 @@ ul {
     .container .auth .login h2,
     .container .auth .signup h2 {
       width: 100%;
-      background-color: green;
+      background-color: #594545;
       height: 50px;
       text-align: center;
       margin-bottom: 50px;
       font-size: 25px;
-      line-height: 50px; }
+      line-height: 50px;
+      color: #fff; }
     .container .auth .login form,
     .container .auth .signup form {
       width: 50%;
@@ -313,7 +320,8 @@ ul {
       .container .auth .signup form button {
         margin-top: 10px;
         width: 100%;
-        background-color: green;
+        background-color: #594545;
+        color: #fff;
         border: none;
         border-radius: 10px;
         font-size: 15px;
@@ -332,7 +340,7 @@ ul {
   .container .auth > button {
     margin-top: 50px;
     margin-bottom: 20px;
-    color: green;
+    color: #594545;
     background-color: transparent;
     border: none;
     text-transform: capitalize;

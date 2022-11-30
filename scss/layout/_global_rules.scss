@@ -1,13 +1,18 @@
 @import '../helpers/media-queries';
+@import '../variables/vars';
 
 body {
-  background-color: #EEEEEE;
+  background-color: $color1;
+  // background-image: url('../../imgs/letsdoit.jpg');
+  // background-size: cover;
+
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  // color: #fff;
 }
 
 a {
@@ -21,6 +26,11 @@ ul {
 
 .container {
   margin: auto;
+  // padding-top: 100px;
+
+  >img {
+    width: 100%;
+  }
 
   @include breakpoint(xs) {
     width: 95%;
@@ -57,6 +67,8 @@ ul {
 
     &.show {
       display: flex;
+      // margin: -373px auto auto;
+      // position: relative;
     }
 
     .crd {
