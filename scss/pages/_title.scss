@@ -17,10 +17,30 @@
                 margin-bottom: 15px;
                 position: relative;
 
-                >p {
-                    font-size: 15px;
-                    text-transform: capitalize;
-                    color: $color2;
+                >div {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    p {
+                        font-size: 15px;
+                        text-transform: capitalize;
+                        color: $color2;
+                    }
+
+                    .profileimg {
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        border: 2px solid $color2;
+                        margin-left: 5px;
+                        overflow: hidden;
+
+                        img {
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
                 }
 
                 .setting-menu {

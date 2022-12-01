@@ -123,7 +123,9 @@ if (resetPassword !== null) {
 function showUserInfo() {
     let showUserName = document.getElementById('user-name');
     showUserName.innerHTML = userName;
-    // console.log('Hi ', userName)
+    let showprofileImg = document.getElementById('profileimg');
+    showprofileImg.setAttribute('src', userphoto);
+    // console.log('src', userphoto)
 }
 /* *********** End show Profile data**************/
 /* *********** Start Logout **************/
@@ -602,7 +604,7 @@ function signup(email, pass, userName) {
             throw error;
         }
         // console.log(responseData)
-        updateProfile(responseData.idToken, userName, '../test/asd.png');
+        updateProfile(responseData.idToken, userName, '../imgs/letsdoit.jpg');
     });
 }
 /* *********** End Signup **************/
@@ -664,7 +666,8 @@ function getProfileData(userAuth) {
         }
         userName = responseData.users[0].displayName;
         email = responseData.users[0].email;
-        userphoto = responseData.users[0].photoUrl;
+        // userphoto = responseData.users[0].photoUrl;
+        userphoto = '../imgs/letsdoit.jpg';
         // console.log('userName : ' + userName, 'email : ' + email, 'user userphoto : ' + userphoto)
         showUserInfo();
     });

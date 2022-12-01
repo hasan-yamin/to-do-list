@@ -118,7 +118,9 @@ if (resetPassword !== null) {
 function showUserInfo() {
     let showUserName: HTMLFormElement | null = <HTMLFormElement>document.getElementById('user-name');
     showUserName.innerHTML = userName
-    // console.log('Hi ', userName)
+    let showprofileImg: HTMLImageElement | null = <HTMLImageElement>document.getElementById('profileimg');
+    showprofileImg.setAttribute('src', userphoto)
+    // console.log('src', userphoto)
 }
 /* *********** End show Profile data**************/
 /* *********** Start Logout **************/
@@ -607,7 +609,7 @@ async function signup(email: string, pass: string, userName: string) {
         throw error
     }
     // console.log(responseData)
-    updateProfile(responseData.idToken, userName, '../test/asd.png')
+    updateProfile(responseData.idToken, userName, '../imgs/letsdoit.jpg')
 }
 /* *********** End Signup **************/
 /* *********** [2] SignIn **************/
@@ -663,7 +665,8 @@ async function getProfileData(userAuth: string) {
     }
     userName = responseData.users[0].displayName;
     email = responseData.users[0].email;
-    userphoto = responseData.users[0].photoUrl;
+    // userphoto = responseData.users[0].photoUrl;
+    userphoto = '../imgs/letsdoit.jpg';
     // console.log('userName : ' + userName, 'email : ' + email, 'user userphoto : ' + userphoto)
     showUserInfo()
 }
