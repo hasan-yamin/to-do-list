@@ -67,7 +67,8 @@ ul {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    margin-bottom: 15px; }
+    margin-bottom: 15px;
+    position: relative; }
     .container .to-do-list .title .navbar > p {
       font-size: 15px;
       text-transform: capitalize;

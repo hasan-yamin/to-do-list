@@ -1,60 +1,41 @@
 // import Taskq from './module'
 
 /* *********** Start Authentication **************/
+
+/* *********** Start change aauth page **************/
+let changeAuthPage: HTMLButtonElement | null = <HTMLButtonElement>document.getElementById('change-auth');
+if (changeAuthPage !== null) {
+    changeAuthPage.addEventListener('click', function () {
+        //Hide error message
+        let ErrorMsg: HTMLDivElement | null = <HTMLDivElement>document.getElementById('error');
+        ErrorMsg.style.display = 'none'
+
+        if (changeAuthPage?.innerHTML === 'Create new account') {
+            changeAuthPage.innerHTML = 'Sign in'
+            let loginPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('login');
+            loginPage.classList.remove('show')
+
+            let signupPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('signup');
+            signupPage.classList.add('show')
+
+        } else if (changeAuthPage?.innerHTML === 'Sign in') {
+            changeAuthPage.innerHTML = 'Create new account'
+            let loginPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('login');
+            loginPage.classList.add('show')
+
+            let signupPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('signup');
+            signupPage.classList.remove('show')
+
+        }
+    })
+}
+/* *********** End change aauth page **************/
+
 let userId: string = '',
     userAuth: string = '',
     userName: string = '',
     email: string = '',
     userphoto: string = '';
-/* *********** Start login **************/
-let loginForm: HTMLFormElement | null = <HTMLFormElement>document.getElementById('login-form');
-if (loginForm !== null) {
-    loginForm.addEventListener('submit', async function (e) {
-        e.preventDefault();
-        const mail: string | null = e.target.email.value.trim()
-        const pass: string | null = e.target.password.value.trim()
-        if (pass != null && mail != null) {
-            try {
-                await signin(mail, pass)
-                let authPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('auth');
-                authPage.style.display = 'none'
-                // updateProfile()
-                getProfileData()
-
-                //Show to do list
-                let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
-                todo.classList.add('show')
-                tasks()
-            } catch (err) {
-                // console.log('Signin Error', err)
-                //Show error message
-                let ErrorMsg: HTMLDivElement | null = <HTMLDivElement>document.getElementById('error');
-                ErrorMsg.innerHTML = err + '';
-                ErrorMsg.style.display = 'block'
-            }
-        }
-
-    })
-}
-
-async function signin(email: string, pass: string) {
-    const response = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key= AIzaSyAMPai0xIg6Rs5-7BaPVphtDONiMQAR2GM ", {
-        method: 'POST',
-        body: JSON.stringify({
-            email: email,
-            password: pass,
-            returnSecureToken: true,
-        })
-    });
-    const responseData = await response.json();
-    if (!response.ok) {
-        const error = new Error(responseData.error.message || 'Signin Error');
-        throw error
-    }
-    userId = responseData.localId;
-    userAuth = responseData.idToken;
-}
-/* *********** end login **************/
 
 /* *********** Start Signup **************/
 let signupForm: HTMLFormElement | null = <HTMLFormElement>document.getElementById('signup-form');
@@ -86,111 +67,68 @@ if (signupForm !== null) {
         }
     })
 }
-
-async function signup(email: string, pass: string, userName: string) {
-    const response = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key= AIzaSyAMPai0xIg6Rs5-7BaPVphtDONiMQAR2GM ", {
-        method: 'POST',
-        body: JSON.stringify({
-            email: email,
-            password: pass,
-            returnSecureToken: true,
-        })
-    });
-    const responseData = await response.json();
-    if (!response.ok) {
-        const error = new Error(responseData.error.message || 'Signup Error');
-        throw error
-    }
-    // console.log(responseData)
-    updateProfile(responseData.idToken, userName, '../test/asd.png')
-}
 /* *********** End Signup **************/
+/* *********** Start login **************/
+let loginForm: HTMLFormElement | null = <HTMLFormElement>document.getElementById('login-form');
+if (loginForm !== null) {
+    loginForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const mail: string | null = e.target.email.value.trim()
+        const pass: string | null = e.target.password.value.trim()
+        if (pass != null && mail != null) {
+            try {
+                await signin(mail, pass)
+                let authPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('auth');
+                authPage.style.display = 'none'
+                // updateProfile()
+                getProfileData(userAuth)
 
-/* *********** Update Profile **************/
-async function updateProfile(userAuth: string, userName: string, photourl: string) {
-    const response = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAMPai0xIg6Rs5-7BaPVphtDONiMQAR2GM ", {
-        method: 'POST',
-        body: JSON.stringify({
-            idToken: userAuth,
-            displayName: userName,
-            photoUrl: photourl,
-            returnSecureToken: true,
-        })
-    });
-    const responseData = await response.json();
-    if (!response.ok) {
-        const error = new Error(responseData.error.message || 'Update Profile Error');
-        throw error
-    }
-    console.log('update profile', responseData)
+                //Show to do list
+                let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
+                todo.classList.add('show')
+                tasks()
+            } catch (err) {
+                // console.log('Signin Error', err)
+                //Show error message
+                let ErrorMsg: HTMLDivElement | null = <HTMLDivElement>document.getElementById('error');
+                ErrorMsg.innerHTML = err + '';
+                ErrorMsg.style.display = 'block'
+            }
+        }
+
+    })
 }
-/* *********** End Update Profile **************/
-
-/* *********** get Profile data **************/
-async function getProfileData() {
-    const response = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAMPai0xIg6Rs5-7BaPVphtDONiMQAR2GM ", {
-        method: 'POST',
-        body: JSON.stringify({
-            idToken: userAuth,
-        })
-    });
-    const responseData = await response.json();
-    if (!response.ok) {
-        const error = new Error(responseData.error.message || 'Signin Error');
-        throw error
-    }
-    userName = responseData.users[0].displayName;
-    email = responseData.users[0].email;
-    userphoto = responseData.users[0].photoUrl;
-    console.log('userName : ' + userName, 'email : ' + email, 'user userphoto : ' + userphoto)
-    showUserInfo()
+/* *********** End login **************/
+/* *********** reser Password **************/
+let resetPassword: HTMLSpanElement | null = <HTMLSpanElement>document.getElementById('forget-pass');
+if (resetPassword !== null) {
+    resetPassword.addEventListener('click', async function () {
+        let userEmail: HTMLInputElement | null = <HTMLInputElement>document.getElementById('signin-email');
+        if (userEmail.value !== null) {
+            try {
+                await setNewPassword(userEmail.value)
+            } catch (err) {
+                console.log('asdasdas Error', err)
+            }
+        }
+    })
 }
-/* *********** End get Profile data**************/
-
+/* *********** reser Password **************/
 /* *********** Show Profile data**************/
 function showUserInfo() {
     let showUserName: HTMLFormElement | null = <HTMLFormElement>document.getElementById('user-name');
     showUserName.innerHTML = userName
-    console.log('Hi ', userName)
+    // console.log('Hi ', userName)
 }
-
 /* *********** End show Profile data**************/
-
-/* *********** Start change aauth page **************/
-let changeAuthPage: HTMLButtonElement | null = <HTMLButtonElement>document.getElementById('change-auth');
-if (changeAuthPage !== null) {
-    changeAuthPage.addEventListener('click', function () {
-        //Hide error message
-        let ErrorMsg: HTMLDivElement | null = <HTMLDivElement>document.getElementById('error');
-        ErrorMsg.style.display = 'none'
-
-        if (changeAuthPage?.innerHTML === 'Create new account') {
-            changeAuthPage.innerHTML = 'Sign in'
-            let loginPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('login');
-            loginPage.classList.remove('show')
-
-            let signupPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('signup');
-            signupPage.classList.add('show')
-
-        } else if (changeAuthPage?.innerHTML === 'Sign in') {
-            changeAuthPage.innerHTML = 'Create new account'
-            let loginPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('login');
-            loginPage.classList.add('show')
-
-            let signupPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('signup');
-            signupPage.classList.remove('show')
-
-        }
-    })
-}
-
-/* *********** End change aauth page **************/
-
 /* *********** Start Logout **************/
 let logOut: HTMLButtonElement | null = <HTMLButtonElement>document.getElementById('logout');
 logOut.addEventListener('click', function () {
-    userId = ''
-    userAuth = ''
+    userId = '';
+    userAuth = '';
+    userName = '';
+    email = '';
+    userphoto = '';
     //Hide to do list
     let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
     todo.classList.remove('show')
@@ -203,7 +141,6 @@ logOut.addEventListener('click', function () {
     let ErrorMsg: HTMLDivElement | null = <HTMLDivElement>document.getElementById('error');
     ErrorMsg.style.display = 'none'
 })
-
 /* *********** End Logout **************/
 /* *********** End Authentication **************/
 
@@ -214,25 +151,28 @@ if (usrNam !== null) {
         let settingMenu: HTMLUListElement | null = <HTMLUListElement>document.getElementById('setting-menu')
         if (settingMenu !== null) {
             settingMenu.classList.toggle('show')
-            console.log('settingMenu')
             let updateProfileBtn: HTMLLIElement | null = <HTMLLIElement>document.getElementById('update-profile')
             if (updateProfileBtn !== null) {
                 updateProfileBtn.addEventListener('click', function () {
-                    console.log('updateProfileBtn')
                     let settings: HTMLDivElement | null = <HTMLDivElement>document.getElementById('settings')
                     if (settings !== null) {
                         //hide settings
                         settings.classList.add('show')
-                        console.log('settings')
                         //hide to do list
                         let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
                         todo.classList.remove('show')
                         let updateProfileForm: HTMLFormElement | null = <HTMLFormElement>document.getElementById('update-info');
+                        // show user name
+                        let updateUsername: HTMLInputElement | null = <HTMLInputElement>document.getElementById('update-username');
+                        updateUsername.value = userName;
+                        // show email address
+                        let updateEmail: HTMLInputElement | null = <HTMLInputElement>document.getElementById('update-email');
+                        updateEmail.value = email;
+
                         if (updateProfileForm !== null) {
                             updateProfileForm.addEventListener('submit', async function (e) {
                                 e.preventDefault();
                                 const newUsername: string | null = e.target.updateUsername.value.trim()
-                                // const newEmail: string | null = e.target.updateEmail.value.trim()
                                 if (newUsername != null && newUsername.length > 3) {
                                     try {
                                         await updateProfile(userAuth, newUsername, 'noimage.png')
@@ -242,7 +182,7 @@ if (usrNam !== null) {
                                         //Show to do list
                                         let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
                                         todo.classList.add('show')
-                                        getProfileData()
+                                        getProfileData(userAuth)
                                     } catch (err) {
                                         console.log('update Error', err)
                                     }
@@ -260,6 +200,34 @@ if (usrNam !== null) {
                                 todo.classList.add('show')
                             })
                         }
+                        /* *********** Delete Account **************/
+                        let DeleteAccount: HTMLButtonElement | null = <HTMLButtonElement>document.getElementById('delete-account');
+                        if (DeleteAccount !== null) {
+                            DeleteAccount.addEventListener('click', async function () {
+                                try {
+                                    await deleteAccount(userAuth)
+                                    if (settings !== null) {
+                                        settings.classList.remove('show')
+                                    }
+                                    userId = '';
+                                    userAuth = '';
+                                    userName = '';
+                                    email = '';
+                                    userphoto = '';
+                                    allTasks = [];
+                                    showTasks(allTasks)
+                                    //Hide to do page
+                                    let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
+                                    todo.classList.remove('show')
+                                    //Show signup page
+                                    let authPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('auth');
+                                    authPage.style.display = 'flex'
+                                } catch (err) {
+                                    console.log('Delete Error', err)
+                                }
+                            })
+                        }
+                        /* *********** End Delete Account **************/
                     }
                 })
             }
@@ -269,7 +237,7 @@ if (usrNam !== null) {
 }
 /* *********** End Settings **************/
 
-// console.log(Taskq)
+
 class Task {
     private _taskName: string
     private _deadLine: string
@@ -373,6 +341,11 @@ addToDo.addEventListener('click', async function () {
 
 
 
+
+
+/*************************************************************************************
+********************************* Tasks functions ************************************
+**************************************************************************************/
 function showTasks(allTasks: (Task)[]) {
     let list = document.getElementsByClassName('list')[0]
     list.innerHTML = ''
@@ -380,8 +353,6 @@ function showTasks(allTasks: (Task)[]) {
         createCard(tsk.getTaskName(), tsk.getDeadLine(), tsk.getDone(), tsk.getTaskId())
     });
 }
-
-
 function createCard(inputText: string, deaddate: string, taskDone: boolean, taskId: string) {
     let checkd: string = (taskDone) ? 'checked' : ' '
     //edit
@@ -443,7 +414,6 @@ function createCard(inputText: string, deaddate: string, taskDone: boolean, task
     list.appendChild(listCard)
 
 }
-
 /* [1] 'GET' get all tasks from firebase db */
 async function getTasks() {
     let url: string = `https://todolist-42b5f-default-rtdb.firebaseio.com/users/${userId}.json?auth=${userAuth}`
@@ -464,7 +434,6 @@ async function getTasks() {
     //     return responseData
     // })
 }
-
 /* [2] 'POST' save new task to firebase db */
 async function saveTasks(tsk: Task) {
     let url: string = `https://todolist-42b5f-default-rtdb.firebaseio.com/users/${userId}.json?auth=${userAuth}`
@@ -486,7 +455,6 @@ async function saveTasks(tsk: Task) {
         tasks()
     }
 }
-
 /* [3] 'DELETE' delete a task from firebase db */
 async function deleteCard(event: any) {
     // delete task localy
@@ -516,7 +484,6 @@ async function deleteCard(event: any) {
 
 
 }
-
 /* [4] 'PUT' update data in task on firebase db */
 function editCard(event: any) {
     editID = event.parentElement.parentElement.parentElement.getAttribute('data-id')
@@ -524,7 +491,6 @@ function editCard(event: any) {
     editContent.style.display = 'flex';
     editInText.value = oldName;
 }
-
 async function editDone(event: any) {
     let editDeadtime: HTMLInputElement | null = <HTMLInputElement>document.getElementById('edit-deadtime');
     const newName = editInText.value
@@ -567,7 +533,6 @@ async function check(event: any) {
         });
     }
 }
-
 function compareDates(d1: string, d2: string): number {
     let date1 = new Date(d1).getTime();
     let date2 = new Date(d2).getTime();
@@ -580,14 +545,12 @@ function compareDates(d1: string, d2: string): number {
         return 0;
     }
 }
-
 // filters
 // filter by status (complete, active)
 taskFilterStatus.addEventListener('change', () => {
     filterStatus()
 })
 function filterStatus() {
-    // console.log('taskFilter changed to : ', taskFilterStatus.value)
     let filterValue: boolean
     if (taskFilterStatus.value === 'completed') {
         filterValue = true
@@ -603,11 +566,8 @@ function filterStatus() {
             return task
         }
     })
-    // console.log('filteredTasks', filteredTasks)
     showTasks(filteredTasks)
 }
-
-
 // filter by start date
 // filterStartDate.addEventListener('change', () => {
 //     filterDate()
@@ -627,3 +587,115 @@ function filterStatus() {
 //     })
 //     showTasks(filteredTasks)
 // } 
+
+/*************************************************************************************
+********************************* ACOUNT SETTING *************************************
+**************************************************************************************/
+/* *********** [1] SignUp **************/
+async function signup(email: string, pass: string, userName: string) {
+    const response = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key= AIzaSyAMPai0xIg6Rs5-7BaPVphtDONiMQAR2GM ", {
+        method: 'POST',
+        body: JSON.stringify({
+            email: email,
+            password: pass,
+            returnSecureToken: true,
+        })
+    });
+    const responseData = await response.json();
+    if (!response.ok) {
+        const error = new Error(responseData.error.message || 'Signup Error');
+        throw error
+    }
+    // console.log(responseData)
+    updateProfile(responseData.idToken, userName, '../test/asd.png')
+}
+/* *********** End Signup **************/
+/* *********** [2] SignIn **************/
+async function signin(email: string, pass: string) {
+    const response = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key= AIzaSyAMPai0xIg6Rs5-7BaPVphtDONiMQAR2GM ", {
+        method: 'POST',
+        body: JSON.stringify({
+            email: email,
+            password: pass,
+            returnSecureToken: true,
+        })
+    });
+    const responseData = await response.json();
+    if (!response.ok) {
+        const error = new Error(responseData.error.message || 'Signin Error');
+        throw error
+    }
+    userId = responseData.localId;
+    userAuth = responseData.idToken;
+}
+/* *********** end SignIn **************/
+/* *********** [3] Update Profile **************/
+async function updateProfile(userAuth: string, userName: string, photourl: string) {
+    const response = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAMPai0xIg6Rs5-7BaPVphtDONiMQAR2GM ", {
+        method: 'POST',
+        body: JSON.stringify({
+            idToken: userAuth,
+            displayName: userName,
+            photoUrl: photourl,
+            returnSecureToken: true,
+        })
+    });
+    const responseData = await response.json();
+    if (!response.ok) {
+        const error = new Error(responseData.error.message || 'Update Profile Error');
+        throw error
+    }
+    // console.log('update profile', responseData)
+}
+/* *********** End Update Profile **************/
+/* *********** [4] get Profile data **************/
+async function getProfileData(userAuth: string) {
+    const response = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAMPai0xIg6Rs5-7BaPVphtDONiMQAR2GM ", {
+        method: 'POST',
+        body: JSON.stringify({
+            idToken: userAuth,
+        })
+    });
+    const responseData = await response.json();
+    if (!response.ok) {
+        const error = new Error(responseData.error.message || 'Signin Error');
+        throw error
+    }
+    userName = responseData.users[0].displayName;
+    email = responseData.users[0].email;
+    userphoto = responseData.users[0].photoUrl;
+    // console.log('userName : ' + userName, 'email : ' + email, 'user userphoto : ' + userphoto)
+    showUserInfo()
+}
+/* *********** End get Profile data**************/
+/* *********** [5] reset password **************/
+async function setNewPassword(email: string) {
+    const response = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAMPai0xIg6Rs5-7BaPVphtDONiMQAR2GM ", {
+        method: 'POST',
+        body: JSON.stringify({
+            email: email,
+            requestType: 'PASSWORD_RESET',
+        })
+    });
+    const responseData = await response.json();
+    if (!response.ok) {
+        const error = new Error(responseData.error.message || 'reset email Error');
+        throw error
+    }
+}
+/* *********** End reset password **************/
+/* *********** [6] Delete Account **************/
+async function deleteAccount(userAuth: string) {
+    const response = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:delete?key=AIzaSyAMPai0xIg6Rs5-7BaPVphtDONiMQAR2GM ", {
+        method: 'POST',
+        body: JSON.stringify({
+            idToken: userAuth,
+        })
+    });
+    const responseData = await response.json();
+    if (!response.ok) {
+        const error = new Error(responseData.error.message || 'Delete account Error');
+        throw error
+    }
+}
+/* *********** End Delete Account **************/

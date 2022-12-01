@@ -10,58 +10,31 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 /* *********** Start Authentication **************/
-let userId = '', userAuth = '', userName = '', email = '', userphoto = '';
-/* *********** Start login **************/
-let loginForm = document.getElementById('login-form');
-if (loginForm !== null) {
-    loginForm.addEventListener('submit', function (e) {
-        return __awaiter(this, void 0, void 0, function* () {
-            e.preventDefault();
-            const mail = e.target.email.value.trim();
-            const pass = e.target.password.value.trim();
-            if (pass != null && mail != null) {
-                try {
-                    yield signin(mail, pass);
-                    let authPage = document.getElementById('auth');
-                    authPage.style.display = 'none';
-                    // updateProfile()
-                    getProfileData();
-                    //Show to do list
-                    let todo = document.getElementById('to-do-list');
-                    todo.classList.add('show');
-                    tasks();
-                }
-                catch (err) {
-                    // console.log('Signin Error', err)
-                    //Show error message
-                    let ErrorMsg = document.getElementById('error');
-                    ErrorMsg.innerHTML = err + '';
-                    ErrorMsg.style.display = 'block';
-                }
-            }
-        });
-    });
-}
-function signin(email, pass) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const response = yield fetch("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key= AIzaSyAMPai0xIg6Rs5-7BaPVphtDONiMQAR2GM ", {
-            method: 'POST',
-            body: JSON.stringify({
-                email: email,
-                password: pass,
-                returnSecureToken: true,
-            })
-        });
-        const responseData = yield response.json();
-        if (!response.ok) {
-            const error = new Error(responseData.error.message || 'Signin Error');
-            throw error;
+/* *********** Start change aauth page **************/
+let changeAuthPage = document.getElementById('change-auth');
+if (changeAuthPage !== null) {
+    changeAuthPage.addEventListener('click', function () {
+        //Hide error message
+        let ErrorMsg = document.getElementById('error');
+        ErrorMsg.style.display = 'none';
+        if ((changeAuthPage === null || changeAuthPage === void 0 ? void 0 : changeAuthPage.innerHTML) === 'Create new account') {
+            changeAuthPage.innerHTML = 'Sign in';
+            let loginPage = document.getElementById('login');
+            loginPage.classList.remove('show');
+            let signupPage = document.getElementById('signup');
+            signupPage.classList.add('show');
         }
-        userId = responseData.localId;
-        userAuth = responseData.idToken;
+        else if ((changeAuthPage === null || changeAuthPage === void 0 ? void 0 : changeAuthPage.innerHTML) === 'Sign in') {
+            changeAuthPage.innerHTML = 'Create new account';
+            let loginPage = document.getElementById('login');
+            loginPage.classList.add('show');
+            let signupPage = document.getElementById('signup');
+            signupPage.classList.remove('show');
+        }
     });
 }
-/* *********** end login **************/
+/* *********** End change aauth page **************/
+let userId = '', userAuth = '', userName = '', email = '', userphoto = '';
 /* *********** Start Signup **************/
 let signupForm = document.getElementById('signup-form');
 if (signupForm !== null) {
@@ -95,105 +68,72 @@ if (signupForm !== null) {
         });
     });
 }
-function signup(email, pass, userName) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const response = yield fetch("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key= AIzaSyAMPai0xIg6Rs5-7BaPVphtDONiMQAR2GM ", {
-            method: 'POST',
-            body: JSON.stringify({
-                email: email,
-                password: pass,
-                returnSecureToken: true,
-            })
-        });
-        const responseData = yield response.json();
-        if (!response.ok) {
-            const error = new Error(responseData.error.message || 'Signup Error');
-            throw error;
-        }
-        // console.log(responseData)
-        updateProfile(responseData.idToken, userName, '../test/asd.png');
-    });
-}
 /* *********** End Signup **************/
-/* *********** Update Profile **************/
-function updateProfile(userAuth, userName, photourl) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const response = yield fetch("https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAMPai0xIg6Rs5-7BaPVphtDONiMQAR2GM ", {
-            method: 'POST',
-            body: JSON.stringify({
-                idToken: userAuth,
-                displayName: userName,
-                photoUrl: photourl,
-                returnSecureToken: true,
-            })
+/* *********** Start login **************/
+let loginForm = document.getElementById('login-form');
+if (loginForm !== null) {
+    loginForm.addEventListener('submit', function (e) {
+        return __awaiter(this, void 0, void 0, function* () {
+            e.preventDefault();
+            const mail = e.target.email.value.trim();
+            const pass = e.target.password.value.trim();
+            if (pass != null && mail != null) {
+                try {
+                    yield signin(mail, pass);
+                    let authPage = document.getElementById('auth');
+                    authPage.style.display = 'none';
+                    // updateProfile()
+                    getProfileData(userAuth);
+                    //Show to do list
+                    let todo = document.getElementById('to-do-list');
+                    todo.classList.add('show');
+                    tasks();
+                }
+                catch (err) {
+                    // console.log('Signin Error', err)
+                    //Show error message
+                    let ErrorMsg = document.getElementById('error');
+                    ErrorMsg.innerHTML = err + '';
+                    ErrorMsg.style.display = 'block';
+                }
+            }
         });
-        const responseData = yield response.json();
-        if (!response.ok) {
-            const error = new Error(responseData.error.message || 'Update Profile Error');
-            throw error;
-        }
-        console.log('update profile', responseData);
     });
 }
-/* *********** End Update Profile **************/
-/* *********** get Profile data **************/
-function getProfileData() {
-    return __awaiter(this, void 0, void 0, function* () {
-        const response = yield fetch("https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAMPai0xIg6Rs5-7BaPVphtDONiMQAR2GM ", {
-            method: 'POST',
-            body: JSON.stringify({
-                idToken: userAuth,
-            })
+/* *********** End login **************/
+/* *********** reser Password **************/
+let resetPassword = document.getElementById('forget-pass');
+if (resetPassword !== null) {
+    resetPassword.addEventListener('click', function () {
+        return __awaiter(this, void 0, void 0, function* () {
+            let userEmail = document.getElementById('signin-email');
+            if (userEmail.value !== null) {
+                try {
+                    yield setNewPassword(userEmail.value);
+                }
+                catch (err) {
+                    console.log('asdasdas Error', err);
+                }
+            }
         });
-        const responseData = yield response.json();
-        if (!response.ok) {
-            const error = new Error(responseData.error.message || 'Signin Error');
-            throw error;
-        }
-        userName = responseData.users[0].displayName;
-        email = responseData.users[0].email;
-        userphoto = responseData.users[0].photoUrl;
-        console.log('userName : ' + userName, 'email : ' + email, 'user userphoto : ' + userphoto);
-        showUserInfo();
     });
 }
-/* *********** End get Profile data**************/
+/* *********** reser Password **************/
 /* *********** Show Profile data**************/
 function showUserInfo() {
     let showUserName = document.getElementById('user-name');
     showUserName.innerHTML = userName;
-    console.log('Hi ', userName);
+    // console.log('Hi ', userName)
 }
 /* *********** End show Profile data**************/
-/* *********** Start change aauth page **************/
-let changeAuthPage = document.getElementById('change-auth');
-if (changeAuthPage !== null) {
-    changeAuthPage.addEventListener('click', function () {
-        //Hide error message
-        let ErrorMsg = document.getElementById('error');
-        ErrorMsg.style.display = 'none';
-        if ((changeAuthPage === null || changeAuthPage === void 0 ? void 0 : changeAuthPage.innerHTML) === 'Create new account') {
-            changeAuthPage.innerHTML = 'Sign in';
-            let loginPage = document.getElementById('login');
-            loginPage.classList.remove('show');
-            let signupPage = document.getElementById('signup');
-            signupPage.classList.add('show');
-        }
-        else if ((changeAuthPage === null || changeAuthPage === void 0 ? void 0 : changeAuthPage.innerHTML) === 'Sign in') {
-            changeAuthPage.innerHTML = 'Create new account';
-            let loginPage = document.getElementById('login');
-            loginPage.classList.add('show');
-            let signupPage = document.getElementById('signup');
-            signupPage.classList.remove('show');
-        }
-    });
-}
-/* *********** End change aauth page **************/
 /* *********** Start Logout **************/
 let logOut = document.getElementById('logout');
 logOut.addEventListener('click', function () {
     userId = '';
     userAuth = '';
+    userName = '';
+    email = '';
+    userphoto = '';
     //Hide to do list
     let todo = document.getElementById('to-do-list');
     todo.classList.remove('show');
@@ -215,26 +155,28 @@ if (usrNam !== null) {
         let settingMenu = document.getElementById('setting-menu');
         if (settingMenu !== null) {
             settingMenu.classList.toggle('show');
-            console.log('settingMenu');
             let updateProfileBtn = document.getElementById('update-profile');
             if (updateProfileBtn !== null) {
                 updateProfileBtn.addEventListener('click', function () {
-                    console.log('updateProfileBtn');
                     let settings = document.getElementById('settings');
                     if (settings !== null) {
                         //hide settings
                         settings.classList.add('show');
-                        console.log('settings');
                         //hide to do list
                         let todo = document.getElementById('to-do-list');
                         todo.classList.remove('show');
                         let updateProfileForm = document.getElementById('update-info');
+                        // show user name
+                        let updateUsername = document.getElementById('update-username');
+                        updateUsername.value = userName;
+                        // show email address
+                        let updateEmail = document.getElementById('update-email');
+                        updateEmail.value = email;
                         if (updateProfileForm !== null) {
                             updateProfileForm.addEventListener('submit', function (e) {
                                 return __awaiter(this, void 0, void 0, function* () {
                                     e.preventDefault();
                                     const newUsername = e.target.updateUsername.value.trim();
-                                    // const newEmail: string | null = e.target.updateEmail.value.trim()
                                     if (newUsername != null && newUsername.length > 3) {
                                         try {
                                             yield updateProfile(userAuth, newUsername, 'noimage.png');
@@ -244,7 +186,7 @@ if (usrNam !== null) {
                                             //Show to do list
                                             let todo = document.getElementById('to-do-list');
                                             todo.classList.add('show');
-                                            getProfileData();
+                                            getProfileData(userAuth);
                                         }
                                         catch (err) {
                                             console.log('update Error', err);
@@ -264,6 +206,37 @@ if (usrNam !== null) {
                                 todo.classList.add('show');
                             });
                         }
+                        /* *********** Delete Account **************/
+                        let DeleteAccount = document.getElementById('delete-account');
+                        if (DeleteAccount !== null) {
+                            DeleteAccount.addEventListener('click', function () {
+                                return __awaiter(this, void 0, void 0, function* () {
+                                    try {
+                                        yield deleteAccount(userAuth);
+                                        if (settings !== null) {
+                                            settings.classList.remove('show');
+                                        }
+                                        userId = '';
+                                        userAuth = '';
+                                        userName = '';
+                                        email = '';
+                                        userphoto = '';
+                                        allTasks = [];
+                                        showTasks(allTasks);
+                                        //Hide to do page
+                                        let todo = document.getElementById('to-do-list');
+                                        todo.classList.remove('show');
+                                        //Show signup page
+                                        let authPage = document.getElementById('auth');
+                                        authPage.style.display = 'flex';
+                                    }
+                                    catch (err) {
+                                        console.log('Delete Error', err);
+                                    }
+                                });
+                            });
+                        }
+                        /* *********** End Delete Account **************/
                     }
                 });
             }
@@ -271,7 +244,6 @@ if (usrNam !== null) {
     });
 }
 /* *********** End Settings **************/
-// console.log(Taskq)
 class Task {
     constructor(taskName, deadLine, done, jsonId, taskId) {
         this._taskName = taskName;
@@ -359,6 +331,9 @@ addToDo.addEventListener('click', function () {
         }
     });
 });
+/*************************************************************************************
+********************************* Tasks functions ************************************
+**************************************************************************************/
 function showTasks(allTasks) {
     let list = document.getElementsByClassName('list')[0];
     list.innerHTML = '';
@@ -570,7 +545,6 @@ taskFilterStatus.addEventListener('change', () => {
     filterStatus();
 });
 function filterStatus() {
-    // console.log('taskFilter changed to : ', taskFilterStatus.value)
     let filterValue;
     if (taskFilterStatus.value === 'completed') {
         filterValue = true;
@@ -587,7 +561,6 @@ function filterStatus() {
             return task;
         }
     });
-    // console.log('filteredTasks', filteredTasks)
     showTasks(filteredTasks);
 }
 // filter by start date
@@ -609,3 +582,126 @@ function filterStatus() {
 //     })
 //     showTasks(filteredTasks)
 // } 
+/*************************************************************************************
+********************************* ACOUNT SETTING *************************************
+**************************************************************************************/
+/* *********** [1] SignUp **************/
+function signup(email, pass, userName) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const response = yield fetch("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key= AIzaSyAMPai0xIg6Rs5-7BaPVphtDONiMQAR2GM ", {
+            method: 'POST',
+            body: JSON.stringify({
+                email: email,
+                password: pass,
+                returnSecureToken: true,
+            })
+        });
+        const responseData = yield response.json();
+        if (!response.ok) {
+            const error = new Error(responseData.error.message || 'Signup Error');
+            throw error;
+        }
+        // console.log(responseData)
+        updateProfile(responseData.idToken, userName, '../test/asd.png');
+    });
+}
+/* *********** End Signup **************/
+/* *********** [2] SignIn **************/
+function signin(email, pass) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const response = yield fetch("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key= AIzaSyAMPai0xIg6Rs5-7BaPVphtDONiMQAR2GM ", {
+            method: 'POST',
+            body: JSON.stringify({
+                email: email,
+                password: pass,
+                returnSecureToken: true,
+            })
+        });
+        const responseData = yield response.json();
+        if (!response.ok) {
+            const error = new Error(responseData.error.message || 'Signin Error');
+            throw error;
+        }
+        userId = responseData.localId;
+        userAuth = responseData.idToken;
+    });
+}
+/* *********** end SignIn **************/
+/* *********** [3] Update Profile **************/
+function updateProfile(userAuth, userName, photourl) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const response = yield fetch("https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAMPai0xIg6Rs5-7BaPVphtDONiMQAR2GM ", {
+            method: 'POST',
+            body: JSON.stringify({
+                idToken: userAuth,
+                displayName: userName,
+                photoUrl: photourl,
+                returnSecureToken: true,
+            })
+        });
+        const responseData = yield response.json();
+        if (!response.ok) {
+            const error = new Error(responseData.error.message || 'Update Profile Error');
+            throw error;
+        }
+        // console.log('update profile', responseData)
+    });
+}
+/* *********** End Update Profile **************/
+/* *********** [4] get Profile data **************/
+function getProfileData(userAuth) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const response = yield fetch("https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAMPai0xIg6Rs5-7BaPVphtDONiMQAR2GM ", {
+            method: 'POST',
+            body: JSON.stringify({
+                idToken: userAuth,
+            })
+        });
+        const responseData = yield response.json();
+        if (!response.ok) {
+            const error = new Error(responseData.error.message || 'Signin Error');
+            throw error;
+        }
+        userName = responseData.users[0].displayName;
+        email = responseData.users[0].email;
+        userphoto = responseData.users[0].photoUrl;
+        // console.log('userName : ' + userName, 'email : ' + email, 'user userphoto : ' + userphoto)
+        showUserInfo();
+    });
+}
+/* *********** End get Profile data**************/
+/* *********** [5] reset password **************/
+function setNewPassword(email) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const response = yield fetch("https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAMPai0xIg6Rs5-7BaPVphtDONiMQAR2GM ", {
+            method: 'POST',
+            body: JSON.stringify({
+                email: email,
+                requestType: 'PASSWORD_RESET',
+            })
+        });
+        const responseData = yield response.json();
+        if (!response.ok) {
+            const error = new Error(responseData.error.message || 'reset email Error');
+            throw error;
+        }
+    });
+}
+/* *********** End reset password **************/
+/* *********** [6] Delete Account **************/
+function deleteAccount(userAuth) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const response = yield fetch("https://identitytoolkit.googleapis.com/v1/accounts:delete?key=AIzaSyAMPai0xIg6Rs5-7BaPVphtDONiMQAR2GM ", {
+            method: 'POST',
+            body: JSON.stringify({
+                idToken: userAuth,
+            })
+        });
+        const responseData = yield response.json();
+        if (!response.ok) {
+            const error = new Error(responseData.error.message || 'Delete account Error');
+            throw error;
+        }
+    });
+}
+/* *********** End Delete Account **************/
