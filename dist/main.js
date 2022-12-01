@@ -34,7 +34,19 @@ if (changeAuthPage !== null) {
     });
 }
 /* *********** End change aauth page **************/
-let userId = '', userAuth = '', userName = '', email = '', userphoto = '';
+let userId = localStorage.getItem('userId'), userAuth = localStorage.getItem('userAuth'), userName = '', email = '', userphoto = '';
+/* *********** Start auto login ************/
+if (userAuth !== null && userAuth !== '' && userId !== null && userId !== '') {
+    // console.log('userAuth',userAuth)
+    getProfileData(userAuth);
+    let authPage = document.getElementById('auth');
+    authPage.style.display = 'none';
+    //Show to do list
+    let todo = document.getElementById('to-do-list');
+    todo.classList.add('show');
+    tasks();
+}
+/* *********** End auto login **************/
 /* *********** Start Signup **************/
 let signupForm = document.getElementById('signup-form');
 if (signupForm !== null) {
@@ -124,7 +136,9 @@ function showUserInfo() {
     let showUserName = document.getElementById('user-name');
     showUserName.innerHTML = userName;
     let showprofileImg = document.getElementById('profileimg');
-    showprofileImg.setAttribute('src', userphoto);
+    if (showprofileImg !== null) {
+        showprofileImg.setAttribute('src', userphoto);
+    }
     // console.log('src', userphoto)
 }
 /* *********** End show Profile data**************/
@@ -136,6 +150,9 @@ logOut.addEventListener('click', function () {
     userName = '';
     email = '';
     userphoto = '';
+    // delete session data from local storage
+    localStorage.removeItem('userAuth');
+    localStorage.removeItem('userId');
     //Hide to do list
     let todo = document.getElementById('to-do-list');
     todo.classList.remove('show');
@@ -626,6 +643,9 @@ function signin(email, pass) {
         }
         userId = responseData.localId;
         userAuth = responseData.idToken;
+        // store session in local storage to auto login
+        localStorage.setItem('userId', userId);
+        localStorage.setItem('userAuth', userAuth);
     });
 }
 /* *********** end SignIn **************/
@@ -705,6 +725,9 @@ function deleteAccount(userAuth) {
             const error = new Error(responseData.error.message || 'Delete account Error');
             throw error;
         }
+        // delete session data from local storage
+        localStorage.removeItem('userAuth');
+        localStorage.removeItem('userId');
     });
 }
 /* *********** End Delete Account **************/

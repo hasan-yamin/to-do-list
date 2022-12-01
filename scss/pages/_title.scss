@@ -31,10 +31,17 @@
                     .profileimg {
                         width: 30px;
                         height: 30px;
-                        border-radius: 50%;
+                        border-radius: 5px;
                         border: 2px solid $color2;
                         margin-left: 5px;
                         overflow: hidden;
+                        text-align: center;
+
+                        svg {
+                            line-height: 30px;
+                            font-size: 27px;
+                            color: $color2;
+                        }
 
                         img {
                             width: 100%;
@@ -51,7 +58,7 @@
                     align-items: flex-start;
                     transition: all 0.3s;
                     position: absolute;
-                    top: 21px;
+                    top: 26px;
                     right: 0px;
                     color: $color2;
 

@@ -31,11 +31,23 @@ if (changeAuthPage !== null) {
 }
 /* *********** End change aauth page **************/
 
-let userId: string = '',
-    userAuth: string = '',
+let userId: string = <string>localStorage.getItem('userId'),
+    userAuth: string = <string>localStorage.getItem('userAuth'),
     userName: string = '',
     email: string = '',
     userphoto: string = '';
+/* *********** Start auto login ************/
+if (userAuth !== null && userAuth !== '' && userId !== null && userId !== '') {
+    // console.log('userAuth',userAuth)
+    getProfileData(userAuth)
+    let authPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('auth');
+    authPage.style.display = 'none'
+    //Show to do list
+    let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
+    todo.classList.add('show')
+    tasks()
+}
+/* *********** End auto login **************/
 
 /* *********** Start Signup **************/
 let signupForm: HTMLFormElement | null = <HTMLFormElement>document.getElementById('signup-form');
@@ -119,7 +131,10 @@ function showUserInfo() {
     let showUserName: HTMLFormElement | null = <HTMLFormElement>document.getElementById('user-name');
     showUserName.innerHTML = userName
     let showprofileImg: HTMLImageElement | null = <HTMLImageElement>document.getElementById('profileimg');
-    showprofileImg.setAttribute('src', userphoto)
+    if (showprofileImg !== null) {
+        showprofileImg.setAttribute('src', userphoto)
+    }
+    
     // console.log('src', userphoto)
 }
 /* *********** End show Profile data**************/
@@ -131,6 +146,9 @@ logOut.addEventListener('click', function () {
     userName = '';
     email = '';
     userphoto = '';
+    // delete session data from local storage
+    localStorage.removeItem('userAuth');
+    localStorage.removeItem('userId');
     //Hide to do list
     let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
     todo.classList.remove('show')
@@ -629,6 +647,9 @@ async function signin(email: string, pass: string) {
     }
     userId = responseData.localId;
     userAuth = responseData.idToken;
+    // store session in local storage to auto login
+    localStorage.setItem('userId', userId);
+    localStorage.setItem('userAuth', userAuth);
 }
 /* *********** end SignIn **************/
 /* *********** [3] Update Profile **************/
@@ -700,5 +721,8 @@ async function deleteAccount(userAuth: string) {
         const error = new Error(responseData.error.message || 'Delete account Error');
         throw error
     }
+    // delete session data from local storage
+    localStorage.removeItem('userAuth');
+    localStorage.removeItem('userId');
 }
 /* *********** End Delete Account **************/
