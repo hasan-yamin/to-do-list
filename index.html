@@ -33,7 +33,7 @@
                 <h2>Sign Up</h2>
                 <form id="signup-form">
                     <div class="form-control">
-                        <input type="text" name="nam" id="nam" placeholder="Name" disabled>
+                        <input type="text" name="nam" id="nam" placeholder="Name">
                     </div>
                     <div class="form-control">
                         <input type="email" name="email" id="email" placeholder="E-mail">
@@ -47,14 +47,35 @@
             <div class="error" id="error">Error</div>
             <button type="button" id="change-auth">Create new account</button>
         </div>
+        <div class="settings" id="settings">
+            <form id="update-info" class="update-info">
+                <div class="form-control">
+                    <label for="update-username">User Name</label>
+                    <input type="text" name="updateUsername" id="update-username">
+                </div>
+                <div class="form-control">
+                    <label for="update-email">Email</label>
+                    <input type="email" name="updateEmail" id="update-email" disabled>
+                </div>
+                <div class="form-control">
+                    <label for="update-password">Password</label>
+                    <input type="password" name="updatePassword" id="update-password" disabled>
+                </div>
+                <button type="submit">Update</button>
+                <button type="button" id="cancel-update-profile">Cancel</button>
+            </form>
+        </div>
         <div class=" to-do-list" id="to-do-list">
-            <h1 class="title ">
-                <div class="setting">
-                    <!-- <span class="user-name" id="user-name">Hi Hasan</span> -->
-                    <button type="button" class="logout" id="logout">Logout</button>
+            <div class="title ">
+                <div class="navbar">
+                    <p>Hi <span class="user-name" id="user-name">??</span></p>
+                    <ul class="setting-menu" id="setting-menu">
+                        <li class="update-profile" id="update-profile">Update Profile</li>
+                        <li class="logout" id="logout"> Logout </li>
+                    </ul>
                 </div>
                 <span class="title-letsdo"><i class="fas fa-check-square me-1"></i>Let's do it</span>
-            </h1>
+            </div>
             <div class=" crd add-crd">
                 <div class="date-input">
                     <div>
@@ -77,7 +98,7 @@
                         <option value="active">Active</option>
                     </select>
                 </div>
-                <div class="filter-card">
+                <!-- <div class="filter-card">
                     <div class="date-card">
                         <label for="filter-start-date">From</label>
                         <input type="date" id="filter-start-date" name="filter-start-date" value="2022-01-01">
@@ -86,13 +107,13 @@
                         <label for="filter-end-date">To</label>
                         <input type="date" id="filter-end-date" name="deadtime" value="2030-12-31">
                     </div>
-                </div>
+                </div> -->
 
                 <!--  <select>
                     <option value="1">Added date</option>
                     <option value="2">Due date</option>
                 </select>
-                  <a href="#!" style="color: #23af89;" data-mdb-toggle="tooltip" title="Ascending"><i
+                <a href="#!" style="color: #23af89;" data-mdb-toggle="tooltip" title="Ascending"><i
                         class="fas fa-sort-amount-down-alt ms-2"></i></a> -->
             </div>
             <div class=" crd edit-content" id="edit-content">

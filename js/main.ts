@@ -2,33 +2,41 @@
 
 /* *********** Start Authentication **************/
 let userId: string = '',
-    userAuth: string = '';
+    userAuth: string = '',
+    userName: string = '',
+    email: string = '',
+    userphoto: string = '';
 /* *********** Start login **************/
 let loginForm: HTMLFormElement | null = <HTMLFormElement>document.getElementById('login-form');
-loginForm.addEventListener('submit', async function (e) {
-    e.preventDefault();
-    const mail: string | null = e.target.email.value.trim()
-    const pass: string | null = e.target.password.value.trim()
-    if (pass != null && mail != null) {
-        try {
-            await signin(mail, pass)
-            let authPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('auth');
-            authPage.style.display = 'none'
+if (loginForm !== null) {
+    loginForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const mail: string | null = e.target.email.value.trim()
+        const pass: string | null = e.target.password.value.trim()
+        if (pass != null && mail != null) {
+            try {
+                await signin(mail, pass)
+                let authPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('auth');
+                authPage.style.display = 'none'
+                // updateProfile()
+                getProfileData()
 
-            //Show to do list
-            let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
-            todo.classList.add('show')
-            tasks()
-        } catch (err) {
-            // console.log('Signin Error', err)
-            //Show error message
-            let ErrorMsg: HTMLDivElement | null = <HTMLDivElement>document.getElementById('error');
-            ErrorMsg.innerHTML = err + '';
-            ErrorMsg.style.display = 'block'
+                //Show to do list
+                let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
+                todo.classList.add('show')
+                tasks()
+            } catch (err) {
+                // console.log('Signin Error', err)
+                //Show error message
+                let ErrorMsg: HTMLDivElement | null = <HTMLDivElement>document.getElementById('error');
+                ErrorMsg.innerHTML = err + '';
+                ErrorMsg.style.display = 'block'
+            }
         }
-    }
 
-})
+    })
+}
+
 async function signin(email: string, pass: string) {
     const response = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key= AIzaSyAMPai0xIg6Rs5-7BaPVphtDONiMQAR2GM ", {
         method: 'POST',
@@ -50,32 +58,36 @@ async function signin(email: string, pass: string) {
 
 /* *********** Start Signup **************/
 let signupForm: HTMLFormElement | null = <HTMLFormElement>document.getElementById('signup-form');
-signupForm.addEventListener('submit', async function (e) {
-    e.preventDefault();
-    const mail: string | null = e.target.email.value.trim()
-    const pass: string | null = e.target.password.value.trim()
-    if (pass != null && mail != null) {
-        try {
-            await signup(mail, pass)
-            // hide signup page
-            let signupPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('signup');
-            signupPage.classList.remove('show')
-            // Show Signin Page
-            let loginPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('login');
-            loginPage.classList.add('show')
-            //Hide error message
-            let ErrorMsg: HTMLDivElement | null = <HTMLDivElement>document.getElementById('error');
-            ErrorMsg.style.display = 'none'
-        } catch (err) {
-            // console.log('Signup Error', err)
-            //Show error message
-            let ErrorMsg: HTMLDivElement | null = <HTMLDivElement>document.getElementById('error');
-            ErrorMsg.innerHTML = err + '';
-            ErrorMsg.style.display = 'block'
+if (signupForm !== null) {
+    signupForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const mail: string | null = e.target.email.value.trim()
+        const pass: string | null = e.target.password.value.trim()
+        const userName: string | null = e.target.nam.value.trim()
+        if (pass != null && mail != null && userName != null) {
+            try {
+                await signup(mail, pass, userName)
+                // hide signup page
+                let signupPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('signup');
+                signupPage.classList.remove('show')
+                // Show Signin Page
+                let loginPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('login');
+                loginPage.classList.add('show')
+                //Hide error message
+                let ErrorMsg: HTMLDivElement | null = <HTMLDivElement>document.getElementById('error');
+                ErrorMsg.style.display = 'none'
+            } catch (err) {
+                // console.log('Signup Error', err)
+                //Show error message
+                let ErrorMsg: HTMLDivElement | null = <HTMLDivElement>document.getElementById('error');
+                ErrorMsg.innerHTML = err + '';
+                ErrorMsg.style.display = 'block'
+            }
         }
-    }
-})
-async function signup(email: string, pass: string) {
+    })
+}
+
+async function signup(email: string, pass: string, userName: string) {
     const response = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key= AIzaSyAMPai0xIg6Rs5-7BaPVphtDONiMQAR2GM ", {
         method: 'POST',
         body: JSON.stringify({
@@ -90,34 +102,88 @@ async function signup(email: string, pass: string) {
         throw error
     }
     // console.log(responseData)
+    updateProfile(responseData.idToken, userName, '../test/asd.png')
 }
 /* *********** End Signup **************/
 
+/* *********** Update Profile **************/
+async function updateProfile(userAuth: string, userName: string, photourl: string) {
+    const response = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAMPai0xIg6Rs5-7BaPVphtDONiMQAR2GM ", {
+        method: 'POST',
+        body: JSON.stringify({
+            idToken: userAuth,
+            displayName: userName,
+            photoUrl: photourl,
+            returnSecureToken: true,
+        })
+    });
+    const responseData = await response.json();
+    if (!response.ok) {
+        const error = new Error(responseData.error.message || 'Update Profile Error');
+        throw error
+    }
+    console.log('update profile', responseData)
+}
+/* *********** End Update Profile **************/
+
+/* *********** get Profile data **************/
+async function getProfileData() {
+    const response = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAMPai0xIg6Rs5-7BaPVphtDONiMQAR2GM ", {
+        method: 'POST',
+        body: JSON.stringify({
+            idToken: userAuth,
+        })
+    });
+    const responseData = await response.json();
+    if (!response.ok) {
+        const error = new Error(responseData.error.message || 'Signin Error');
+        throw error
+    }
+    userName = responseData.users[0].displayName;
+    email = responseData.users[0].email;
+    userphoto = responseData.users[0].photoUrl;
+    console.log('userName : ' + userName, 'email : ' + email, 'user userphoto : ' + userphoto)
+    showUserInfo()
+}
+/* *********** End get Profile data**************/
+
+/* *********** Show Profile data**************/
+function showUserInfo() {
+    let showUserName: HTMLFormElement | null = <HTMLFormElement>document.getElementById('user-name');
+    showUserName.innerHTML = userName
+    console.log('Hi ', userName)
+}
+
+/* *********** End show Profile data**************/
+
 /* *********** Start change aauth page **************/
 let changeAuthPage: HTMLButtonElement | null = <HTMLButtonElement>document.getElementById('change-auth');
-changeAuthPage.addEventListener('click', function () {
-    //Hide error message
-    let ErrorMsg: HTMLDivElement | null = <HTMLDivElement>document.getElementById('error');
-    ErrorMsg.style.display = 'none'
+if (changeAuthPage !== null) {
+    changeAuthPage.addEventListener('click', function () {
+        //Hide error message
+        let ErrorMsg: HTMLDivElement | null = <HTMLDivElement>document.getElementById('error');
+        ErrorMsg.style.display = 'none'
 
-    if (changeAuthPage?.innerHTML === 'Create new account') {
-        changeAuthPage.innerHTML = 'Sign in'
-        let loginPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('login');
-        loginPage.classList.remove('show')
+        if (changeAuthPage?.innerHTML === 'Create new account') {
+            changeAuthPage.innerHTML = 'Sign in'
+            let loginPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('login');
+            loginPage.classList.remove('show')
 
-        let signupPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('signup');
-        signupPage.classList.add('show')
+            let signupPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('signup');
+            signupPage.classList.add('show')
 
-    } else if (changeAuthPage?.innerHTML === 'Sign in') {
-        changeAuthPage.innerHTML = 'Create new account'
-        let loginPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('login');
-        loginPage.classList.add('show')
+        } else if (changeAuthPage?.innerHTML === 'Sign in') {
+            changeAuthPage.innerHTML = 'Create new account'
+            let loginPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('login');
+            loginPage.classList.add('show')
 
-        let signupPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('signup');
-        signupPage.classList.remove('show')
+            let signupPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('signup');
+            signupPage.classList.remove('show')
 
-    }
-})
+        }
+    })
+}
+
 /* *********** End change aauth page **************/
 
 /* *********** Start Logout **************/
@@ -141,6 +207,67 @@ logOut.addEventListener('click', function () {
 /* *********** End Logout **************/
 /* *********** End Authentication **************/
 
+/* *********** Start Settings **************/
+let usrNam: HTMLSpanElement | null = <HTMLSpanElement>document.getElementById('user-name')
+if (usrNam !== null) {
+    usrNam.addEventListener('click', function () {
+        let settingMenu: HTMLUListElement | null = <HTMLUListElement>document.getElementById('setting-menu')
+        if (settingMenu !== null) {
+            settingMenu.classList.toggle('show')
+            console.log('settingMenu')
+            let updateProfileBtn: HTMLLIElement | null = <HTMLLIElement>document.getElementById('update-profile')
+            if (updateProfileBtn !== null) {
+                updateProfileBtn.addEventListener('click', function () {
+                    console.log('updateProfileBtn')
+                    let settings: HTMLDivElement | null = <HTMLDivElement>document.getElementById('settings')
+                    if (settings !== null) {
+                        //hide settings
+                        settings.classList.add('show')
+                        console.log('settings')
+                        //hide to do list
+                        let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
+                        todo.classList.remove('show')
+                        let updateProfileForm: HTMLFormElement | null = <HTMLFormElement>document.getElementById('update-info');
+                        if (updateProfileForm !== null) {
+                            updateProfileForm.addEventListener('submit', async function (e) {
+                                e.preventDefault();
+                                const newUsername: string | null = e.target.updateUsername.value.trim()
+                                // const newEmail: string | null = e.target.updateEmail.value.trim()
+                                if (newUsername != null && newUsername.length > 3) {
+                                    try {
+                                        await updateProfile(userAuth, newUsername, 'noimage.png')
+                                        if (settings !== null) {
+                                            settings.classList.remove('show')
+                                        }
+                                        //Show to do list
+                                        let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
+                                        todo.classList.add('show')
+                                        getProfileData()
+                                    } catch (err) {
+                                        console.log('update Error', err)
+                                    }
+                                }
+                            })
+                        }
+                        let cancelUpdateProfile: HTMLButtonElement | null = <HTMLButtonElement>document.getElementById('cancel-update-profile');
+                        if (cancelUpdateProfile !== null) {
+                            cancelUpdateProfile.addEventListener('click', function () {
+                                if (settings !== null) {
+                                    settings.classList.remove('show')
+                                }
+                                //Show to do list
+                                let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
+                                todo.classList.add('show')
+                            })
+                        }
+                    }
+                })
+            }
+        }
+
+    })
+}
+/* *********** End Settings **************/
 
 // console.log(Taskq)
 class Task {
@@ -194,10 +321,10 @@ class Task {
 
 }
 let taskFilterStatus: HTMLSelectElement = <HTMLSelectElement>document.querySelector('#task-filter-status')
-let filterStartDate: HTMLInputElement = <HTMLInputElement>document.querySelector('#filter-start-date')
-let filterEndDate: HTMLInputElement = <HTMLInputElement>document.querySelector('#filter-end-date')
-filterStartDate.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
-filterEndDate.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
+// let filterStartDate: HTMLInputElement = <HTMLInputElement>document.querySelector('#filter-start-date')
+// let filterEndDate: HTMLInputElement = <HTMLInputElement>document.querySelector('#filter-end-date')
+// filterStartDate.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
+// filterEndDate.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
 let editContent: HTMLDivElement = <HTMLDivElement>document.querySelector('#edit-content')
 let editInText: HTMLInputElement = <HTMLInputElement>document.querySelector('#edit-in-text')
 //this editID will used to edit task content
@@ -225,7 +352,7 @@ function tasks() {
         }
         // show tasks on screen 
         showTasks(allTasks)
-        filterDate()
+        // filterDate()
     })
 }
 let deaddate: HTMLInputElement | null = <HTMLInputElement>document.getElementById('deadtime');
@@ -422,7 +549,7 @@ async function editDone(event: any) {
     editContent.style.display = 'none';
     tasks()
 }
-/* [5] 'PUT' update data in task on firebase db */
+/* [5] 'PUT' update data in tataskFilterStatussk on firebase db */
 async function check(event: any) {
     let id: string = event.parentElement.parentElement.getAttribute('data-id')
     let tsk: Task | undefined = allTasks.find(tsk => tsk.getTaskId() === id)
@@ -482,21 +609,21 @@ function filterStatus() {
 
 
 // filter by start date
-filterStartDate.addEventListener('change', () => {
-    filterDate()
-})
+// filterStartDate.addEventListener('change', () => {
+//     filterDate()
+// })
 // filter by end date
-filterEndDate.addEventListener('change', () => {
-    filterDate()
-})
-function filterDate() {
-    let filterStartValue: Date = new Date(filterStartDate.value)
-    let filterEndValue: Date = new Date(filterEndDate.value)
-    let filteredTasks: (Task)[] = allTasks.filter(task => {
-        let tskDate: Date = new Date(task.getDeadLine())
-        if (tskDate >= filterStartValue && tskDate <= filterEndValue) {
-            return task
-        }
-    })
-    showTasks(filteredTasks)
-} 
+// filterEndDate.addEventListener('change', () => {
+//     filterDate()
+// })
+// function filterDate() {
+//     let filterStartValue: Date = new Date(filterStartDate.value)
+//     let filterEndValue: Date = new Date(filterEndDate.value)
+//     let filteredTasks: (Task)[] = allTasks.filter(task => {
+//         let tskDate: Date = new Date(task.getDeadLine())
+//         if (tskDate >= filterStartValue && tskDate <= filterEndValue) {
+//             return task
+//         }
+//     })
+//     showTasks(filteredTasks)
+// } 
