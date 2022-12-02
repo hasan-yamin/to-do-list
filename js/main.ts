@@ -347,7 +347,7 @@ function tasks() {
         }
         // show tasks on screen 
         showTasks(allTasks)
-        // filterDate(todaysDate, todaysDate)
+        filterDate(todaysDate, todaysDate)
     })
 }
 
