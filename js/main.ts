@@ -98,6 +98,7 @@ if (loginForm !== null) {
                 let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
                 todo.classList.add('show')
                 tasks()
+
             } catch (err) {
                 // console.log('Signin Error', err)
                 //Show error message
@@ -105,6 +106,7 @@ if (loginForm !== null) {
                 ErrorMsg.innerHTML = err + '';
                 ErrorMsg.style.display = 'block'
             }
+
         }
 
     })
@@ -311,9 +313,14 @@ class Task {
 let todaysDate: string = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate() < 9 ? "0" + new Date().getDate() : new Date().getDate()}`
 console.log("Today's Date: ", todaysDate)
 let filterStartDate: HTMLInputElement = <HTMLInputElement>document.querySelector('#filter-start-date')
-filterStartDate.value = todaysDate
+if (filterStartDate !== null) {
+    filterStartDate.value = todaysDate
+}
+
 let deaddate: HTMLInputElement | null = <HTMLInputElement>document.getElementById('deadtime');
-deaddate.value = todaysDate
+if (filterStartDate !== null) {
+    deaddate.value = todaysDate
+}
 // let filterEndDate: HTMLInputElement = <HTMLInputElement>document.querySelector('#filter-end-date')
 // filterEndDate.value = todaysDate
 /************************* End Date *************************/
@@ -347,7 +354,7 @@ function tasks() {
         }
         // show tasks on screen 
         showTasks(allTasks)
-        filterDate(todaysDate, todaysDate)
+
     })
 }
 
@@ -596,10 +603,13 @@ if (todaysTasks !== null) {
         filterDate(todaysDate, todaysDate)
     })
 }
-filterStartDate.addEventListener('change', () => {
-    console.log(filterStartDate.value)
-    filterDate(filterStartDate.value, filterStartDate.value)
-})
+if (filterStartDate !== null) {
+    filterStartDate.addEventListener('change', () => {
+        console.log(filterStartDate.value)
+        filterDate(filterStartDate.value, filterStartDate.value)
+    })
+}
+
 // filter by end date
 // filterEndDate.addEventListener('change', () => {
 //     filterDate()
