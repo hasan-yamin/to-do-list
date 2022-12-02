@@ -1,5 +1,5 @@
 "use strict";
-// import Taskq from './module'
+/* *********** Start Authentication **************/
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -9,7 +9,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-/* *********** Start Authentication **************/
 /* *********** Start change aauth page **************/
 let changeAuthPage = document.getElementById('change-auth');
 if (changeAuthPage !== null) {
@@ -33,7 +32,7 @@ if (changeAuthPage !== null) {
         }
     });
 }
-/* *********** End change aauth page **************/
+/* *********** End change aauth page  **************/
 let userId = localStorage.getItem('userId'), userAuth = localStorage.getItem('userAuth'), userName = '', email = '', userphoto = '';
 /* *********** Start auto login ************/
 if (userAuth !== null && userAuth !== '' && userId !== null && userId !== '') {
@@ -301,16 +300,23 @@ class Task {
         this._taskName = taskName;
     }
 }
-let taskFilterStatus = document.querySelector('#task-filter-status');
-// let filterStartDate: HTMLInputElement = <HTMLInputElement>document.querySelector('#filter-start-date')
+/************************* Date *************************/
+let todaysDate = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate() < 9 ? "0" + new Date().getDate() : new Date().getDate()}`;
+console.log("Today's Date: ", todaysDate);
+let filterStartDate = document.querySelector('#filter-start-date');
+filterStartDate.value = todaysDate;
+let deaddate = document.getElementById('deadtime');
+deaddate.value = todaysDate;
 // let filterEndDate: HTMLInputElement = <HTMLInputElement>document.querySelector('#filter-end-date')
-// filterStartDate.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
-// filterEndDate.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
+// filterEndDate.value = todaysDate
+/************************* End Date *************************/
+/************************* Filters defenitions *************************/
+let taskFilterStatus = document.querySelector('#task-filter-status');
+let todaysTasks = document.getElementById('todays-tasks');
+/******************** End Filters defenitions ******************/
 let editContent = document.querySelector('#edit-content');
 let editInText = document.querySelector('#edit-in-text');
-//this editID will used to edit task content
 let editID = '';
-console.log("Today's Date: ", `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`);
 let allTasks = [];
 // get all tasks from firebase
 // tasks()
@@ -332,11 +338,9 @@ function tasks() {
         }
         // show tasks on screen 
         showTasks(allTasks);
-        // filterDate()
+        // filterDate(todaysDate, todaysDate)
     });
 }
-let deaddate = document.getElementById('deadtime');
-deaddate.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`;
 let addToDo = document.getElementById('add-task');
 addToDo.addEventListener('click', function () {
     return __awaiter(this, void 0, void 0, function* () {
@@ -583,24 +587,30 @@ function filterStatus() {
     showTasks(filteredTasks);
 }
 // filter by start date
-// filterStartDate.addEventListener('change', () => {
-//     filterDate()
-// })
+if (todaysTasks !== null) {
+    todaysTasks.addEventListener('click', function () {
+        filterDate(todaysDate, todaysDate);
+    });
+}
+filterStartDate.addEventListener('change', () => {
+    console.log(filterStartDate.value);
+    filterDate(filterStartDate.value, filterStartDate.value);
+});
 // filter by end date
 // filterEndDate.addEventListener('change', () => {
 //     filterDate()
 // })
-// function filterDate() {
-//     let filterStartValue: Date = new Date(filterStartDate.value)
-//     let filterEndValue: Date = new Date(filterEndDate.value)
-//     let filteredTasks: (Task)[] = allTasks.filter(task => {
-//         let tskDate: Date = new Date(task.getDeadLine())
-//         if (tskDate >= filterStartValue && tskDate <= filterEndValue) {
-//             return task
-//         }
-//     })
-//     showTasks(filteredTasks)
-// } 
+function filterDate(filterStartDate, filterEndDate) {
+    let filterStartValue = new Date(filterStartDate);
+    let filterEndValue = new Date(filterEndDate);
+    let filteredTasks = allTasks.filter(task => {
+        let tskDate = new Date(task.getDeadLine());
+        if (tskDate >= filterStartValue && tskDate <= filterEndValue) {
+            return task;
+        }
+    });
+    showTasks(filteredTasks);
+}
 /*************************************************************************************
 ********************************* ACOUNT SETTING *************************************
 **************************************************************************************/

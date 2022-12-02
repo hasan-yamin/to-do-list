@@ -1,4 +1,3 @@
-// import Taskq from './module'
 
 /* *********** Start Authentication **************/
 
@@ -29,7 +28,7 @@ if (changeAuthPage !== null) {
         }
     })
 }
-/* *********** End change aauth page **************/
+/* *********** End change aauth page  **************/
 
 let userId: string = <string>localStorage.getItem('userId'),
     userAuth: string = <string>localStorage.getItem('userAuth'),
@@ -134,7 +133,7 @@ function showUserInfo() {
     if (showprofileImg !== null) {
         showprofileImg.setAttribute('src', userphoto)
     }
-    
+
     // console.log('src', userphoto)
 }
 /* *********** End show Profile data**************/
@@ -308,16 +307,24 @@ class Task {
 
 
 }
-let taskFilterStatus: HTMLSelectElement = <HTMLSelectElement>document.querySelector('#task-filter-status')
-// let filterStartDate: HTMLInputElement = <HTMLInputElement>document.querySelector('#filter-start-date')
+/************************* Date *************************/
+let todaysDate: string = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate() < 9 ? "0" + new Date().getDate() : new Date().getDate()}`
+console.log("Today's Date: ", todaysDate)
+let filterStartDate: HTMLInputElement = <HTMLInputElement>document.querySelector('#filter-start-date')
+filterStartDate.value = todaysDate
+let deaddate: HTMLInputElement | null = <HTMLInputElement>document.getElementById('deadtime');
+deaddate.value = todaysDate
 // let filterEndDate: HTMLInputElement = <HTMLInputElement>document.querySelector('#filter-end-date')
-// filterStartDate.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
-// filterEndDate.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
+// filterEndDate.value = todaysDate
+/************************* End Date *************************/
+/************************* Filters defenitions *************************/
+let taskFilterStatus: HTMLSelectElement = <HTMLSelectElement>document.querySelector('#task-filter-status')
+let todaysTasks: HTMLButtonElement = <HTMLButtonElement>document.getElementById('todays-tasks')
+/******************** End Filters defenitions ******************/
 let editContent: HTMLDivElement = <HTMLDivElement>document.querySelector('#edit-content')
 let editInText: HTMLInputElement = <HTMLInputElement>document.querySelector('#edit-in-text')
-//this editID will used to edit task content
 let editID: string = '';
-console.log("Today's Date: ", `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`)
+
 
 let allTasks: Task[] = []
 // get all tasks from firebase
@@ -340,11 +347,9 @@ function tasks() {
         }
         // show tasks on screen 
         showTasks(allTasks)
-        // filterDate()
+        // filterDate(todaysDate, todaysDate)
     })
 }
-let deaddate: HTMLInputElement | null = <HTMLInputElement>document.getElementById('deadtime');
-deaddate.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
 
 let addToDo: any | null = document.getElementById('add-task');
 addToDo.addEventListener('click', async function () {
@@ -358,10 +363,6 @@ addToDo.addEventListener('click', async function () {
     }
 
 })
-
-
-
-
 
 /*************************************************************************************
 ********************************* Tasks functions ************************************
@@ -505,6 +506,7 @@ async function deleteCard(event: any) {
 
 }
 /* [4] 'PUT' update data in task on firebase db */
+
 function editCard(event: any) {
     editID = event.parentElement.parentElement.parentElement.getAttribute('data-id')
     let oldName = event.parentElement.parentElement.parentElement.childNodes[1].childNodes[1].value
@@ -589,24 +591,30 @@ function filterStatus() {
     showTasks(filteredTasks)
 }
 // filter by start date
-// filterStartDate.addEventListener('change', () => {
-//     filterDate()
-// })
+if (todaysTasks !== null) {
+    todaysTasks.addEventListener('click', function () {
+        filterDate(todaysDate, todaysDate)
+    })
+}
+filterStartDate.addEventListener('change', () => {
+    console.log(filterStartDate.value)
+    filterDate(filterStartDate.value, filterStartDate.value)
+})
 // filter by end date
 // filterEndDate.addEventListener('change', () => {
 //     filterDate()
 // })
-// function filterDate() {
-//     let filterStartValue: Date = new Date(filterStartDate.value)
-//     let filterEndValue: Date = new Date(filterEndDate.value)
-//     let filteredTasks: (Task)[] = allTasks.filter(task => {
-//         let tskDate: Date = new Date(task.getDeadLine())
-//         if (tskDate >= filterStartValue && tskDate <= filterEndValue) {
-//             return task
-//         }
-//     })
-//     showTasks(filteredTasks)
-// } 
+function filterDate(filterStartDate: string, filterEndDate: string) {
+    let filterStartValue: Date = new Date(filterStartDate)
+    let filterEndValue: Date = new Date(filterEndDate)
+    let filteredTasks: (Task)[] = allTasks.filter(task => {
+        let tskDate: Date = new Date(task.getDeadLine())
+        if (tskDate >= filterStartValue && tskDate <= filterEndValue) {
+            return task
+        }
+    })
+    showTasks(filteredTasks)
+}
 
 /*************************************************************************************
 ********************************* ACOUNT SETTING *************************************
@@ -725,4 +733,4 @@ async function deleteAccount(userAuth: string) {
     localStorage.removeItem('userAuth');
     localStorage.removeItem('userId');
 }
-/* *********** End Delete Account **************/
+    /* *********** End Delete Account **************/

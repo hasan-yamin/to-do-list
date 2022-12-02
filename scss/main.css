@@ -245,11 +245,14 @@ ul {
     .container .to-do-list .filter .filter-card select {
       border: none;
       background-color: inherit;
-      outline: none; }
-      .container .to-do-list .filter .filter-card select option {
-        border: none;
-        background-color: inherit;
-        outline: none; }
+      outline: none;
+      color: #9E7676; }
+    .container .to-do-list .filter .filter-card .todays-tasks {
+      border: none;
+      background-color: inherit;
+      outline: none;
+      cursor: pointer;
+      color: #9E7676; }
     .container .to-do-list .filter .filter-card .date-card {
       display: flex;
       justify-content: space-between;

@@ -16,8 +16,7 @@
                 text-transform: capitalize;
 
                 @include breakpoint(xs) {
-                    // flex-direction: column;
-                    font-size: 12px;
+                     font-size: 12px;
                 }
 
                 @include breakpoint(sm) {
@@ -29,12 +28,16 @@
                     border: none;
                     background-color: inherit;
                     outline: none;
+                    color: $color2;
+                    option {}
+                }
 
-                    option {
-                        border: none;
-                        background-color: inherit;
-                        outline: none;
-                    }
+                .todays-tasks {
+                    border: none;
+                    background-color: inherit;
+                    outline: none;
+                    cursor: pointer;
+                    color: $color2;
                 }
 
                 .date-card {
