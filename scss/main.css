@@ -320,7 +320,8 @@ ul {
       display: flex; }
     .container .to-do-list .list .list-card .edit {
       display: flex;
-      justify-content: space-between; }
+      justify-content: space-between;
+      margin-bottom: 5px; }
       .container .to-do-list .list .list-card .edit .date .date-icon {
         margin-right: 5px; }
       .container .to-do-list .list .list-card .edit .date span {
@@ -340,6 +341,10 @@ ul {
             transform: scale(1.1); }
     .container .to-do-list .list .list-card .view {
       display: flex; }
+      .container .to-do-list .list .list-card .view input[type='checkbox'] {
+        margin-right: 10px;
+        height: 17px;
+        accent-color: white; }
       .container .to-do-list .list .list-card .view input[type='checkbox']:checked {
         margin-right: 10px; }
         .container .to-do-list .list .list-card .view input[type='checkbox']:checked + textarea {

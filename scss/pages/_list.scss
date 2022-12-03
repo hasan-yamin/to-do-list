@@ -24,6 +24,7 @@
                 .edit {
                     display: flex;
                     justify-content: space-between;
+                    margin-bottom: 5px;
 
                     .date {
                         .date-icon {
@@ -62,9 +63,14 @@
 
                 .view {
                     display: flex;
-
+                    input[type='checkbox']{
+                        margin-right: 10px;
+                        height: 17px;
+                        accent-color: white;
+                    }
                     input[type='checkbox']:checked {
                         margin-right: 10px;
+                        
 
                         +textarea {
                             color: #888;

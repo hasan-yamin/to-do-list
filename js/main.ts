@@ -38,12 +38,13 @@ let userId: string = <string>localStorage.getItem('userId'),
 /* *********** Start auto login ************/
 if (userAuth !== null && userAuth !== '' && userId !== null && userId !== '') {
     // console.log('userAuth',userAuth)
-    getProfileData(userAuth)
+
     let authPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('auth');
     authPage.style.display = 'none'
     //Show to do list
     let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
     todo.classList.add('show')
+    getProfileData(userAuth)
     tasks()
 }
 /* *********** End auto login **************/
@@ -316,7 +317,6 @@ let filterStartDate: HTMLInputElement = <HTMLInputElement>document.querySelector
 if (filterStartDate !== null) {
     filterStartDate.value = todaysDate
 }
-
 let deaddate: HTMLInputElement | null = <HTMLInputElement>document.getElementById('deadtime');
 if (filterStartDate !== null) {
     deaddate.value = todaysDate
@@ -353,8 +353,9 @@ function tasks() {
             //    console.log(w)
         }
         // show tasks on screen 
-        showTasks(allTasks)
-
+        // showTasks(allTasks.reverse())
+        // showTasks(allTasks.sort())
+        showTasks(allTasks.sort((a, b) => compareDates(a.getDeadLine(), b.getDeadLine())))
     })
 }
 
@@ -390,20 +391,25 @@ function createCard(inputText: string, deaddate: string, taskDone: boolean, task
     let deadDate: HTMLSpanElement = <HTMLSpanElement>document.createElement('span');
     deadDate.innerText = deaddate
     deadDate.style.fontWeight = 'bold'
-    compareDates(deaddate, new Date().toISOString().slice(0, 10))
-    if (compareDates(deaddate, new Date().toISOString().slice(0, 10)) === 0) {
-        deadDate.style.color = '#bc6100';
-        date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon" style="color:#bc6100">`
+    if (checkd === 'checked') {
+        date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon" style="color:white">`
 
-    } else if (compareDates(deaddate, new Date().toISOString().slice(0, 10)) === 1) {
-        deadDate.style.color = 'green'
-        date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon" style="color:green">`
+    } else {
+        compareDates(deaddate, new Date().toISOString().slice(0, 10))
+        if (compareDates(deaddate, new Date().toISOString().slice(0, 10)) === 0) {
+            // deadDate.style.color = 'yellow';
+            date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon" style="color:yellow">`
 
-    } else if (compareDates(deaddate, new Date().toISOString().slice(0, 10)) === -1) {
-        deadDate.style.color = 'red'
-        date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon" style="color:red">`
+        } else if (compareDates(deaddate, new Date().toISOString().slice(0, 10)) === 1) {
+            // deadDate.style.color = 'green'
+            date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon" style="color:green">`
 
+        } else if (compareDates(deaddate, new Date().toISOString().slice(0, 10)) === -1) {
+            // deadDate.style.color = 'red'
+            date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon" style="color:red">`
+        }
     }
+
 
     date.appendChild(deadDate)
 
@@ -516,9 +522,13 @@ async function deleteCard(event: any) {
 
 function editCard(event: any) {
     editID = event.parentElement.parentElement.parentElement.getAttribute('data-id')
-    let oldName = event.parentElement.parentElement.parentElement.childNodes[1].childNodes[1].value
-    editContent.style.display = 'flex';
-    editInText.value = oldName;
+    let tsk: Task | undefined = allTasks.find(tsk => tsk.getTaskId() === editID)
+    if (tsk !== undefined) {
+        editContent.style.display = 'flex';
+        editInText.value = tsk.getTaskName();
+        let editDeadtime: HTMLInputElement | null = <HTMLInputElement>document.getElementById('edit-deadtime');
+        editDeadtime.value = tsk.getDeadLine()
+    }
 }
 async function editDone(event: any) {
     let editDeadtime: HTMLInputElement | null = <HTMLInputElement>document.getElementById('edit-deadtime');
@@ -561,6 +571,7 @@ async function check(event: any) {
             }),
         });
     }
+    tasks()
 }
 function compareDates(d1: string, d2: string): number {
     let date1 = new Date(d1).getTime();

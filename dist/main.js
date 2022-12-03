@@ -37,12 +37,12 @@ let userId = localStorage.getItem('userId'), userAuth = localStorage.getItem('us
 /* *********** Start auto login ************/
 if (userAuth !== null && userAuth !== '' && userId !== null && userId !== '') {
     // console.log('userAuth',userAuth)
-    getProfileData(userAuth);
     let authPage = document.getElementById('auth');
     authPage.style.display = 'none';
     //Show to do list
     let todo = document.getElementById('to-do-list');
     todo.classList.add('show');
+    getProfileData(userAuth);
     tasks();
 }
 /* *********** End auto login **************/
@@ -341,7 +341,9 @@ function tasks() {
             //    console.log(w)
         }
         // show tasks on screen 
-        showTasks(allTasks);
+        // showTasks(allTasks.reverse())
+        // showTasks(allTasks.sort())
+        showTasks(allTasks.sort((a, b) => compareDates(a.getDeadLine(), b.getDeadLine())));
     });
 }
 let addToDo = document.getElementById('add-task');
@@ -376,18 +378,23 @@ function createCard(inputText, deaddate, taskDone, taskId) {
     let deadDate = document.createElement('span');
     deadDate.innerText = deaddate;
     deadDate.style.fontWeight = 'bold';
-    compareDates(deaddate, new Date().toISOString().slice(0, 10));
-    if (compareDates(deaddate, new Date().toISOString().slice(0, 10)) === 0) {
-        deadDate.style.color = '#bc6100';
-        date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon" style="color:#bc6100">`;
+    if (checkd === 'checked') {
+        date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon" style="color:white">`;
     }
-    else if (compareDates(deaddate, new Date().toISOString().slice(0, 10)) === 1) {
-        deadDate.style.color = 'green';
-        date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon" style="color:green">`;
-    }
-    else if (compareDates(deaddate, new Date().toISOString().slice(0, 10)) === -1) {
-        deadDate.style.color = 'red';
-        date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon" style="color:red">`;
+    else {
+        compareDates(deaddate, new Date().toISOString().slice(0, 10));
+        if (compareDates(deaddate, new Date().toISOString().slice(0, 10)) === 0) {
+            // deadDate.style.color = 'yellow';
+            date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon" style="color:yellow">`;
+        }
+        else if (compareDates(deaddate, new Date().toISOString().slice(0, 10)) === 1) {
+            // deadDate.style.color = 'green'
+            date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon" style="color:green">`;
+        }
+        else if (compareDates(deaddate, new Date().toISOString().slice(0, 10)) === -1) {
+            // deadDate.style.color = 'red'
+            date.innerHTML = `<i class="fas fa-info-circle me-2 date-icon" style="color:red">`;
+        }
     }
     date.appendChild(deadDate);
     let editDelete = document.createElement('div');
@@ -502,9 +509,13 @@ function deleteCard(event) {
 /* [4] 'PUT' update data in task on firebase db */
 function editCard(event) {
     editID = event.parentElement.parentElement.parentElement.getAttribute('data-id');
-    let oldName = event.parentElement.parentElement.parentElement.childNodes[1].childNodes[1].value;
-    editContent.style.display = 'flex';
-    editInText.value = oldName;
+    let tsk = allTasks.find(tsk => tsk.getTaskId() === editID);
+    if (tsk !== undefined) {
+        editContent.style.display = 'flex';
+        editInText.value = tsk.getTaskName();
+        let editDeadtime = document.getElementById('edit-deadtime');
+        editDeadtime.value = tsk.getDeadLine();
+    }
 }
 function editDone(event) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -550,6 +561,7 @@ function check(event) {
                 }),
             });
         }
+        tasks();
     });
 }
 function compareDates(d1, d2) {
