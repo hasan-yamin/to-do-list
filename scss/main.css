@@ -61,14 +61,14 @@ ul {
   justify-content: space-between;
   align-items: center;
   text-align: center;
-  margin: 10px auto 25px; }
+  margin: 10px auto 25px;
+  position: relative; }
   .container .to-do-list .title .navbar {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    margin-bottom: 15px;
-    position: relative; }
+    margin-bottom: 15px; }
     .container .to-do-list .title .navbar > div {
       display: flex;
       justify-content: center;
@@ -178,6 +178,8 @@ ul {
     padding: 10px;
     border: none;
     border-radius: 5px; }
+  .container .settings .update-info .confirm-msg {
+    display: none; }
 
 .container .to-do-list .add-crd {
   background-color: #fff; }

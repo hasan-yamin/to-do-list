@@ -151,6 +151,10 @@ logOut.addEventListener('click', function () {
     // delete session data from local storage
     localStorage.removeItem('userAuth');
     localStorage.removeItem('userId');
+    let settingMenu: HTMLUListElement | null = <HTMLUListElement>document.getElementById('setting-menu')
+    if (settingMenu !== null) {
+        settingMenu.classList.remove('show')
+    }
     //Hide to do list
     let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
     todo.classList.remove('show')
@@ -164,6 +168,110 @@ logOut.addEventListener('click', function () {
     ErrorMsg.style.display = 'none'
 })
 /* *********** End Logout **************/
+/* *********** Start Update rofile **************/
+let updateProfileBtn: HTMLLIElement | null = <HTMLLIElement>document.getElementById('update-profile')
+if (updateProfileBtn !== null) {
+    updateProfileBtn.addEventListener('click', function () {
+        let settingMenu: HTMLUListElement | null = <HTMLUListElement>document.getElementById('setting-menu')
+        if (settingMenu !== null) {
+            settingMenu.classList.remove('show')
+        }
+        let settings: HTMLDivElement | null = <HTMLDivElement>document.getElementById('settings')
+        if (settings !== null) {
+            //hide settings
+            settings.classList.add('show')
+            //hide to do list
+            let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
+            todo.classList.remove('show')
+            let updateProfileForm: HTMLFormElement | null = <HTMLFormElement>document.getElementById('update-info');
+            // show user name
+            let updateUsername: HTMLInputElement | null = <HTMLInputElement>document.getElementById('update-username');
+            updateUsername.value = userName;
+            // show email address
+            let updateEmail: HTMLInputElement | null = <HTMLInputElement>document.getElementById('update-email');
+            updateEmail.value = email;
+
+            if (updateProfileForm !== null) {
+                updateProfileForm.addEventListener('submit', async function (e) {
+                    e.preventDefault();
+                    const newUsername: string | null = e.target.updateUsername.value.trim()
+                    if (newUsername != null && newUsername.length > 3) {
+                        try {
+                            await updateProfile(userAuth, newUsername, 'noimage.png')
+                            if (settings !== null) {
+                                settings.classList.remove('show')
+                            }
+                            //Show to do list
+                            let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
+                            todo.classList.add('show')
+                            getProfileData(userAuth)
+                        } catch (err) {
+                            console.log('update Error', err)
+                        }
+                    }
+                })
+            }
+            let cancelUpdateProfile: HTMLButtonElement | null = <HTMLButtonElement>document.getElementById('cancel-update-profile');
+            if (cancelUpdateProfile !== null) {
+                cancelUpdateProfile.addEventListener('click', function () {
+
+                    if (settings !== null) {
+                        settings.classList.remove('show')
+                    }
+                    //Show to do list
+                    let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
+                    todo.classList.add('show')
+                })
+            }
+            /* *********** Delete Account **************/
+            let DeleteAccount: HTMLButtonElement | null = <HTMLButtonElement>document.getElementById('delete-account');
+            if (DeleteAccount !== null) {
+                DeleteAccount.addEventListener('click', function () {
+                    let confirmMsg: HTMLDivElement | null = <HTMLDivElement>document.getElementById('confirm-msg');
+                    confirmMsg.style.display = 'flex'
+                    let confirm: HTMLButtonElement | null = <HTMLButtonElement>document.getElementById('confirm');
+                    if (confirm !== null) {
+                        confirm.addEventListener('click', async function () {
+                            try {
+                                await deleteAccount(userAuth)
+                                if (settings !== null) {
+                                    settings.classList.remove('show')
+                                }
+                                userId = '';
+                                userAuth = '';
+                                userName = '';
+                                email = '';
+                                userphoto = '';
+                                allTasks = [];
+                                showTasks(allTasks)
+                                confirmMsg.style.display = 'none'
+                                //Hide to do page
+                                let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
+                                todo.classList.remove('show')
+                                //Show signup page
+                                let authPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('auth');
+                                authPage.style.display = 'flex'
+                            } catch (err) {
+                                console.log('Delete Error', err)
+                            }
+                        })
+                    }
+                    let cancel: HTMLButtonElement | null = <HTMLButtonElement>document.getElementById('cancel');
+                    if (cancel !== null) {
+                        cancel.addEventListener('click', async function () {
+                            confirmMsg.style.display = 'none'
+                        })
+
+                    }
+
+
+                })
+            }
+            /* *********** End Delete Account **************/
+        }
+    })
+}
+/* *********** End Update rofile **************/
 /* *********** End Authentication **************/
 
 /* *********** Start Settings **************/
@@ -173,86 +281,7 @@ if (usrNam !== null) {
         let settingMenu: HTMLUListElement | null = <HTMLUListElement>document.getElementById('setting-menu')
         if (settingMenu !== null) {
             settingMenu.classList.toggle('show')
-            let updateProfileBtn: HTMLLIElement | null = <HTMLLIElement>document.getElementById('update-profile')
-            if (updateProfileBtn !== null) {
-                updateProfileBtn.addEventListener('click', function () {
-                    let settings: HTMLDivElement | null = <HTMLDivElement>document.getElementById('settings')
-                    if (settings !== null) {
-                        //hide settings
-                        settings.classList.add('show')
-                        //hide to do list
-                        let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
-                        todo.classList.remove('show')
-                        let updateProfileForm: HTMLFormElement | null = <HTMLFormElement>document.getElementById('update-info');
-                        // show user name
-                        let updateUsername: HTMLInputElement | null = <HTMLInputElement>document.getElementById('update-username');
-                        updateUsername.value = userName;
-                        // show email address
-                        let updateEmail: HTMLInputElement | null = <HTMLInputElement>document.getElementById('update-email');
-                        updateEmail.value = email;
 
-                        if (updateProfileForm !== null) {
-                            updateProfileForm.addEventListener('submit', async function (e) {
-                                e.preventDefault();
-                                const newUsername: string | null = e.target.updateUsername.value.trim()
-                                if (newUsername != null && newUsername.length > 3) {
-                                    try {
-                                        await updateProfile(userAuth, newUsername, 'noimage.png')
-                                        if (settings !== null) {
-                                            settings.classList.remove('show')
-                                        }
-                                        //Show to do list
-                                        let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
-                                        todo.classList.add('show')
-                                        getProfileData(userAuth)
-                                    } catch (err) {
-                                        console.log('update Error', err)
-                                    }
-                                }
-                            })
-                        }
-                        let cancelUpdateProfile: HTMLButtonElement | null = <HTMLButtonElement>document.getElementById('cancel-update-profile');
-                        if (cancelUpdateProfile !== null) {
-                            cancelUpdateProfile.addEventListener('click', function () {
-                                if (settings !== null) {
-                                    settings.classList.remove('show')
-                                }
-                                //Show to do list
-                                let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
-                                todo.classList.add('show')
-                            })
-                        }
-                        /* *********** Delete Account **************/
-                        let DeleteAccount: HTMLButtonElement | null = <HTMLButtonElement>document.getElementById('delete-account');
-                        if (DeleteAccount !== null) {
-                            DeleteAccount.addEventListener('click', async function () {
-                                try {
-                                    await deleteAccount(userAuth)
-                                    if (settings !== null) {
-                                        settings.classList.remove('show')
-                                    }
-                                    userId = '';
-                                    userAuth = '';
-                                    userName = '';
-                                    email = '';
-                                    userphoto = '';
-                                    allTasks = [];
-                                    showTasks(allTasks)
-                                    //Hide to do page
-                                    let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
-                                    todo.classList.remove('show')
-                                    //Show signup page
-                                    let authPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('auth');
-                                    authPage.style.display = 'flex'
-                                } catch (err) {
-                                    console.log('Delete Error', err)
-                                }
-                            })
-                        }
-                        /* *********** End Delete Account **************/
-                    }
-                })
-            }
         }
 
     })

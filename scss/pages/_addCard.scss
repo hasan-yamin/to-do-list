@@ -2,12 +2,13 @@
     .to-do-list {
         .add-crd {
             background-color: $inputBackG;
-
+            // margin-top: -100px;
             .date-input {
                 display: flex;
                 flex-direction: column;
                 align-items: flex-start;
                 width: 80%;
+
 
                 svg {
                     color: $color2;

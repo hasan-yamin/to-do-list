@@ -8,15 +8,15 @@
             align-items: center;
             text-align: center;
             margin: 10px auto 25px;
-
+            position: relative;
+            // z-index: 50;
             .navbar {
                 width: 100%;
                 display: flex;
                 flex-direction: column;
                 align-items: flex-end;
                 margin-bottom: 15px;
-                position: relative;
-
+                
                 >div {
                     display: flex;
                     justify-content: center;

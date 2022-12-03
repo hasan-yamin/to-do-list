@@ -38,9 +38,11 @@
         border-radius: 15px;
         z-index: 100;
         padding: 20px;
-&.show{
-    display: flex;
-}
+
+        &.show {
+            display: flex;
+        }
+
         .update-info {
             .form-control {
                 display: flex;
@@ -73,6 +75,9 @@
                 border: none;
                 border-radius: 5px;
 
+            }
+            .confirm-msg{
+display: none;
             }
         }
     }
