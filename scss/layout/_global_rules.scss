@@ -28,9 +28,15 @@ ul {
   margin: auto;
   // padding-top: 100px; 
 
-  >img {
+  .main-img {
     width: 100%;
+    height: 278px;
     // height: 209px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+    }
   }
 
   @include breakpoint(xs) {
@@ -68,8 +74,8 @@ ul {
 
     &.show {
       display: flex;
-      // margin: -175px auto auto;
-      // position: relative;
+      margin: -114px auto auto;
+      position: relative;
     }
 
     .crd {

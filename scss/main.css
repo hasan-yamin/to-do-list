@@ -15,8 +15,12 @@ ul {
 
 .container {
   margin: auto; }
-  .container > img {
-    width: 100%; }
+  .container .main-img {
+    width: 100%;
+    height: 278px;
+    overflow: hidden; }
+    .container .main-img img {
+      width: 100%; }
   @media (max-width: 575px) {
     .container {
       width: 95%; } }
@@ -43,7 +47,9 @@ ul {
     overflow: hidden;
     display: none; }
     .container .to-do-list.show {
-      display: flex; }
+      display: flex;
+      margin: -114px auto auto;
+      position: relative; }
     .container .to-do-list .crd {
       padding: 15px;
       margin: 5px auto;
@@ -61,14 +67,14 @@ ul {
   justify-content: space-between;
   align-items: center;
   text-align: center;
-  margin: 10px auto 25px;
+  margin: 10px auto 0;
   position: relative; }
   .container .to-do-list .title .navbar {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    margin-bottom: 15px; }
+    margin-right: -15px; }
     .container .to-do-list .title .navbar > div {
       display: flex;
       justify-content: center;
@@ -78,16 +84,17 @@ ul {
         text-transform: capitalize;
         color: #9E7676; }
       .container .to-do-list .title .navbar > div .profileimg {
-        width: 30px;
-        height: 30px;
-        border-radius: 5px;
-        border: 2px solid #9E7676;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 5px solid #FFF8EA;
         margin-left: 5px;
         overflow: hidden;
-        text-align: center; }
+        text-align: center;
+        background-color: #FFF8EA; }
         .container .to-do-list .title .navbar > div .profileimg svg {
-          line-height: 30px;
-          font-size: 27px;
+          line-height: 40px;
+          font-size: 36px;
           color: #9E7676; }
         .container .to-do-list .title .navbar > div .profileimg img {
           width: 100%;
