@@ -19,6 +19,12 @@ ul {
     width: 100%;
     height: 278px;
     overflow: hidden; }
+    @media (max-width: 575px) {
+      .container .main-img {
+        height: 178px; } }
+    @media (min-width: 576px) and (max-width: 767px) {
+      .container .main-img {
+        height: 178px; } }
     .container .main-img img {
       width: 100%; }
   @media (max-width: 575px) {

@@ -33,7 +33,13 @@ ul {
     height: 278px;
     // height: 209px;
     overflow: hidden;
-
+    @include breakpoint(xs) {
+      height: 178px;
+    }
+  
+    @include breakpoint(sm) {
+      height: 178px;
+    }
     img {
       width: 100%;
     }
@@ -76,6 +82,13 @@ ul {
       display: flex;
       margin: -114px auto auto;
       position: relative;
+      @include breakpoint(xs) {
+        margin: -107px auto auto;
+      }
+    
+      @include breakpoint(sm) {
+        height: 107px;
+      }
     }
 
     .crd {
