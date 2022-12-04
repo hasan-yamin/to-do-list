@@ -56,6 +56,12 @@ ul {
       display: flex;
       margin: -114px auto auto;
       position: relative; }
+      @media (max-width: 575px) {
+        .container .to-do-list.show {
+          margin: -107px auto auto; } }
+      @media (min-width: 576px) and (max-width: 767px) {
+        .container .to-do-list.show {
+          height: 107px; } }
     .container .to-do-list .crd {
       padding: 15px;
       margin: 5px auto;

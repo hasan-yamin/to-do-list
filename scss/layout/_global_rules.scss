@@ -34,7 +34,7 @@ ul {
     // height: 209px;
     overflow: hidden;
     @include breakpoint(xs) {
-      height: 178px;
+      height: 160px;
     }
   
     @include breakpoint(sm) {
