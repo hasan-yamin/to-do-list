@@ -35,22 +35,19 @@ if (changeAuthPage !== null) {
 /* *********** End change aauth page  **************/
 let userId = localStorage.getItem('userId'), userAuth = localStorage.getItem('userAuth'), userName = '', email = '', userphoto = '';
 /* *********** Start auto login ************/
-if (userAuth !== null && userAuth !== '' && userId !== null && userId !== '') {
-    // console.log('userAuth',userAuth)
-    // document.addEventListener('load', async function () {
-    // try {
-    getProfileData(userAuth);
-    tasks();
-    // } catch (error) {
-    // console.log('Auto login Error : ', error)
-    // }
-    let authPage = document.getElementById('auth');
-    authPage.style.display = 'none';
-    //Show to do list
-    let todo = document.getElementById('to-do-list');
-    todo.classList.add('show');
-    // })
-}
+window.addEventListener("load", () => __awaiter(void 0, void 0, void 0, function* () {
+    if (userAuth !== null && userAuth !== '' && userId !== null && userId !== '') {
+        try {
+            yield getProfileData(userAuth);
+            showUserInfo();
+        }
+        catch (err) {
+            let ErrorMsg = document.getElementById('error');
+            ErrorMsg.innerHTML = err + '';
+            ErrorMsg.style.display = 'block';
+        }
+    }
+}));
 /* *********** End auto login **************/
 /* *********** Start Signup **************/
 let signupForm = document.getElementById('signup-form');
@@ -138,13 +135,20 @@ if (resetPassword !== null) {
 /* *********** reser Password **************/
 /* *********** Show Profile data**************/
 function showUserInfo() {
-    let showUserName = document.getElementById('user-name');
-    showUserName.innerHTML = userName;
-    let showprofileImg = document.getElementById('profileimg');
-    if (showprofileImg !== null) {
-        showprofileImg.setAttribute('src', userphoto);
-    }
-    // console.log('src', userphoto)
+    return __awaiter(this, void 0, void 0, function* () {
+        let authPage = document.getElementById('auth');
+        authPage.style.display = 'none';
+        let todo = document.getElementById('to-do-list');
+        todo.classList.add('show');
+        tasks();
+        let showUserName = document.getElementById('user-name');
+        showUserName.innerHTML = userName;
+        let showprofileImg = document.getElementById('profileimg');
+        if (showprofileImg !== null) {
+            showprofileImg.setAttribute('src', userphoto);
+        }
+        // console.log('src', userphoto)
+    });
 }
 /* *********** End show Profile data**************/
 /* *********** Start Logout **************/
@@ -707,7 +711,7 @@ function signin(email, pass) {
         // store session in local storage to auto login
         localStorage.setItem('userId', userId);
         localStorage.setItem('userAuth', userAuth);
-        console.log('responseData', responseData);
+        // console.log('responseData', responseData)
     });
 }
 /* *********** end SignIn **************/
@@ -743,7 +747,8 @@ function getProfileData(userAuth) {
         });
         const responseData = yield response.json();
         if (!response.ok) {
-            const error = new Error(responseData.error.message || 'Signin Error');
+            const error = new Error(responseData.error.message || 'getProfileData Error');
+            console.log('getProfileData error: ' + error);
             throw error;
         }
         userName = responseData.users[0].displayName;

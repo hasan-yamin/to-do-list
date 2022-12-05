@@ -36,23 +36,22 @@ let userId: string = <string>localStorage.getItem('userId'),
     email: string = '',
     userphoto: string = '';
 /* *********** Start auto login ************/
-if (userAuth !== null && userAuth !== '' && userId !== null && userId !== '') {
-    // console.log('userAuth',userAuth)
-    // document.addEventListener('load', async function () {
-    // try {
-    getProfileData(userAuth)
-    tasks()
-    // } catch (error) {
-    // console.log('Auto login Error : ', error)
-    // }
-    let authPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('auth');
-    authPage.style.display = 'none'
-    //Show to do list
-    let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
-    todo.classList.add('show')
-    // })
+window.addEventListener("load", async () => {
+    if (userAuth !== null && userAuth !== '' && userId !== null && userId !== '') {
+        try {
+            await getProfileData(userAuth)
+            showUserInfo()
 
-}
+        } catch (err) { 
+            let ErrorMsg: HTMLDivElement | null = <HTMLDivElement>document.getElementById('error');
+            ErrorMsg.innerHTML = err + '';
+            ErrorMsg.style.display = 'block'
+        }
+
+    }
+});
+
+
 /* *********** End auto login **************/
 
 /* *********** Start Signup **************/
@@ -135,7 +134,12 @@ if (resetPassword !== null) {
 }
 /* *********** reser Password **************/
 /* *********** Show Profile data**************/
-function showUserInfo() {
+async function showUserInfo() {
+    let authPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('auth');
+    authPage.style.display = 'none'
+    let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
+    todo.classList.add('show')
+    tasks()
     let showUserName: HTMLFormElement | null = <HTMLFormElement>document.getElementById('user-name');
     showUserName.innerHTML = userName
     let showprofileImg: HTMLImageElement | null = <HTMLImageElement>document.getElementById('profileimg');
@@ -716,7 +720,7 @@ async function signin(email: string, pass: string) {
     // store session in local storage to auto login
     localStorage.setItem('userId', userId);
     localStorage.setItem('userAuth', userAuth);
-    console.log('responseData',responseData)
+    // console.log('responseData', responseData)
 }
 /* *********** end SignIn **************/
 /* *********** [3] Update Profile **************/
@@ -748,8 +752,10 @@ async function getProfileData(userAuth: string) {
     });
     const responseData = await response.json();
     if (!response.ok) {
-        const error = new Error(responseData.error.message || 'Signin Error');
+        const error = new Error(responseData.error.message || 'getProfileData Error');
+        console.log('getProfileData error: ' + error)
         throw error
+
     }
     userName = responseData.users[0].displayName;
     email = responseData.users[0].email;
