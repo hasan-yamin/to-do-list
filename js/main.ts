@@ -38,14 +38,20 @@ let userId: string = <string>localStorage.getItem('userId'),
 /* *********** Start auto login ************/
 if (userAuth !== null && userAuth !== '' && userId !== null && userId !== '') {
     // console.log('userAuth',userAuth)
-
+    // document.addEventListener('load', async function () {
+    // try {
+    getProfileData(userAuth)
+    tasks()
+    // } catch (error) {
+    // console.log('Auto login Error : ', error)
+    // }
     let authPage: HTMLDivElement | null = <HTMLDivElement>document.getElementById('auth');
     authPage.style.display = 'none'
     //Show to do list
     let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
     todo.classList.add('show')
-    getProfileData(userAuth)
-    tasks()
+    // })
+
 }
 /* *********** End auto login **************/
 
@@ -244,7 +250,9 @@ if (updateProfileBtn !== null) {
                                 userphoto = '';
                                 allTasks = [];
                                 showTasks(allTasks)
-                                confirmMsg.style.display = 'none'
+                                if (confirmMsg !== null) {
+                                    confirmMsg.style.display = 'none'
+                                }
                                 //Hide to do page
                                 let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
                                 todo.classList.remove('show')
@@ -708,6 +716,7 @@ async function signin(email: string, pass: string) {
     // store session in local storage to auto login
     localStorage.setItem('userId', userId);
     localStorage.setItem('userAuth', userAuth);
+    console.log('responseData',responseData)
 }
 /* *********** end SignIn **************/
 /* *********** [3] Update Profile **************/

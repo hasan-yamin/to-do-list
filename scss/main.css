@@ -112,7 +112,7 @@ ul {
       align-items: flex-start;
       transition: all 0.3s;
       position: absolute;
-      top: 26px;
+      top: 48px;
       right: 0px;
       color: #9E7676; }
       .container .to-do-list .title .navbar .setting-menu.show {
@@ -126,6 +126,7 @@ ul {
         cursor: pointer;
         padding: 3px;
         border: 1px solid #9E7676;
+        background-color: #FFF8EA;
         border-radius: 5px; }
   .container .to-do-list .title .title-letsdo {
     width: fit-content;
@@ -376,7 +377,7 @@ ul {
         resize: none; }
 
 .container .auth {
-  margin: 100px auto;
+  margin: -52px auto auto;
   position: relative;
   width: 70%;
   background: linear-gradient(180deg, #9E7676 0%, #FFF8EA 100%);

@@ -37,13 +37,19 @@ let userId = localStorage.getItem('userId'), userAuth = localStorage.getItem('us
 /* *********** Start auto login ************/
 if (userAuth !== null && userAuth !== '' && userId !== null && userId !== '') {
     // console.log('userAuth',userAuth)
+    // document.addEventListener('load', async function () {
+    // try {
+    getProfileData(userAuth);
+    tasks();
+    // } catch (error) {
+    // console.log('Auto login Error : ', error)
+    // }
     let authPage = document.getElementById('auth');
     authPage.style.display = 'none';
     //Show to do list
     let todo = document.getElementById('to-do-list');
     todo.classList.add('show');
-    getProfileData(userAuth);
-    tasks();
+    // })
 }
 /* *********** End auto login **************/
 /* *********** Start Signup **************/
@@ -247,7 +253,9 @@ if (updateProfileBtn !== null) {
                                     userphoto = '';
                                     allTasks = [];
                                     showTasks(allTasks);
-                                    confirmMsg.style.display = 'none';
+                                    if (confirmMsg !== null) {
+                                        confirmMsg.style.display = 'none';
+                                    }
                                     //Hide to do page
                                     let todo = document.getElementById('to-do-list');
                                     todo.classList.remove('show');
@@ -699,6 +707,7 @@ function signin(email, pass) {
         // store session in local storage to auto login
         localStorage.setItem('userId', userId);
         localStorage.setItem('userAuth', userAuth);
+        console.log('responseData', responseData);
     });
 }
 /* *********** end SignIn **************/
