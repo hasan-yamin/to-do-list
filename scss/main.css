@@ -247,10 +247,15 @@ ul {
     width: fit-content;
     display: flex;
     flex-direction: column;
-    padding: 5px;
-    border-radius: 5px;
+    padding: 5px 15px;
+    border-radius: 15px;
     gap: 5px;
-    text-transform: capitalize; }
+    text-transform: capitalize;
+    border: 1px solid #9E7676;
+    box-shadow: 0 0 10px #9E7676;
+    cursor: pointer; }
+    .container .to-do-list .filter .filter-card:hover {
+      box-shadow: none; }
     @media (max-width: 575px) {
       .container .to-do-list .filter .filter-card {
         font-size: 12px; } }
@@ -344,6 +349,12 @@ ul {
         font-size: 13px; }
       .container .to-do-list .list .list-card .edit .edit-delete {
         display: none; }
+        @media (max-width: 575px) {
+          .container .to-do-list .list .list-card .edit .edit-delete {
+            display: flex; } }
+        @media (min-width: 576px) and (max-width: 767px) {
+          .container .to-do-list .list .list-card .edit .edit-delete {
+            display: flex; } }
         .container .to-do-list .list .list-card .edit .edit-delete .edit-task {
           color: #815B5B;
           margin-right: 5px;
@@ -369,7 +380,7 @@ ul {
         background-color: inherit;
         border: none;
         text-transform: capitalize;
-        color: #000;
+        color: #fff;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 17px;
         width: 100%;

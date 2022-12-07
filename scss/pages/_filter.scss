@@ -10,13 +10,20 @@
                 width: fit-content;
                 display: flex;
                 flex-direction: column;
-                padding: 5px;
-                border-radius: 5px;
+                padding: 5px 15px;
+                border-radius: 15px;
                 gap: 5px;
                 text-transform: capitalize;
+                border: 1px solid $color2;
+                box-shadow: 0 0 10px $color2;
+                cursor: pointer;
+
+                &:hover {
+                    box-shadow: none;
+                }
 
                 @include breakpoint(xs) {
-                     font-size: 12px;
+                    font-size: 12px;
                 }
 
                 @include breakpoint(sm) {
@@ -29,6 +36,7 @@
                     background-color: inherit;
                     outline: none;
                     color: $color2;
+
                     option {}
                 }
 

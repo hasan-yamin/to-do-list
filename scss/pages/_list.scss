@@ -28,7 +28,6 @@
 
                     .date {
                         .date-icon {
-                            // color: $icon;
                             margin-right: 5px;
                         }
 
@@ -39,7 +38,13 @@
 
                     .edit-delete {
                         display: none;
-
+                        @include breakpoint(xs) {
+                            display: flex;
+                        }
+        
+                        @include breakpoint(sm) {
+                            display: flex;
+                        }
                         .edit-task {
                             color: $edit;
                             margin-right: 5px;
@@ -63,14 +68,16 @@
 
                 .view {
                     display: flex;
-                    input[type='checkbox']{
+
+                    input[type='checkbox'] {
                         margin-right: 10px;
                         height: 17px;
                         accent-color: white;
                     }
+
                     input[type='checkbox']:checked {
                         margin-right: 10px;
-                        
+
 
                         +textarea {
                             color: #888;
@@ -81,7 +88,7 @@
                         background-color: inherit;
                         border: none;
                         text-transform: capitalize;
-                        color: #000;
+                        color: #fff;
                         font-family: Arial, Helvetica, sans-serif;
                         font-size: 17px;
                         width: 100%;

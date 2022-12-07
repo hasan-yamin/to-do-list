@@ -42,9 +42,9 @@ window.addEventListener("load", () => __awaiter(void 0, void 0, void 0, function
             showUserInfo();
         }
         catch (err) {
-            let ErrorMsg = document.getElementById('error');
-            ErrorMsg.innerHTML = err + '';
-            ErrorMsg.style.display = 'block';
+            // let ErrorMsg: HTMLDivElement | null = <HTMLDivElement>document.getElementById('error');
+            // ErrorMsg.innerHTML = err + '';
+            // ErrorMsg.style.display = 'block'
         }
     }
 }));
@@ -341,14 +341,12 @@ class Task {
 /************************* Date *************************/
 let todaysDate = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate() < 9 ? "0" + new Date().getDate() : new Date().getDate()}`;
 console.log("Today's Date: ", todaysDate);
-let filterStartDate = document.querySelector('#filter-start-date');
-if (filterStartDate !== null) {
-    filterStartDate.value = todaysDate;
-}
+// let filterStartDate: HTMLInputElement = <HTMLInputElement>document.querySelector('#filter-start-date')
+// if (filterStartDate !== null) {
+//     filterStartDate.value = todaysDate
+// }
 let deaddate = document.getElementById('deadtime');
-if (filterStartDate !== null) {
-    deaddate.value = todaysDate;
-}
+deaddate.value = todaysDate;
 // let filterEndDate: HTMLInputElement = <HTMLInputElement>document.querySelector('#filter-end-date')
 // filterEndDate.value = todaysDate
 /************************* End Date *************************/
@@ -645,12 +643,12 @@ if (todaysTasks !== null) {
         filterDate(todaysDate, todaysDate);
     });
 }
-if (filterStartDate !== null) {
-    filterStartDate.addEventListener('change', () => {
-        console.log(filterStartDate.value);
-        filterDate(filterStartDate.value, filterStartDate.value);
-    });
-}
+// if (filterStartDate !== null) {
+//     filterStartDate.addEventListener('change', () => {
+//         console.log(filterStartDate.value)
+//         filterDate(filterStartDate.value, filterStartDate.value)
+//     })
+// }
 // filter by end date
 // filterEndDate.addEventListener('change', () => {
 //     filterDate()
