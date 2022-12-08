@@ -229,10 +229,6 @@ ul {
           background-color: inherit;
           outline: none; }
       .container .to-do-list .add-crd .date-input .choices .priority {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 2px;
         border: 1px solid #9E7676;
         border-radius: 5px;
         padding-left: 5px; }

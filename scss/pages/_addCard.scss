@@ -42,23 +42,11 @@
                             background-color: inherit;
                             outline: none;
                         }
-                    }
-
-
+                    } 
                     .priority {
-                        display: flex;
-                        justify-content: flex-start;
-                        align-items: center;
-                        gap: 2px;
                         border: 1px solid $color2;
                         border-radius: 5px;
                         padding-left: 5px;
-
-                        // label {
-                        //     font-size: 14px;
-                        //     letter-spacing: 1px;
-                        //     color: #888;
-                        // }
 
                         select {
                             border: none;
