@@ -11,13 +11,57 @@
                 align-items: center;
                 width: 100%;
 
-                input {
-                    border: none;
-                    margin-left: 0;
-                    height: 50px;
-                    outline: none;
-                     background-color: inherit;
-                 }
+                .date {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    border: 1px solid $color2;
+                    border-radius: 5px;
+                    padding-left: 5px;
+
+                    label {
+                        font-size: 14px;
+                        letter-spacing: 1px;
+                        color: #888;
+                    }
+
+                    input {
+                        border: none;
+                        background-color: inherit;
+                        outline: none;
+                    }
+                }
+
+                .priority {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    gap: 2px;
+                    border: 1px solid $color2;
+                    border-radius: 5px;
+                    padding-left: 5px;
+
+                    label {
+                        font-size: 14px;
+                        letter-spacing: 1px;
+                        color: #888;
+                    }
+
+                    select {
+                        border: none;
+                        width: fit-content;
+                        background-color: transparent;
+                        color: #000;
+                        font-size: 13px;
+                        letter-spacing: 1px;
+
+                        option {
+                            text-transform: capitalize;
+                            background-color: transparent;
+                        }
+
+                    }
+                }
 
                 button {
                     border: 1px solid $color2;

@@ -26,25 +26,33 @@
                     justify-content: space-between;
                     margin-bottom: 5px;
 
-                    .date {
-                        .date-icon {
-                            margin-right: 5px;
-                        }
+                    .date-priority {
+                        display: flex;
+                        gap: 5px;
+                        .date {
+                            .date-icon {
+                                margin-right: 5px;
+                            }
 
-                        span {
-                            font-size: 13px;
+                            span {
+                                font-size: 13px;
+                            }
                         }
                     }
 
+
                     .edit-delete {
-                        display: none;
+                        // display: none;
+                        display: flex;
+
                         @include breakpoint(xs) {
                             display: flex;
                         }
-        
+
                         @include breakpoint(sm) {
                             display: flex;
                         }
+
                         .edit-task {
                             color: $edit;
                             margin-right: 5px;

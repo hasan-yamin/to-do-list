@@ -301,9 +301,10 @@ if (usrNam !== null) {
 }
 /* *********** End Settings **************/
 class Task {
-    constructor(taskName, deadLine, done, jsonId, taskId) {
+    constructor(taskName, deadLine, priorty, done, jsonId, taskId) {
         this._taskName = taskName;
         this._deadLine = deadLine;
+        this._priorty = priorty;
         this._done = done;
         this._jsonId = jsonId;
         if (taskId) {
@@ -324,6 +325,12 @@ class Task {
     }
     setDeadLine(deadLine) {
         this._deadLine = deadLine;
+    }
+    getPriority() {
+        return this._priorty;
+    }
+    setPriority(priorty) {
+        this._priorty = priorty;
     }
     getDone() {
         return this._done;
@@ -360,7 +367,6 @@ let editID = '';
 let allTasks = [];
 // get all tasks from firebase
 // tasks()
-// console.log(new Date().toISOString().slice(0,10))
 function tasks() {
     getTasks().then((result) => {
         let taskObjId;
@@ -368,17 +374,13 @@ function tasks() {
         allTasks = [];
         for ((taskObjId) in result) {
             // add task to allTasks array
-            // console.log(taskObjId)
-            allTasks.push(new Task(result[taskObjId].taskname, result[taskObjId].deadline, result[taskObjId].status, taskObjId, result[taskObjId].taskid));
+            allTasks.push(new Task(result[taskObjId].taskname, result[taskObjId].deadline, result[taskObjId].priority, result[taskObjId].status, taskObjId, result[taskObjId].taskid));
         }
         if (allTasks.length > 0) {
             let w = document.getElementsByClassName('no-task')[0];
             w.style.display = 'none';
-            //    console.log(w)
         }
         // show tasks on screen 
-        // showTasks(allTasks.reverse())
-        // showTasks(allTasks.sort())
         showTasks(allTasks.sort((a, b) => compareDates(a.getDeadLine(), b.getDeadLine())));
     });
 }
@@ -386,9 +388,9 @@ let addToDo = document.getElementById('add-task');
 addToDo.addEventListener('click', function () {
     return __awaiter(this, void 0, void 0, function* () {
         let inputText = document.getElementById('in-text');
-        // let deaddate: HTMLInputElement | null = <HTMLInputElement>document.getElementById('deadtime');
-        if (inputText.value.trim().length > 1) {
-            let newTask = new Task(inputText.value, deaddate.value, false, 'n');
+        let priorty = document.getElementById('in-priority');
+        if (inputText.value.trim().length > 1 && priorty !== null && deaddate !== null) {
+            let newTask = new Task(inputText.value, deaddate.value, priorty.value, false, 'n');
             // save task on db
             saveTasks(newTask);
             inputText.value = '';
@@ -402,10 +404,13 @@ function showTasks(allTasks) {
     let list = document.getElementsByClassName('list')[0];
     list.innerHTML = '';
     allTasks.forEach(tsk => {
-        createCard(tsk.getTaskName(), tsk.getDeadLine(), tsk.getDone(), tsk.getTaskId());
+        createCard(tsk.getTaskName(), tsk.getDeadLine(), tsk.getPriority(), tsk.getDone(), tsk.getTaskId());
     });
 }
-function createCard(inputText, deaddate, taskDone, taskId) {
+function createCard(inputText, deaddate, taskProirity, taskDone, taskId) {
+    if (taskProirity === undefined) {
+        taskProirity = 'You can set priority';
+    }
     let checkd = (taskDone) ? 'checked' : ' ';
     //edit
     let date = document.createElement('div');
@@ -433,6 +438,14 @@ function createCard(inputText, deaddate, taskDone, taskId) {
         }
     }
     date.appendChild(deadDate);
+    //priority
+    let priority = document.createElement('div');
+    priority.classList.add('priority');
+    priority.innerHTML = `${taskProirity}`;
+    let datePriority = document.createElement('div');
+    datePriority.classList.add('date-priority');
+    datePriority.appendChild(date);
+    datePriority.appendChild(priority);
     let editDelete = document.createElement('div');
     editDelete.classList.add('edit-delete');
     editDelete.innerHTML = ` 
@@ -442,7 +455,7 @@ function createCard(inputText, deaddate, taskDone, taskId) {
         <span class="delete-task" onclick="deleteCard(this)"><i class="fas fa-trash-alt" ></i></span>`;
     let edit = document.createElement('div');
     edit.classList.add('edit');
-    edit.appendChild(date);
+    edit.appendChild(datePriority);
     edit.appendChild(editDelete);
     //view
     // let name: HTMLInputElement = <HTMLInputElement>document.createElement('input');
@@ -499,6 +512,7 @@ function saveTasks(tsk) {
                 taskname: tsk.getTaskName(),
                 deadline: tsk.getDeadLine(),
                 status: tsk.getDone(),
+                priority: tsk.getPriority(),
             }),
         });
         const responseData = yield response.json();
@@ -553,23 +567,26 @@ function editCard(event) {
         editDeadtime.value = tsk.getDeadLine();
     }
 }
-function editDone(event) {
+function editDone() {
     return __awaiter(this, void 0, void 0, function* () {
         let editDeadtime = document.getElementById('edit-deadtime');
+        let priorty = document.getElementById('edit-priority');
         const newName = editInText.value;
         let tsk = allTasks.find(tsk => tsk.getTaskId() === editID);
         // let indx: number = allTasks.indexOf(<Task>tsk)
         if (tsk != undefined) {
             tsk.setTaskName(newName);
             tsk.setDeadLine(editDeadtime.value);
+            tsk.setPriority(priorty.value);
             let url = `https://todolist-42b5f-default-rtdb.firebaseio.com/users/${userId}/${tsk.getJsonId()}.json?auth=${userAuth}`;
-            const response = yield fetch(url, {
+            yield fetch(url, {
                 method: 'PUT',
                 body: JSON.stringify({
                     taskid: tsk.getTaskId(),
                     taskname: tsk.getTaskName(),
                     deadline: tsk.getDeadLine(),
                     status: tsk.getDone(),
+                    priority: tsk.getPriority(),
                 }),
             });
         }
