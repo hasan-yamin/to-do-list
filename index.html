@@ -95,7 +95,7 @@
                 <!-- <span class="title-letsdo"><i class="fas fa-check-square me-1"></i> Let's do it</span> -->
             </div>
             <div class=" crd add-crd">
-                <div class="date-input">
+                 
                     <div class="choices">
                         <div class="date">
                             <label for="deadtime"><i class="fa-solid fa-calendar-days"></i></label>
@@ -112,9 +112,12 @@
                         </div>
 
                     </div>
+                 
+                <div class="input">
                     <textarea name="in-text" id="in-text" placeholder="Add task ..."></textarea>
+                    <button id="add-task"><i class="fa fa-plus"></i></button>
+
                 </div>
-                <button id="add-task"><i class="fa fa-plus"></i></button>
             </div>
             <div class="crd no-task">
                 No Tasks to view
@@ -153,22 +156,22 @@
                 <div class="edit-date">
                     <div class="edit-date-priority">
                         <div class="date">
-                        <label for="edit-deadtime">Date:</label>
-                        <input type="date" id="edit-deadtime" name="edit-deadtime">
+                            <label for="edit-deadtime">Date:</label>
+                            <input type="date" id="edit-deadtime" name="edit-deadtime">
 
+                        </div>
+                        <div class="priority">
+                            <!-- <label for="priority">Priority: </label> -->
+                            <select name="priority" id="edit-priority">
+                                <option value=" " disabled selected>Choose Priority</option>
+                                <option value="Urgent - Important">Urgent / Important</option>
+                                <option value="Urgent - Not Important">Urgent / Not important</option>
+                                <option value="NotUrgent - Important">Not urgent / Important</option>
+                                <option value="Not Important - No tUrgent">Not important / Not urgent</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="priority">
-                        <!-- <label for="priority">Priority: </label> -->
-                        <select name="priority" id="edit-priority">
-                            <option value=" " disabled selected>Choose Priority</option>
-                            <option value="Urgent - Important">Urgent / Important</option>
-                            <option value="Urgent - Not Important">Urgent / Not important</option>
-                            <option value="NotUrgent - Important">Not urgent / Important</option>
-                            <option value="Not Important - No tUrgent">Not important / Not urgent</option>
-                        </select>
-                    </div>
-                    </div>
-                    
+
                     <button id="edit-done" onclick="editDone(this)"><i class="fa-solid fa-check"></i></button>
                 </div>
                 <textarea name="edit-in-text" id="edit-in-text" cols="30" rows="10"></textarea>

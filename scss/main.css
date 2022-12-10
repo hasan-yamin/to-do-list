@@ -196,74 +196,69 @@ ul {
 
 .container .to-do-list .add-crd {
   background-color: #fff;
-  border: 1px solid #6247fe; }
-  .container .to-do-list .add-crd .date-input {
+  border: 1px solid #6247fe;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; }
+  .container .to-do-list .add-crd .choices {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 80%; }
-    .container .to-do-list .add-crd .date-input .choices {
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px; }
+    .container .to-do-list .add-crd .choices .date {
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      gap: 10px; }
-      @media (max-width: 575px) {
-        .container .to-do-list .add-crd .date-input .choices {
-          flex-direction: column;
-          align-items: flex-start; } }
-      @media (min-width: 576px) and (max-width: 767px) {
-        .container .to-do-list .add-crd .date-input .choices {
-          flex-direction: column;
-          align-items: flex-start; } }
-      .container .to-do-list .add-crd .date-input .choices .date {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        border: 1px solid #6247fe;
-        border-radius: 5px;
-        padding-left: 5px; }
-        .container .to-do-list .add-crd .date-input .choices .date svg {
-          color: #6247fe; }
-        .container .to-do-list .add-crd .date-input .choices .date input {
-          border: none;
-          background-color: inherit;
-          outline: none; }
-      .container .to-do-list .add-crd .date-input .choices .priority {
-        border: 1px solid #6247fe;
-        border-radius: 5px;
-        padding-left: 5px; }
-        .container .to-do-list .add-crd .date-input .choices .priority select {
-          border: none;
-          outline: none;
-          width: fit-content;
-          background-color: transparent;
-          color: #000;
-          font-size: 13px;
-          letter-spacing: 1px; }
-          .container .to-do-list .add-crd .date-input .choices .priority select option {
-            text-transform: capitalize;
-            background-color: transparent; }
-    .container .to-do-list .add-crd .date-input textarea {
+      border: 1px solid #6247fe;
+      border-radius: 5px;
+      padding-left: 5px; }
+      .container .to-do-list .add-crd .choices .date svg {
+        color: #6247fe; }
+      .container .to-do-list .add-crd .choices .date input {
+        border: none;
+        background-color: inherit;
+        outline: none; }
+    .container .to-do-list .add-crd .choices .priority {
+      border: 1px solid #6247fe;
+      border-radius: 5px;
+      padding-left: 5px; }
+      .container .to-do-list .add-crd .choices .priority select {
+        border: none;
+        outline: none;
+        width: fit-content;
+        background-color: transparent;
+        color: #000;
+        font-size: 13px;
+        letter-spacing: 1px; }
+        .container .to-do-list .add-crd .choices .priority select option {
+          text-transform: capitalize;
+          background-color: transparent; }
+  .container .to-do-list .add-crd .input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    width: 100%; }
+    .container .to-do-list .add-crd .input textarea {
       border: none;
-      width: 100%;
+      width: 90%;
       height: 40px;
       outline: none;
       resize: none;
       padding: 10px;
       caret-color: #6247fe;
       color: #6247fe; }
-  .container .to-do-list .add-crd button {
-    border: 1px solid #6247fe;
-    cursor: copy;
-    border-radius: 50%;
-    background-color: #fff;
-    transition: transform 0.3s; }
-    .container .to-do-list .add-crd button :hover {
-      transform: scale(1.1); }
-    .container .to-do-list .add-crd button .fa-plus {
-      color: #6247fe;
-      width: 50px;
-      height: 50px; }
+    .container .to-do-list .add-crd .input button {
+      border: 1px solid #6247fe;
+      cursor: copy;
+      border-radius: 50%;
+      background-color: #fff;
+      transition: transform 0.5s;
+      width: 30px; }
+      .container .to-do-list .add-crd .input button .fa-plus {
+        color: #6247fe;
+        width: 30px;
+        height: 30px; }
 
 .container .to-do-list .no-task {
   display: block;
