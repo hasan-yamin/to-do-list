@@ -2,7 +2,7 @@
     .to-do-list {
         .add-crd {
             background-color: $inputBackG;
-
+border: 1px solid $color2;
             .date-input {
                 display: flex;
                 flex-direction: column;
