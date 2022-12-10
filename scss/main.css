@@ -474,7 +474,7 @@ ul {
     .container .auth .login h2,
     .container .auth .signup h2 {
       width: 100%;
-      background-color: #594545;
+      background-color: #6247fe;
       height: 50px;
       text-align: center;
       margin-bottom: 50px;
@@ -529,7 +529,7 @@ ul {
       .container .auth .signup form button {
         margin-top: 10px;
         width: 100%;
-        background-color: #594545;
+        background-color: #6247fe;
         color: #fff;
         border: none;
         border-radius: 10px;
