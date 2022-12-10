@@ -13,16 +13,6 @@
                 align-items: center;
                 gap: 10px;
 
-                // @include breakpoint(xs) {
-                //     flex-direction: column;
-                //     align-items: flex-start;
-                // }
-
-                // @include breakpoint(sm) {
-                //     flex-direction: column;
-                //     align-items: flex-start;
-                // }
-
                 .date {
                     display: flex;
                     justify-content: flex-start;
@@ -30,6 +20,7 @@
                     border: 1px solid $color2;
                     border-radius: 5px;
                     padding-left: 5px;
+                    width: fit-content;
 
                     svg {
                         color: $color2;
@@ -39,6 +30,7 @@
                         border: none;
                         background-color: inherit;
                         outline: none;
+                        width: fit-content;
                     }
                 }
 
@@ -46,7 +38,7 @@
                     border: 1px solid $color2;
                     border-radius: 5px;
                     padding-left: 5px;
-
+                    
                     select {
                         border: none;
                         outline: none;
@@ -55,7 +47,7 @@
                         color: #000;
                         font-size: 13px;
                         letter-spacing: 1px;
-
+                        width: 100px;
                         option {
                             text-transform: capitalize;
                             background-color: transparent;

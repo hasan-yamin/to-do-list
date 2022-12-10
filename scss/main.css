@@ -211,13 +211,15 @@ ul {
       align-items: center;
       border: 1px solid #6247fe;
       border-radius: 5px;
-      padding-left: 5px; }
+      padding-left: 5px;
+      width: fit-content; }
       .container .to-do-list .add-crd .choices .date svg {
         color: #6247fe; }
       .container .to-do-list .add-crd .choices .date input {
         border: none;
         background-color: inherit;
-        outline: none; }
+        outline: none;
+        width: fit-content; }
     .container .to-do-list .add-crd .choices .priority {
       border: 1px solid #6247fe;
       border-radius: 5px;
@@ -229,7 +231,8 @@ ul {
         background-color: transparent;
         color: #000;
         font-size: 13px;
-        letter-spacing: 1px; }
+        letter-spacing: 1px;
+        width: 100px; }
         .container .to-do-list .add-crd .choices .priority select option {
           text-transform: capitalize;
           background-color: transparent; }
