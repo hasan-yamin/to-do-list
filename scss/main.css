@@ -1,5 +1,5 @@
 body {
-  background-color: #FFF8EA; }
+  background-color: #FFF; }
 
 * {
   box-sizing: border-box;
@@ -93,11 +93,11 @@ ul {
         width: 50px;
         height: 50px;
         border-radius: 50%;
-        border: 5px solid #FFF8EA;
+        border: 5px solid #FFF;
         margin-left: 5px;
         overflow: hidden;
         text-align: center;
-        background-color: #FFF8EA; }
+        background-color: #FFF; }
         .container .to-do-list .title .navbar > div .profileimg svg {
           line-height: 40px;
           font-size: 36px;
@@ -126,13 +126,13 @@ ul {
         cursor: pointer;
         padding: 3px;
         border: 1px solid #9E7676;
-        background-color: #FFF8EA;
+        background-color: #FFF;
         border-radius: 5px; }
   .container .to-do-list .title .title-letsdo {
     width: fit-content;
     color: #9E7676;
     font-size: 30px;
-    background-color: #FFF8EA; }
+    background-color: #FFF; }
 
 .container .settings {
   position: absolute;
@@ -145,7 +145,7 @@ ul {
   justify-content: center;
   align-items: center;
   border: 2px solid #9E7676;
-  background-color: #FFF8EA;
+  background-color: #FFF;
   border-radius: 15px;
   z-index: 100;
   padding: 20px; }
@@ -276,7 +276,7 @@ ul {
   margin: 0 auto;
   display: flex;
   justify-content: space-around;
-  background-color: #FFF8EA; }
+  background-color: #FFF; }
   .container .to-do-list .filter .filter-card {
     width: fit-content;
     display: flex;
@@ -333,43 +333,48 @@ ul {
     justify-content: space-between;
     align-items: center;
     width: 100%; }
-    .container .to-do-list .edit-content .edit-date .date {
+    .container .to-do-list .edit-content .edit-date .edit-date-priority {
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      border: 1px solid #9E7676;
-      border-radius: 5px;
-      padding-left: 5px; }
-      .container .to-do-list .edit-content .edit-date .date label {
-        font-size: 14px;
-        letter-spacing: 1px;
-        color: #888; }
-      .container .to-do-list .edit-content .edit-date .date input {
-        border: none;
-        background-color: inherit;
-        outline: none; }
-    .container .to-do-list .edit-content .edit-date .priority {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      gap: 2px;
-      border: 1px solid #9E7676;
-      border-radius: 5px;
-      padding-left: 5px; }
-      .container .to-do-list .edit-content .edit-date .priority label {
-        font-size: 14px;
-        letter-spacing: 1px;
-        color: #888; }
-      .container .to-do-list .edit-content .edit-date .priority select {
-        border: none;
-        width: fit-content;
-        background-color: transparent;
-        color: #000;
-        font-size: 13px;
-        letter-spacing: 1px; }
-        .container .to-do-list .edit-content .edit-date .priority select option {
-          text-transform: capitalize;
-          background-color: transparent; }
+      gap: 10px; }
+      @media (max-width: 575px) {
+        .container .to-do-list .edit-content .edit-date .edit-date-priority {
+          flex-direction: column;
+          align-items: flex-start; } }
+      @media (min-width: 576px) and (max-width: 767px) {
+        .container .to-do-list .edit-content .edit-date .edit-date-priority {
+          flex-direction: column;
+          align-items: flex-start; } }
+      .container .to-do-list .edit-content .edit-date .edit-date-priority .date {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        border: 1px solid #9E7676;
+        border-radius: 5px;
+        padding-left: 5px; }
+        .container .to-do-list .edit-content .edit-date .edit-date-priority .date label {
+          font-size: 14px;
+          letter-spacing: 1px;
+          color: #888; }
+        .container .to-do-list .edit-content .edit-date .edit-date-priority .date input {
+          border: none;
+          background-color: inherit;
+          outline: none; }
+      .container .to-do-list .edit-content .edit-date .edit-date-priority .priority {
+        border: 1px solid #9E7676;
+        border-radius: 5px;
+        padding-left: 5px; }
+        .container .to-do-list .edit-content .edit-date .edit-date-priority .priority select {
+          border: none;
+          width: fit-content;
+          background-color: transparent;
+          color: #000;
+          font-size: 13px;
+          letter-spacing: 1px; }
+          .container .to-do-list .edit-content .edit-date .edit-date-priority .priority select option {
+            text-transform: capitalize;
+            background-color: transparent; }
     .container .to-do-list .edit-content .edit-date button {
       border: 1px solid #9E7676;
       cursor: pointer;
@@ -401,7 +406,7 @@ ul {
     display: flex;
     flex-direction: column;
     padding: 5px 10px;
-    background: linear-gradient(180deg, #9E7676 0%, #FFF8EA 100%); }
+    background: linear-gradient(180deg, #9E7676 0%, #FFF 100%); }
     .container .to-do-list .list .list-card:hover .edit .edit-delete {
       display: flex; }
     .container .to-do-list .list .list-card .edit {
@@ -459,7 +464,7 @@ ul {
   margin: -52px auto auto;
   position: relative;
   width: 70%;
-  background: linear-gradient(180deg, #9E7676 0%, #FFF8EA 100%);
+  background: linear-gradient(180deg, #9E7676 0%, #FFF 100%);
   border-radius: 10px;
   overflow: hidden;
   display: flex;
