@@ -83,6 +83,7 @@ if (signupForm !== null) {
     })
 }
 /* *********** End Signup **************/
+
 /* *********** Start login **************/
 let loginForm: HTMLFormElement | null = <HTMLFormElement>document.getElementById('login-form');
 if (loginForm !== null) {
@@ -509,11 +510,6 @@ async function getTasks() {
         throw error;
     }
     return responseData
-    ////////////////////////
-    // fetch(url).then((response)=>{
-    //     const responseData = response.json();
-    //     return responseData
-    // })
 }
 /* [2] 'POST' save new task to firebase db */
 async function saveTasks(tsk: Task) {

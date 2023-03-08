@@ -398,16 +398,15 @@ ul {
 .container .to-do-list .list {
   flex-direction: column;
   padding: 0;
-  gap: 0; }
+  gap: 5px; }
   .container .to-do-list .list .list-card {
     width: 100%;
     min-height: 70px;
     display: flex;
     flex-direction: column;
     padding: 5px 10px;
-    background: linear-gradient(180deg, #6247fe 0%, #fff 100%); }
-    .container .to-do-list .list .list-card:hover .edit .edit-delete {
-      display: flex; }
+    background-color: #f6f1f1da;
+    border-radius: 5px; }
     .container .to-do-list .list .list-card .edit {
       display: flex;
       justify-content: space-between;
@@ -421,14 +420,8 @@ ul {
           font-size: 13px; }
       .container .to-do-list .list .list-card .edit .edit-delete {
         display: flex; }
-        @media (max-width: 575px) {
-          .container .to-do-list .list .list-card .edit .edit-delete {
-            display: flex; } }
-        @media (min-width: 576px) and (max-width: 767px) {
-          .container .to-do-list .list .list-card .edit .edit-delete {
-            display: flex; } }
         .container .to-do-list .list .list-card .edit .edit-delete .edit-task {
-          color: #fff;
+          color: #6247fe;
           margin-right: 5px;
           transition: transform 0.3s; }
           .container .to-do-list .list .list-card .edit .edit-delete .edit-task :hover {
@@ -452,7 +445,7 @@ ul {
         background-color: inherit;
         border: none;
         text-transform: capitalize;
-        color: #fff;
+        color: #333;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 17px;
         width: 100%;

@@ -3,7 +3,7 @@
         .list {
             flex-direction: column;
             padding: 0;
-            gap: 0;
+            gap: 5px;
 
             .list-card {
                 width: 100%;
@@ -11,15 +11,18 @@
                 display: flex;
                 flex-direction: column;
                 padding: 5px 10px;
-                background: linear-gradient(180deg, $color2 0%, $color1 100%);
+                background-color: #f6f1f1da;
+                // background: linear-gradient(180deg, $color2 0%, $color1 100%);
+                // border: 1px solid $color2;
+                border-radius: 5px;
 
-                &:hover {
-                    .edit {
-                        .edit-delete {
-                            display: flex;
-                        }
-                    }
-                }
+                // &:hover {
+                //     .edit {
+                //         .edit-delete {
+                //             display: flex;
+                //         }
+                //     }
+                // }
 
                 .edit {
                     display: flex;
@@ -29,6 +32,7 @@
                     .date-priority {
                         display: flex;
                         gap: 5px;
+
                         .date {
                             .date-icon {
                                 margin-right: 5px;
@@ -45,13 +49,13 @@
                         // display: none;
                         display: flex;
 
-                        @include breakpoint(xs) {
-                            display: flex;
-                        }
+                        // @include breakpoint(xs) {
+                        //     display: flex;
+                        // }
 
-                        @include breakpoint(sm) {
-                            display: flex;
-                        }
+                        // @include breakpoint(sm) {
+                        //     display: flex;
+                        // }
 
                         .edit-task {
                             color: $edit;
@@ -96,7 +100,7 @@
                         background-color: inherit;
                         border: none;
                         text-transform: capitalize;
-                        color: #fff;
+                        color: #333;
                         font-family: Arial, Helvetica, sans-serif;
                         font-size: 17px;
                         width: 100%;
