@@ -1,0 +1,1182 @@
+/* Modern UI Complete Redesign */
+
+/* Import modern font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Reset and base styles */
+* {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Modern body styling */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+  background: #f8f9fe !important;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(102, 126, 234, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(118, 75, 162, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(102, 126, 234, 0.15) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(118, 75, 162, 0.15) 0px, transparent 50%) !important;
+  min-height: 100vh;
+  padding: 40px 20px !important;
+  position: relative;
+}
+
+body.dark-mode {
+  background: #0f0f1e !important;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(139, 122, 255, 0.1) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(157, 126, 186, 0.1) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(139, 122, 255, 0.1) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(157, 126, 186, 0.1) 0px, transparent 50%) !important;
+}
+
+/* Container improvements */
+.container {
+  max-width: 900px !important;
+  margin: 0 auto !important;
+}
+
+.container .main-img {
+  border-radius: 24px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15) !important;
+  border: none !important;
+  overflow: hidden !important;
+  margin-bottom: 30px !important;
+  display: none !important; /* Hide the main image for cleaner look */
+}
+
+/* Auth section modernization */
+.container .auth {
+  backdrop-filter: blur(20px) !important;
+  background: rgba(255, 255, 255, 0.8) !important;
+  border-radius: 24px !important;
+  box-shadow: 
+    0 0 0 1px rgba(0, 0, 0, 0.05),
+    0 20px 60px rgba(0, 0, 0, 0.1),
+    0 40px 100px rgba(102, 126, 234, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  margin-top: 0 !important;
+  padding: 0 !important;
+}
+
+body.dark-mode .container .auth {
+  background: rgba(26, 26, 46, 0.8) !important;
+  border: 1px solid rgba(139, 122, 255, 0.2) !important;
+  box-shadow: 
+    0 0 0 1px rgba(139, 122, 255, 0.1),
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 40px 100px rgba(139, 122, 255, 0.2) !important;
+}
+
+.container .auth .login h2,
+.container .auth .signup h2 {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border-radius: 24px 24px 0 0 !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.5px !important;
+  font-size: 32px !important;
+  height: 80px !important;
+  line-height: 80px !important;
+  margin-bottom: 40px !important;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3) !important;
+}
+
+body.dark-mode .container .auth .login h2,
+body.dark-mode .container .auth .signup h2 {
+  background: linear-gradient(135deg, #8b7aff 0%, #9d7aba 100%) !important;
+  box-shadow: 0 4px 20px rgba(139, 122, 255, 0.3) !important;
+}
+
+.container .auth .login form .form-control input,
+.container .auth .signup form .form-control input {
+  border-radius: 16px !important;
+  padding: 16px 20px !important;
+  font-size: 16px !important;
+  border: 2px solid #e8eaf6 !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  background: #fafbff !important;
+  height: 56px !important;
+  font-weight: 500 !important;
+}
+
+.container .auth .login form .form-control input:focus,
+.container .auth .signup form .form-control input:focus {
+  border-color: #667eea !important;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15) !important;
+  background: #fff !important;
+  outline: none !important;
+}
+
+.container .auth .login form .form-control input::placeholder,
+.container .auth .signup form .form-control input::placeholder {
+  color: #9ca3af !important;
+  font-weight: 400 !important;
+}
+
+body.dark-mode .container .auth .login form .form-control input,
+body.dark-mode .container .auth .signup form .form-control input {
+  border-color: #2d2d44 !important;
+  background: #1a1a2e !important;
+}
+
+body.dark-mode .container .auth .login form .form-control input:focus,
+body.dark-mode .container .auth .signup form .form-control input:focus {
+  border-color: #8b7aff !important;
+  box-shadow: 0 0 0 4px rgba(139, 122, 255, 0.15) !important;
+  background: #16213e !important;
+}
+
+.container .auth .login form button,
+.container .auth .signup form button {
+  border-radius: 16px !important;
+  padding: 16px !important;
+  font-weight: 700 !important;
+  font-size: 17px !important;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4) !important;
+  height: 56px !important;
+  line-height: 24px !important;
+  letter-spacing: 0.3px !important;
+  cursor: pointer !important;
+  border: none !important;
+}
+
+.container .auth .login form button:hover,
+.container .auth .signup form button:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 12px 32px rgba(102, 126, 234, 0.5) !important;
+}
+
+.container .auth .login form button:active,
+.container .auth .signup form button:active {
+  transform: translateY(-1px) !important;
+}
+
+body.dark-mode .container .auth .login form button,
+body.dark-mode .container .auth .signup form button {
+  background: linear-gradient(135deg, #8b7aff 0%, #9d7aba 100%) !important;
+  box-shadow: 0 8px 24px rgba(139, 122, 255, 0.4) !important;
+}
+
+body.dark-mode .container .auth .login form button:hover,
+body.dark-mode .container .auth .signup form button:hover {
+  box-shadow: 0 12px 32px rgba(139, 122, 255, 0.5) !important;
+}
+
+/* To-do list modernization */
+.container .to-do-list {
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(20px) !important;
+  border-radius: 24px !important;
+  box-shadow: 
+    0 0 0 1px rgba(0, 0, 0, 0.05),
+    0 20px 60px rgba(0, 0, 0, 0.1),
+    0 40px 100px rgba(102, 126, 234, 0.15) !important;
+  padding: 32px !important;
+  margin-top: 0 !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+}
+
+body.dark-mode .container .to-do-list {
+  background: rgba(26, 26, 46, 0.8) !important;
+  border: 1px solid rgba(139, 122, 255, 0.2) !important;
+  box-shadow: 
+    0 0 0 1px rgba(139, 122, 255, 0.1),
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 40px 100px rgba(139, 122, 255, 0.2) !important;
+}
+
+/* Navbar improvements */
+.container .to-do-list .title .navbar > div p {
+  font-size: 18px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+body.dark-mode .container .to-do-list .title .navbar > div p {
+  background: linear-gradient(135deg, #8b7aff 0%, #9d7aba 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.container .to-do-list .title .navbar > div .profileimg {
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  border-width: 3px;
+}
+
+.container .to-do-list .title .navbar .setting-menu li {
+  border-radius: 10px;
+  font-size: 13px;
+  padding: 8px 12px;
+  transition: all 0.3s ease;
+}
+
+.container .to-do-list .title .navbar .setting-menu li:hover {
+  transform: translateX(-5px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+/* Card improvements */
+.container .to-do-list .crd {
+  border-radius: 20px !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06) !important;
+  border: 1px solid rgba(102, 126, 234, 0.15) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  padding: 20px !important;
+  margin: 12px auto !important;
+}
+
+.container .to-do-list .crd:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+  transform: translateY(-4px) !important;
+  border-color: rgba(102, 126, 234, 0.3) !important;
+}
+
+body.dark-mode .container .to-do-list .crd {
+  border-color: rgba(139, 122, 255, 0.2) !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.dark-mode .container .to-do-list .crd:hover {
+  border-color: rgba(139, 122, 255, 0.4) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Add card styling */
+.container .to-do-list .add-crd {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%) !important;
+  border: 2px dashed rgba(102, 126, 234, 0.3) !important;
+}
+
+.container .to-do-list .add-crd:hover {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.12) 0%, rgba(118, 75, 162, 0.12) 100%) !important;
+  border-color: rgba(102, 126, 234, 0.5) !important;
+}
+
+body.dark-mode .container .to-do-list .add-crd {
+  background: linear-gradient(135deg, rgba(139, 122, 255, 0.12) 0%, rgba(157, 126, 186, 0.12) 100%) !important;
+  border-color: rgba(139, 122, 255, 0.3) !important;
+}
+
+body.dark-mode .container .to-do-list .add-crd:hover {
+  background: linear-gradient(135deg, rgba(139, 122, 255, 0.18) 0%, rgba(157, 126, 186, 0.18) 100%) !important;
+  border-color: rgba(139, 122, 255, 0.5) !important;
+}
+
+.container .to-do-list .add-crd .choices .date,
+.container .to-do-list .add-crd .choices .priority {
+  border-radius: 10px;
+  border-width: 2px;
+  padding: 8px 12px;
+}
+
+.container .to-do-list .add-crd .input textarea {
+  font-size: 16px !important;
+  padding: 14px 16px !important;
+  border-radius: 14px !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+  border: 2px solid rgba(102, 126, 234, 0.2) !important;
+  font-weight: 500 !important;
+  resize: none !important;
+  min-height: 48px !important;
+}
+
+.container .to-do-list .add-crd .input textarea:focus {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: #667eea !important;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+  outline: none !important;
+}
+
+.container .to-do-list .add-crd .input textarea::placeholder {
+  color: #9ca3af !important;
+  font-weight: 400 !important;
+}
+
+body.dark-mode .container .to-do-list .add-crd .input textarea {
+  background: rgba(26, 26, 46, 0.7) !important;
+  border-color: rgba(139, 122, 255, 0.2) !important;
+}
+
+body.dark-mode .container .to-do-list .add-crd .input textarea:focus {
+  background: rgba(26, 26, 46, 0.95) !important;
+  border-color: #8b7aff !important;
+  box-shadow: 0 0 0 3px rgba(139, 122, 255, 0.1) !important;
+}
+
+.container .to-do-list .add-crd .input button {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 14px !important;
+  border: 2px solid #667eea !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  cursor: pointer !important;
+}
+
+.container .to-do-list .add-crd .input button .fa-plus {
+  color: #fff !important;
+  font-size: 18px !important;
+}
+
+.container .to-do-list .add-crd .input button:hover {
+  transform: rotate(90deg) scale(1.15) !important;
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.5) !important;
+}
+
+.container .to-do-list .add-crd .input button:active {
+  transform: rotate(90deg) scale(1.05) !important;
+}
+
+body.dark-mode .container .to-do-list .add-crd .input button {
+  background: linear-gradient(135deg, #8b7aff 0%, #9d7aba 100%) !important;
+  border-color: #8b7aff !important;
+}
+
+body.dark-mode .container .to-do-list .add-crd .input button:hover {
+  box-shadow: 0 8px 24px rgba(139, 122, 255, 0.5) !important;
+}
+
+/* Filter section */
+.container .to-do-list .filter {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+}
+
+body.dark-mode .container .to-do-list .filter {
+  background: linear-gradient(135deg, rgba(139, 122, 255, 0.1) 0%, rgba(157, 126, 186, 0.1) 100%);
+}
+
+.container .to-do-list .filter .filter-card {
+  border-radius: 12px;
+  padding: 10px 18px;
+  border-width: 2px;
+  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.15);
+}
+
+.container .to-do-list .filter .filter-card:hover {
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.25);
+}
+
+/* List cards */
+.container .to-do-list .list .list-card {
+  border-radius: 18px !important;
+  padding: 20px !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 249, 254, 0.95) 100%) !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06) !important;
+  border: 1px solid rgba(102, 126, 234, 0.15) !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  margin-bottom: 12px !important;
+  min-height: 80px !important;
+}
+
+.container .to-do-list .list .list-card:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
+  transform: translateX(8px) scale(1.02) !important;
+  border-color: rgba(102, 126, 234, 0.3) !important;
+}
+
+body.dark-mode .container .to-do-list .list .list-card {
+  background: linear-gradient(135deg, rgba(45, 45, 68, 0.95) 0%, rgba(35, 35, 55, 0.95) 100%) !important;
+  border-color: rgba(139, 122, 255, 0.2) !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.dark-mode .container .to-do-list .list .list-card:hover {
+  border-color: rgba(139, 122, 255, 0.4) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
+}
+
+.container .to-do-list .list .list-card .edit .date-priority .date span {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.container .to-do-list .list .list-card .edit .date-priority .priority {
+  font-size: 12px;
+  padding: 4px 10px;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+body.dark-mode .container .to-do-list .list .list-card .edit .date-priority .priority {
+  background: rgba(139, 122, 255, 0.2);
+}
+
+.container .to-do-list .list .list-card .edit .edit-delete .edit-task,
+.container .to-do-list .list .list-card .edit .edit-delete .delete-task {
+  padding: 6px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.container .to-do-list .list .list-card .edit .edit-delete .edit-task:hover {
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.container .to-do-list .list .list-card .edit .edit-delete .delete-task:hover {
+  background: rgba(212, 82, 46, 0.1);
+}
+
+.container .to-do-list .list .list-card .view textarea {
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* Settings modal */
+.container .settings {
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+.container .settings .update-info button {
+  border-radius: 10px;
+  padding: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.container .settings .update-info button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Edit content */
+.container .to-do-list .edit-content {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+}
+
+body.dark-mode .container .to-do-list .edit-content {
+  background: linear-gradient(135deg, rgba(139, 122, 255, 0.1) 0%, rgba(157, 126, 186, 0.1) 100%);
+}
+
+.container .to-do-list .edit-content .edit-date button {
+  width: 35px;
+  height: 35px;
+  transition: all 0.3s ease;
+}
+
+.container .to-do-list .edit-content .edit-date button:hover {
+  transform: scale(1.1);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.container .to-do-list .edit-content .edit-date button:hover .fa-check {
+  color: #fff;
+}
+
+body.dark-mode .container .to-do-list .edit-content .edit-date button:hover {
+  background: linear-gradient(135deg, #8b7aff 0%, #9d7aba 100%);
+}
+
+.container .to-do-list .edit-content textarea {
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 15px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+body.dark-mode .container .to-do-list .edit-content textarea {
+  background: rgba(26, 26, 46, 0.5);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5568d3 0%, #6a3d8f 100%);
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #8b7aff 0%, #9d7aba 100%);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.container .to-do-list .list .list-card {
+  animation: fadeIn 0.3s ease;
+}
+
+/* No task message */
+.container .to-do-list .no-task {
+  font-size: 18px;
+  padding: 40px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(212, 82, 46, 0.1) 0%, rgba(212, 82, 46, 0.05) 100%);
+}
+
+/* Additional modern enhancements */
+
+/* Navbar title styling */
+.container .to-do-list .title .navbar > div p {
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  letter-spacing: -0.5px !important;
+}
+
+/* Profile image modern styling */
+.container .to-do-list .title .navbar > div .profileimg {
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4) !important;
+  border-width: 3px !important;
+  transition: all 0.3s ease !important;
+}
+
+.container .to-do-list .title .navbar > div .profileimg:hover {
+  transform: scale(1.1) !important;
+  box-shadow: 0 6px 24px rgba(102, 126, 234, 0.5) !important;
+}
+
+/* Date and priority inputs */
+.container .to-do-list .add-crd .choices .date,
+.container .to-do-list .add-crd .choices .priority {
+  border-radius: 12px !important;
+  border-width: 2px !important;
+  padding: 10px 14px !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+  transition: all 0.3s ease !important;
+}
+
+.container .to-do-list .add-crd .choices .date:hover,
+.container .to-do-list .add-crd .choices .priority:hover {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: #667eea !important;
+}
+
+body.dark-mode .container .to-do-list .add-crd .choices .date,
+body.dark-mode .container .to-do-list .add-crd .choices .priority {
+  background: rgba(26, 26, 46, 0.7) !important;
+}
+
+body.dark-mode .container .to-do-list .add-crd .choices .date:hover,
+body.dark-mode .container .to-do-list .add-crd .choices .priority:hover {
+  background: rgba(26, 26, 46, 0.95) !important;
+  border-color: #8b7aff !important;
+}
+
+.container .to-do-list .add-crd .choices .date input,
+.container .to-do-list .add-crd .choices .priority select {
+  font-weight: 500 !important;
+  font-size: 14px !important;
+}
+
+/* Filter section modern styling */
+.container .to-do-list .filter {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%) !important;
+  border: 1px solid rgba(102, 126, 234, 0.15) !important;
+}
+
+body.dark-mode .container .to-do-list .filter {
+  background: linear-gradient(135deg, rgba(139, 122, 255, 0.12) 0%, rgba(157, 126, 186, 0.12) 100%) !important;
+  border-color: rgba(139, 122, 255, 0.2) !important;
+}
+
+.container .to-do-list .filter .filter-card {
+  border-radius: 14px !important;
+  padding: 12px 20px !important;
+  border-width: 2px !important;
+  box-shadow: 0 2px 12px rgba(102, 126, 234, 0.12) !important;
+  background: rgba(255, 255, 255, 0.6) !important;
+}
+
+.container .to-do-list .filter .filter-card:hover {
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2) !important;
+  transform: translateY(-2px) !important;
+}
+
+body.dark-mode .container .to-do-list .filter .filter-card {
+  background: rgba(26, 26, 46, 0.6) !important;
+  box-shadow: 0 2px 12px rgba(139, 122, 255, 0.12) !important;
+}
+
+body.dark-mode .container .to-do-list .filter .filter-card:hover {
+  box-shadow: 0 4px 20px rgba(139, 122, 255, 0.2) !important;
+}
+
+.container .to-do-list .filter .filter-card select,
+.container .to-do-list .filter .filter-card .todays-tasks {
+  font-weight: 600 !important;
+  font-size: 14px !important;
+}
+
+/* Task list item enhancements */
+.container .to-do-list .list .list-card .view textarea {
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+  font-weight: 500 !important;
+  padding: 4px 0 !important;
+}
+
+.container .to-do-list .list .list-card .view input[type='checkbox'] {
+  width: 20px !important;
+  height: 20px !important;
+  margin-right: 14px !important;
+  cursor: pointer !important;
+  border-radius: 6px !important;
+}
+
+.container .to-do-list .list .list-card .edit .date-priority .priority {
+  font-size: 12px !important;
+  padding: 6px 12px !important;
+  background: rgba(102, 126, 234, 0.15) !important;
+  border-radius: 10px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+}
+
+body.dark-mode .container .to-do-list .list .list-card .edit .date-priority .priority {
+  background: rgba(139, 122, 255, 0.25) !important;
+}
+
+/* Edit and delete buttons */
+.container .to-do-list .list .list-card .edit .edit-delete .edit-task,
+.container .to-do-list .list .list-card .edit .edit-delete .delete-task {
+  padding: 8px !important;
+  border-radius: 10px !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer !important;
+}
+
+.container .to-do-list .list .list-card .edit .edit-delete .edit-task:hover {
+  background: rgba(102, 126, 234, 0.15) !important;
+  transform: scale(1.1) !important;
+}
+
+.container .to-do-list .list .list-card .edit .edit-delete .delete-task:hover {
+  background: rgba(212, 82, 46, 0.15) !important;
+  transform: scale(1.1) !important;
+}
+
+/* No task message modern styling */
+.container .to-do-list .no-task {
+  font-size: 20px !important;
+  padding: 60px 40px !important;
+  border-radius: 20px !important;
+  background: linear-gradient(135deg, rgba(212, 82, 46, 0.12) 0%, rgba(212, 82, 46, 0.06) 100%) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.3px !important;
+  border: 2px dashed rgba(212, 82, 46, 0.3) !important;
+}
+
+/* Settings button styling */
+.container .to-do-list .title .navbar .setting-menu li {
+  border-radius: 12px !important;
+  font-size: 14px !important;
+  padding: 10px 16px !important;
+  transition: all 0.3s ease !important;
+  font-weight: 600 !important;
+}
+
+.container .to-do-list .title .navbar .setting-menu li:hover {
+  transform: translateX(-8px) !important;
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3) !important;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%) !important;
+}
+
+body.dark-mode .container .to-do-list .title .navbar .setting-menu li:hover {
+  box-shadow: 0 4px 16px rgba(139, 122, 255, 0.3) !important;
+  background: linear-gradient(135deg, rgba(139, 122, 255, 0.15) 0%, rgba(157, 126, 186, 0.15) 100%) !important;
+}
+
+/* Auth change button */
+.container .auth > button {
+  margin-top: 40px !important;
+  margin-bottom: 30px !important;
+  color: #667eea !important;
+  background-color: transparent !important;
+  border: none !important;
+  text-transform: capitalize !important;
+  letter-spacing: 0.3px !important;
+  cursor: pointer !important;
+  font-weight: 600 !important;
+  font-size: 15px !important;
+  transition: all 0.3s ease !important;
+}
+
+.container .auth > button:hover {
+  color: #764ba2 !important;
+  transform: scale(1.05) !important;
+}
+
+body.dark-mode .container .auth > button {
+  color: #8b7aff !important;
+}
+
+body.dark-mode .container .auth > button:hover {
+  color: #9d7aba !important;
+}
+
+/* Forget password link */
+.container .auth .login form .forget-pass,
+.container .auth .signup form .forget-pass {
+  margin-top: 12px !important;
+  color: #667eea !important;
+  text-transform: capitalize !important;
+  cursor: pointer !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+}
+
+.container .auth .login form .forget-pass:hover,
+.container .auth .signup form .forget-pass:hover {
+  color: #764ba2 !important;
+  text-decoration: underline !important;
+}
+
+body.dark-mode .container .auth .login form .forget-pass,
+body.dark-mode .container .auth .signup form .forget-pass {
+  color: #8b7aff !important;
+}
+
+/* Error message styling */
+.container .auth .error {
+  width: 100% !important;
+  color: #ef4444 !important;
+  text-align: center !important;
+  display: none !important;
+  padding: 12px !important;
+  background: rgba(239, 68, 68, 0.1) !important;
+  border-radius: 12px !important;
+  margin: 10px 0 !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+}
+
+/* Settings modal modern styling */
+.container .settings {
+  border-radius: 24px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4) !important;
+  backdrop-filter: blur(20px) !important;
+  padding: 32px !important;
+}
+
+.container .settings .update-info button {
+  border-radius: 14px !important;
+  padding: 14px !important;
+  font-weight: 700 !important;
+  transition: all 0.3s ease !important;
+  font-size: 15px !important;
+  cursor: pointer !important;
+}
+
+.container .settings .update-info button:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4) !important;
+}
+
+.container .settings .update-info .form-control input {
+  border-radius: 14px !important;
+  padding: 14px 16px !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  body {
+    padding: 20px 10px !important;
+  }
+  
+  .container .to-do-list {
+    padding: 20px !important;
+  }
+  
+  .container .to-do-list .crd {
+    padding: 16px !important;
+  }
+  
+  .container .auth .login h2,
+  .container .auth .signup h2 {
+    font-size: 26px !important;
+    height: 70px !important;
+    line-height: 70px !important;
+  }
+}
+
+/* ========================================
+   PROFILE/SETTINGS MODAL MODERN REDESIGN
+   ======================================== */
+
+/* Settings modal container */
+.container .settings {
+  border-radius: 28px !important;
+  box-shadow: 
+    0 0 0 1px rgba(0, 0, 0, 0.05),
+    0 30px 80px rgba(0, 0, 0, 0.3),
+    0 50px 120px rgba(102, 126, 234, 0.2) !important;
+  backdrop-filter: blur(30px) !important;
+  padding: 0 !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+  max-width: 600px !important;
+  width: 90% !important;
+}
+
+body.dark-mode .container .settings {
+  background: rgba(26, 26, 46, 0.95) !important;
+  border: 1px solid rgba(139, 122, 255, 0.3) !important;
+  box-shadow: 
+    0 0 0 1px rgba(139, 122, 255, 0.1),
+    0 30px 80px rgba(0, 0, 0, 0.6),
+    0 50px 120px rgba(139, 122, 255, 0.3) !important;
+}
+
+/* Settings header */
+.container .settings::before {
+  content: 'Profile Settings';
+  display: block;
+  width: 100%;
+  padding: 28px 32px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 28px 28px 0 0;
+  color: #fff;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+}
+
+body.dark-mode .container .settings::before {
+  background: linear-gradient(135deg, #8b7aff 0%, #9d7aba 100%);
+  box-shadow: 0 4px 20px rgba(139, 122, 255, 0.3);
+}
+
+/* Update info form */
+.container .settings .update-info {
+  padding: 32px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 20px !important;
+}
+
+/* Form control styling */
+.container .settings .update-info .form-control {
+  display: flex !important;
+  flex-direction: column !important;
+  margin-top: 0 !important;
+  gap: 8px !important;
+}
+
+.container .settings .update-info .form-control label {
+  color: #667eea !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  margin-bottom: 4px !important;
+}
+
+body.dark-mode .container .settings .update-info .form-control label {
+  color: #8b7aff !important;
+}
+
+.container .settings .update-info .form-control input {
+  width: 100% !important;
+  background-color: #fafbff !important;
+  outline: none !important;
+  border: 2px solid #e8eaf6 !important;
+  border-radius: 16px !important;
+  margin-top: 0 !important;
+  color: #1f2937 !important;
+  padding: 16px 20px !important;
+  caret-color: #667eea !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  height: 56px !important;
+}
+
+.container .settings .update-info .form-control input:focus {
+  border-color: #667eea !important;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15) !important;
+  background-color: #fff !important;
+}
+
+.container .settings .update-info .form-control input:disabled {
+  background-color: #f3f4f6 !important;
+  color: #9ca3af !important;
+  cursor: not-allowed !important;
+  opacity: 0.6 !important;
+}
+
+body.dark-mode .container .settings .update-info .form-control input {
+  background-color: #1a1a2e !important;
+  border-color: #2d2d44 !important;
+  color: #e5e7eb !important;
+  caret-color: #8b7aff !important;
+}
+
+body.dark-mode .container .settings .update-info .form-control input:focus {
+  border-color: #8b7aff !important;
+  box-shadow: 0 0 0 4px rgba(139, 122, 255, 0.15) !important;
+  background-color: #16213e !important;
+}
+
+body.dark-mode .container .settings .update-info .form-control input:disabled {
+  background-color: #16213e !important;
+  color: #6b7280 !important;
+}
+
+/* Button group styling */
+.container .settings .update-info button {
+  margin-top: 8px !important;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  padding: 16px 24px !important;
+  border: none !important;
+  border-radius: 16px !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  letter-spacing: 0.3px !important;
+  cursor: pointer !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4) !important;
+  color: #fff !important;
+  height: 56px !important;
+  text-transform: capitalize !important;
+}
+
+.container .settings .update-info button:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 12px 32px rgba(102, 126, 234, 0.5) !important;
+}
+
+.container .settings .update-info button:active {
+  transform: translateY(-1px) !important;
+}
+
+body.dark-mode .container .settings .update-info button {
+  background: linear-gradient(135deg, #8b7aff 0%, #9d7aba 100%) !important;
+  box-shadow: 0 8px 24px rgba(139, 122, 255, 0.4) !important;
+}
+
+body.dark-mode .container .settings .update-info button:hover {
+  box-shadow: 0 12px 32px rgba(139, 122, 255, 0.5) !important;
+}
+
+/* Cancel button styling */
+.container .settings .update-info button#cancel-update-profile {
+  background: transparent !important;
+  color: #6b7280 !important;
+  border: 2px solid #e5e7eb !important;
+  box-shadow: none !important;
+}
+
+.container .settings .update-info button#cancel-update-profile:hover {
+  background: #f3f4f6 !important;
+  color: #374151 !important;
+  border-color: #d1d5db !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+body.dark-mode .container .settings .update-info button#cancel-update-profile {
+  color: #9ca3af !important;
+  border-color: #374151 !important;
+}
+
+body.dark-mode .container .settings .update-info button#cancel-update-profile:hover {
+  background: #1f2937 !important;
+  color: #d1d5db !important;
+  border-color: #4b5563 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Delete account button styling */
+.container .settings .update-info button#delete-account {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+  box-shadow: 0 8px 24px rgba(239, 68, 68, 0.4) !important;
+  margin-top: 20px !important;
+}
+
+.container .settings .update-info button#delete-account:hover {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+  box-shadow: 0 12px 32px rgba(239, 68, 68, 0.5) !important;
+}
+
+body.dark-mode .container .settings .update-info button#delete-account {
+  background: linear-gradient(135deg, #f87171 0%, #ef4444 100%) !important;
+  box-shadow: 0 8px 24px rgba(248, 113, 113, 0.4) !important;
+}
+
+body.dark-mode .container .settings .update-info button#delete-account:hover {
+  box-shadow: 0 12px 32px rgba(248, 113, 113, 0.5) !important;
+}
+
+/* Confirm message styling */
+.container .settings .update-info .confirm-msg {
+  display: none !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  padding: 24px !important;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.05) 100%) !important;
+  border: 2px solid rgba(239, 68, 68, 0.3) !important;
+  border-radius: 16px !important;
+  margin-top: 16px !important;
+  text-align: center !important;
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  color: #dc2626 !important;
+  text-transform: capitalize !important;
+}
+
+body.dark-mode .container .settings .update-info .confirm-msg {
+  background: linear-gradient(135deg, rgba(248, 113, 113, 0.15) 0%, rgba(239, 68, 68, 0.08) 100%) !important;
+  border-color: rgba(248, 113, 113, 0.3) !important;
+  color: #f87171 !important;
+}
+
+.container .settings .update-info .confirm-msg button {
+  margin-top: 0 !important;
+  height: 48px !important;
+  font-size: 15px !important;
+}
+
+.container .settings .update-info .confirm-msg button#confirm {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.4) !important;
+}
+
+.container .settings .update-info .confirm-msg button#confirm:hover {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5) !important;
+}
+
+.container .settings .update-info .confirm-msg button#cancel {
+  background: transparent !important;
+  color: #6b7280 !important;
+  border: 2px solid #e5e7eb !important;
+  box-shadow: none !important;
+}
+
+.container .settings .update-info .confirm-msg button#cancel:hover {
+  background: #f3f4f6 !important;
+  color: #374151 !important;
+  border-color: #d1d5db !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+body.dark-mode .container .settings .update-info .confirm-msg button#cancel {
+  color: #9ca3af !important;
+  border-color: #374151 !important;
+}
+
+body.dark-mode .container .settings .update-info .confirm-msg button#cancel:hover {
+  background: #1f2937 !important;
+  color: #d1d5db !important;
+  border-color: #4b5563 !important;
+}
+
+/* Add icon to labels */
+.container .settings .update-info .form-control label[for="update-username"]::before {
+  content: '👤 ';
+  margin-right: 6px;
+}
+
+.container .settings .update-info .form-control label[for="update-email"]::before {
+  content: '📧 ';
+  margin-right: 6px;
+}
+
+.container .settings .update-info .form-control label[for="update-password"]::before {
+  content: '🔒 ';
+  margin-right: 6px;
+}
+
+/* Responsive adjustments for settings modal */
+@media (max-width: 768px) {
+  .container .settings {
+    width: 95% !important;
+    max-width: 95% !important;
+  }
+  
+  .container .settings::before {
+    font-size: 22px !important;
+    padding: 24px 20px !important;
+  }
+  
+  .container .settings .update-info {
+    padding: 24px 20px !important;
+  }
+  
+  .container .settings .update-info .form-control input,
+  .container .settings .update-info button {
+    height: 52px !important;
+    font-size: 15px !important;
+  }
+}
+
+/* Animation for settings modal */
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.container .settings.show {
+  animation: slideInDown 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Add subtle pattern to settings background */
+.container .settings::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.03) 0%, transparent 50%);
+  border-radius: 28px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+body.dark-mode .container .settings::after {
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(139, 122, 255, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(157, 126, 186, 0.05) 0%, transparent 50%);
+}

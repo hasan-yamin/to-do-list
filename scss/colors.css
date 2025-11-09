@@ -1,0 +1,873 @@
+/* ========================================
+   MODERN COLOR SCHEME OVERRIDE
+   ======================================== */
+
+/* CSS Variables for Modern Colors */
+:root {
+  /* Primary Colors - Modern Blue/Purple */
+  --primary-gradient-start: #6366f1;
+  --primary-gradient-end: #8b5cf6;
+  --primary-light: #818cf8;
+  --primary-dark: #4f46e5;
+  
+  /* Accent Colors */
+  --accent-gradient-start: #ec4899;
+  --accent-gradient-end: #f43f5e;
+  
+  /* Background Colors - Light Mode */
+  --bg-primary: #fafafa;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f5f5f5;
+  
+  /* Text Colors - Light Mode */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-tertiary: #94a3b8;
+  
+  /* Border Colors - Light Mode */
+  --border-light: #e2e8f0;
+  --border-medium: #cbd5e1;
+  
+  /* Success/Error/Warning */
+  --success: #10b981;
+  --error: #ef4444;
+  --warning: #f59e0b;
+  
+  /* Shadow Colors */
+  --shadow-primary: rgba(99, 102, 241, 0.3);
+  --shadow-secondary: rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode {
+  /* Primary Colors - Dark Mode */
+  --primary-gradient-start: #818cf8;
+  --primary-gradient-end: #a78bfa;
+  --primary-light: #a5b4fc;
+  --primary-dark: #6366f1;
+  
+  /* Accent Colors - Dark Mode */
+  --accent-gradient-start: #f472b6;
+  --accent-gradient-end: #fb7185;
+  
+  /* Background Colors - Dark Mode */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  
+  /* Text Colors - Dark Mode */
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-tertiary: #64748b;
+  
+  /* Border Colors - Dark Mode */
+  --border-light: #334155;
+  --border-medium: #475569;
+  
+  /* Shadow Colors - Dark Mode */
+  --shadow-primary: rgba(129, 140, 248, 0.3);
+  --shadow-secondary: rgba(0, 0, 0, 0.5);
+}
+
+/* ========================================
+   APPLY MODERN COLORS TO COMPONENTS
+   ======================================== */
+
+/* Body Background */
+body {
+  background: var(--bg-primary) !important;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.1) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(236, 72, 153, 0.1) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.1) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(244, 63, 94, 0.1) 0px, transparent 50%) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Auth Section */
+.container .auth {
+  background: rgba(255, 255, 255, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 
+    0 0 0 1px rgba(0, 0, 0, 0.05),
+    0 20px 60px var(--shadow-secondary),
+    0 40px 100px var(--shadow-primary) !important;
+}
+
+body.dark-mode .container .auth {
+  background: rgba(30, 41, 59, 0.85) !important;
+  border: 1px solid rgba(129, 140, 248, 0.2) !important;
+}
+
+.container .auth .login h2,
+.container .auth .signup h2 {
+  background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%) !important;
+  box-shadow: 0 4px 20px var(--shadow-primary) !important;
+}
+
+/* Form Inputs */
+.container .auth .login form .form-control input,
+.container .auth .signup form .form-control input {
+  border-color: var(--border-light) !important;
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+.container .auth .login form .form-control input:focus,
+.container .auth .signup form .form-control input:focus {
+  border-color: var(--primary-gradient-start) !important;
+  box-shadow: 0 0 0 4px var(--shadow-primary) !important;
+}
+
+.container .auth .login form .form-control input::placeholder,
+.container .auth .signup form .form-control input::placeholder {
+  color: var(--text-tertiary) !important;
+}
+
+/* Buttons */
+.container .auth .login form button,
+.container .auth .signup form button {
+  background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%) !important;
+  box-shadow: 0 8px 24px var(--shadow-primary) !important;
+}
+
+.container .auth .login form button:hover,
+.container .auth .signup form button:hover {
+  box-shadow: 0 12px 32px var(--shadow-primary) !important;
+}
+
+/* To-Do List Container */
+.container .to-do-list {
+  background: rgba(255, 255, 255, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 
+    0 0 0 1px rgba(0, 0, 0, 0.05),
+    0 20px 60px var(--shadow-secondary),
+    0 40px 100px var(--shadow-primary) !important;
+}
+
+body.dark-mode .container .to-do-list {
+  background: rgba(30, 41, 59, 0.85) !important;
+  border: 1px solid rgba(129, 140, 248, 0.2) !important;
+}
+
+/* Navbar Text */
+.container .to-do-list .title .navbar > div p {
+  background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--accent-gradient-start) 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+/* Profile Image Border */
+.container .to-do-list .title .navbar > div .profileimg {
+  border-color: var(--primary-gradient-start) !important;
+  box-shadow: 0 4px 16px var(--shadow-primary) !important;
+}
+
+.container .to-do-list .title .navbar > div .profileimg:hover {
+  box-shadow: 0 6px 24px var(--shadow-primary) !important;
+}
+
+/* Setting Menu */
+.container .to-do-list .title .navbar .setting-menu li {
+  border-color: var(--primary-gradient-start) !important;
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+.container .to-do-list .title .navbar .setting-menu li:hover {
+  box-shadow: 0 4px 16px var(--shadow-primary) !important;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%) !important;
+}
+
+/* Cards */
+.container .to-do-list .crd {
+  border-color: rgba(99, 102, 241, 0.15) !important;
+  background: var(--bg-secondary) !important;
+}
+
+.container .to-do-list .crd:hover {
+  border-color: rgba(99, 102, 241, 0.3) !important;
+}
+
+body.dark-mode .container .to-do-list .crd {
+  border-color: rgba(129, 140, 248, 0.2) !important;
+}
+
+body.dark-mode .container .to-do-list .crd:hover {
+  border-color: rgba(129, 140, 248, 0.4) !important;
+}
+
+/* Add Card */
+.container .to-do-list .add-crd {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%) !important;
+  border: 2px dashed rgba(99, 102, 241, 0.3) !important;
+}
+
+.container .to-do-list .add-crd:hover {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(139, 92, 246, 0.12) 100%) !important;
+  border-color: rgba(99, 102, 241, 0.5) !important;
+}
+
+body.dark-mode .container .to-do-list .add-crd {
+  background: linear-gradient(135deg, rgba(129, 140, 248, 0.12) 0%, rgba(167, 139, 250, 0.12) 100%) !important;
+  border-color: rgba(129, 140, 248, 0.3) !important;
+}
+
+body.dark-mode .container .to-do-list .add-crd:hover {
+  background: linear-gradient(135deg, rgba(129, 140, 248, 0.18) 0%, rgba(167, 139, 250, 0.18) 100%) !important;
+  border-color: rgba(129, 140, 248, 0.5) !important;
+}
+
+/* Add Card Inputs */
+.container .to-do-list .add-crd .choices .date,
+.container .to-do-list .add-crd .choices .priority {
+  border-color: var(--primary-gradient-start) !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+}
+
+.container .to-do-list .add-crd .choices .date:hover,
+.container .to-do-list .add-crd .choices .priority:hover {
+  border-color: var(--primary-gradient-start) !important;
+}
+
+.container .to-do-list .add-crd .choices .date svg {
+  color: var(--primary-gradient-start) !important;
+}
+
+body.dark-mode .container .to-do-list .add-crd .choices .date,
+body.dark-mode .container .to-do-list .add-crd .choices .priority {
+  background: rgba(30, 41, 59, 0.7) !important;
+  border-color: var(--primary-light) !important;
+}
+
+/* Textarea */
+.container .to-do-list .add-crd .input textarea {
+  background: rgba(255, 255, 255, 0.7) !important;
+  border-color: rgba(99, 102, 241, 0.2) !important;
+  color: var(--text-primary) !important;
+  caret-color: var(--primary-gradient-start) !important;
+}
+
+.container .to-do-list .add-crd .input textarea:focus {
+  border-color: var(--primary-gradient-start) !important;
+  box-shadow: 0 0 0 3px var(--shadow-primary) !important;
+}
+
+body.dark-mode .container .to-do-list .add-crd .input textarea {
+  background: rgba(30, 41, 59, 0.7) !important;
+  border-color: rgba(129, 140, 248, 0.2) !important;
+}
+
+body.dark-mode .container .to-do-list .add-crd .input textarea:focus {
+  border-color: var(--primary-light) !important;
+}
+
+/* Add Button */
+.container .to-do-list .add-crd .input button {
+  background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%) !important;
+  border-color: var(--primary-gradient-start) !important;
+}
+
+.container .to-do-list .add-crd .input button:hover {
+  box-shadow: 0 8px 24px var(--shadow-primary) !important;
+}
+
+/* Filter Section */
+.container .to-do-list .filter {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%) !important;
+  border-color: rgba(99, 102, 241, 0.15) !important;
+}
+
+body.dark-mode .container .to-do-list .filter {
+  background: linear-gradient(135deg, rgba(129, 140, 248, 0.12) 0%, rgba(167, 139, 250, 0.12) 100%) !important;
+  border-color: rgba(129, 140, 248, 0.2) !important;
+}
+
+.container .to-do-list .filter .filter-card {
+  border-color: var(--primary-gradient-start) !important;
+  box-shadow: 0 2px 12px var(--shadow-primary) !important;
+  background: rgba(255, 255, 255, 0.6) !important;
+}
+
+.container .to-do-list .filter .filter-card:hover {
+  box-shadow: 0 4px 20px var(--shadow-primary) !important;
+}
+
+.container .to-do-list .filter .filter-card select,
+.container .to-do-list .filter .filter-card .todays-tasks {
+  color: var(--primary-gradient-start) !important;
+}
+
+body.dark-mode .container .to-do-list .filter .filter-card {
+  background: rgba(30, 41, 59, 0.6) !important;
+}
+
+/* List Cards */
+.container .to-do-list .list .list-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%) !important;
+  border-color: rgba(99, 102, 241, 0.15) !important;
+}
+
+.container .to-do-list .list .list-card:hover {
+  border-color: rgba(99, 102, 241, 0.3) !important;
+}
+
+body.dark-mode .container .to-do-list .list .list-card {
+  background: linear-gradient(135deg, rgba(51, 65, 85, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%) !important;
+  border-color: rgba(129, 140, 248, 0.2) !important;
+}
+
+body.dark-mode .container .to-do-list .list .list-card:hover {
+  border-color: rgba(129, 140, 248, 0.4) !important;
+}
+
+/* Priority Badge */
+.container .to-do-list .list .list-card .edit .date-priority .priority {
+  background: rgba(99, 102, 241, 0.15) !important;
+  color: var(--primary-dark) !important;
+}
+
+body.dark-mode .container .to-do-list .list .list-card .edit .date-priority .priority {
+  background: rgba(129, 140, 248, 0.25) !important;
+  color: var(--primary-light) !important;
+}
+
+/* Edit/Delete Buttons */
+.container .to-do-list .list .list-card .edit .edit-delete .edit-task {
+  color: var(--primary-gradient-start) !important;
+}
+
+.container .to-do-list .list .list-card .edit .edit-delete .edit-task:hover {
+  background: rgba(99, 102, 241, 0.15) !important;
+}
+
+.container .to-do-list .list .list-card .edit .edit-delete .delete-task {
+  color: var(--error) !important;
+}
+
+.container .to-do-list .list .list-card .edit .edit-delete .delete-task:hover {
+  background: rgba(239, 68, 68, 0.15) !important;
+}
+
+/* Edit Content */
+.container .to-do-list .edit-content {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%) !important;
+  border-color: var(--primary-gradient-start) !important;
+}
+
+body.dark-mode .container .to-do-list .edit-content {
+  background: linear-gradient(135deg, rgba(129, 140, 248, 0.12) 0%, rgba(167, 139, 250, 0.12) 100%) !important;
+}
+
+.container .to-do-list .edit-content .edit-date button {
+  border-color: var(--primary-gradient-start) !important;
+}
+
+.container .to-do-list .edit-content .edit-date button:hover {
+  background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%) !important;
+}
+
+.container .to-do-list .edit-content .edit-date button .fa-check {
+  color: var(--primary-gradient-start) !important;
+}
+
+.container .to-do-list .edit-content .edit-date button:hover .fa-check {
+  color: #fff !important;
+}
+
+/* Settings Modal */
+.container .settings {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 
+    0 0 0 1px rgba(0, 0, 0, 0.05),
+    0 30px 80px var(--shadow-secondary),
+    0 50px 120px var(--shadow-primary) !important;
+}
+
+body.dark-mode .container .settings {
+  background: rgba(30, 41, 59, 0.95) !important;
+  border: 1px solid rgba(129, 140, 248, 0.3) !important;
+}
+
+.container .settings::before {
+  background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%) !important;
+  box-shadow: 0 4px 20px var(--shadow-primary) !important;
+}
+
+.container .settings .update-info .form-control label {
+  color: var(--primary-gradient-start) !important;
+}
+
+.container .settings .update-info .form-control input {
+  background-color: var(--bg-secondary) !important;
+  border-color: var(--border-light) !important;
+  color: var(--text-primary) !important;
+  caret-color: var(--primary-gradient-start) !important;
+}
+
+.container .settings .update-info .form-control input:focus {
+  border-color: var(--primary-gradient-start) !important;
+  box-shadow: 0 0 0 4px var(--shadow-primary) !important;
+}
+
+.container .settings .update-info button {
+  background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%) !important;
+  box-shadow: 0 8px 24px var(--shadow-primary) !important;
+}
+
+.container .settings .update-info button:hover {
+  box-shadow: 0 12px 32px var(--shadow-primary) !important;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  border-color: var(--primary-gradient-start) !important;
+  background-color: var(--bg-secondary) !important;
+  box-shadow: 0 4px 12px var(--shadow-primary) !important;
+}
+
+.theme-toggle:hover {
+  box-shadow: 0 6px 20px var(--shadow-primary) !important;
+}
+
+.theme-toggle i {
+  color: var(--primary-gradient-start) !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%) !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-gradient-start) 100%) !important;
+}
+
+/* No Task Message */
+.container .to-do-list .no-task {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.12) 0%, rgba(239, 68, 68, 0.06) 100%) !important;
+  border-color: rgba(239, 68, 68, 0.3) !important;
+  color: var(--error) !important;
+}
+
+/* Auth Change Button */
+.container .auth > button {
+  color: var(--primary-gradient-start) !important;
+}
+
+.container .auth > button:hover {
+  color: var(--primary-gradient-end) !important;
+}
+
+/* Forget Password */
+.container .auth .login form .forget-pass,
+.container .auth .signup form .forget-pass {
+  color: var(--primary-gradient-start) !important;
+}
+
+.container .auth .login form .forget-pass:hover,
+.container .auth .signup form .forget-pass:hover {
+  color: var(--primary-gradient-end) !important;
+}
+
+
+/* ========================================
+   SETTING MENU MODERN ENHANCEMENT
+   ======================================== */
+
+/* Setting Menu Container */
+.container .to-do-list .title .navbar .setting-menu {
+  display: none !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  align-items: stretch !important;
+  position: absolute !important;
+  top: 60px !important;
+  right: 10px !important;
+  min-width: 220px !important;
+  padding: 8px !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(20px) !important;
+  border-radius: 16px !important;
+  box-shadow: 
+    0 0 0 1px rgba(0, 0, 0, 0.05),
+    0 10px 40px rgba(0, 0, 0, 0.15),
+    0 20px 60px var(--shadow-primary) !important;
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+  animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  z-index: 100 !important;
+}
+
+body.dark-mode .container .to-do-list .title .navbar .setting-menu {
+  background: rgba(30, 41, 59, 0.95) !important;
+  border: 1px solid rgba(129, 140, 248, 0.3) !important;
+  box-shadow: 
+    0 0 0 1px rgba(129, 140, 248, 0.1),
+    0 10px 40px rgba(0, 0, 0, 0.5),
+    0 20px 60px var(--shadow-primary) !important;
+}
+
+.container .to-do-list .title .navbar .setting-menu.show {
+  display: flex !important;
+}
+
+/* Setting Menu Items */
+.container .to-do-list .title .navbar .setting-menu li {
+  width: 100% !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  text-transform: capitalize !important;
+  margin: 0 !important;
+  cursor: pointer !important;
+  padding: 14px 16px !important;
+  border: none !important;
+  background: transparent !important;
+  border-radius: 12px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  color: var(--text-primary) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Add icons to menu items */
+.container .to-do-list .title .navbar .setting-menu li.update-profile::before {
+  content: '⚙️';
+  font-size: 18px;
+  display: inline-block;
+}
+
+.container .to-do-list .title .navbar .setting-menu li.logout::before {
+  content: '🚪';
+  font-size: 18px;
+  display: inline-block;
+}
+
+/* Hover effect with gradient background */
+.container .to-do-list .title .navbar .setting-menu li:hover {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(139, 92, 246, 0.12) 100%) !important;
+  color: var(--primary-gradient-start) !important;
+  transform: translateX(0) scale(1.02) !important;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2) !important;
+}
+
+body.dark-mode .container .to-do-list .title .navbar .setting-menu li:hover {
+  background: linear-gradient(135deg, rgba(129, 140, 248, 0.15) 0%, rgba(167, 139, 250, 0.15) 100%) !important;
+  color: var(--primary-light) !important;
+  box-shadow: 0 2px 8px rgba(129, 140, 248, 0.3) !important;
+}
+
+/* Active/pressed state */
+.container .to-do-list .title .navbar .setting-menu li:active {
+  transform: translateX(0) scale(0.98) !important;
+}
+
+/* Logout item special styling */
+.container .to-do-list .title .navbar .setting-menu li.logout {
+  margin-top: 4px !important;
+  border-top: 1px solid var(--border-light) !important;
+  padding-top: 18px !important;
+}
+
+.container .to-do-list .title .navbar .setting-menu li.logout:hover {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.12) 0%, rgba(220, 38, 38, 0.08) 100%) !important;
+  color: var(--error) !important;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2) !important;
+}
+
+/* Add subtle shine effect on hover */
+.container .to-do-list .title .navbar .setting-menu li::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.container .to-do-list .title .navbar .setting-menu li:hover::after {
+  left: 100%;
+}
+
+body.dark-mode .container .to-do-list .title .navbar .setting-menu li::after {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+}
+
+/* Animation for menu dropdown */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Profile image and username container enhancement */
+.container .to-do-list .title .navbar > div {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 12px !important;
+  cursor: pointer !important;
+  padding: 8px 12px !important;
+  border-radius: 12px !important;
+  transition: all 0.3s ease !important;
+}
+
+.container .to-do-list .title .navbar > div:hover {
+  background: rgba(99, 102, 241, 0.08) !important;
+}
+
+body.dark-mode .container .to-do-list .title .navbar > div:hover {
+  background: rgba(129, 140, 248, 0.12) !important;
+}
+
+.container .to-do-list .title .navbar > div p {
+  margin: 0 !important;
+  user-select: none !important;
+}
+
+/* Profile image enhancement */
+.container .to-do-list .title .navbar > div .profileimg {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 50% !important;
+  border: 3px solid var(--primary-gradient-start) !important;
+  margin-left: 0 !important;
+  overflow: hidden !important;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%) !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  box-shadow: 0 4px 16px var(--shadow-primary) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  cursor: pointer !important;
+}
+
+.container .to-do-list .title .navbar > div .profileimg:hover {
+  transform: scale(1.08) !important;
+  box-shadow: 0 6px 24px var(--shadow-primary) !important;
+  border-width: 4px !important;
+}
+
+.container .to-do-list .title .navbar > div .profileimg svg {
+  font-size: 28px !important;
+  color: var(--primary-gradient-start) !important;
+}
+
+body.dark-mode .container .to-do-list .title .navbar > div .profileimg {
+  background: linear-gradient(135deg, rgba(129, 140, 248, 0.15) 0%, rgba(167, 139, 250, 0.15) 100%) !important;
+}
+
+body.dark-mode .container .to-do-list .title .navbar > div .profileimg svg {
+  color: var(--primary-light) !important;
+}
+
+/* Add dropdown arrow indicator */
+.container .to-do-list .title .navbar > div::after {
+  content: '▼';
+  font-size: 10px;
+  color: var(--text-tertiary);
+  transition: transform 0.3s ease;
+  margin-left: 4px;
+}
+
+.container .to-do-list .title .navbar > div:hover::after {
+  color: var(--primary-gradient-start);
+}
+
+/* Rotate arrow when menu is open */
+.container .to-do-list .title .navbar .setting-menu.show ~ div::after {
+  transform: rotate(180deg);
+}
+
+/* Navbar container positioning */
+.container .to-do-list .title .navbar {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+  margin-right: 0 !important;
+  position: relative !important;
+  padding: 12px !important;
+}
+
+/* Add subtle divider between menu items */
+.container .to-do-list .title .navbar .setting-menu li:not(:last-child) {
+  margin-bottom: 4px !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container .to-do-list .title .navbar .setting-menu {
+    min-width: 200px !important;
+    right: 5px !important;
+  }
+  
+  .container .to-do-list .title .navbar .setting-menu li {
+    font-size: 14px !important;
+    padding: 12px 14px !important;
+  }
+  
+  .container .to-do-list .title .navbar > div .profileimg {
+    width: 42px !important;
+    height: 42px !important;
+  }
+}
+
+/* Add keyboard focus styles for accessibility */
+.container .to-do-list .title .navbar .setting-menu li:focus {
+  outline: 2px solid var(--primary-gradient-start) !important;
+  outline-offset: 2px !important;
+}
+
+/* Smooth transition for menu appearance */
+.container .to-do-list .title .navbar .setting-menu li {
+  animation: fadeInItem 0.3s ease forwards;
+  opacity: 0;
+}
+
+.container .to-do-list .title .navbar .setting-menu li:nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+.container .to-do-list .title .navbar .setting-menu li:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+@keyframes fadeInItem {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+/* ========================================
+   MODERN USER ICON STYLING
+   ======================================== */
+
+/* User Icon SVG */
+.container .to-do-list .title .navbar > div .profileimg .user-icon {
+  width: 28px !important;
+  height: 28px !important;
+  color: var(--primary-gradient-start) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.container .to-do-list .title .navbar > div .profileimg:hover .user-icon {
+  color: var(--primary-gradient-end) !important;
+  transform: scale(1.1) !important;
+}
+
+body.dark-mode .container .to-do-list .title .navbar > div .profileimg .user-icon {
+  color: var(--primary-light) !important;
+}
+
+body.dark-mode .container .to-do-list .title .navbar > div .profileimg:hover .user-icon {
+  color: var(--primary-gradient-start) !important;
+}
+
+/* Override old icon styles */
+.container .to-do-list .title .navbar > div .profileimg svg:not(.user-icon) {
+  display: none !important;
+}
+
+.container .to-do-list .title .navbar > div .profileimg i {
+  display: none !important;
+}
+
+/* Enhanced profile image container */
+.container .to-do-list .title .navbar > div .profileimg {
+  position: relative !important;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%) !important;
+}
+
+body.dark-mode .container .to-do-list .title .navbar > div .profileimg {
+  background: linear-gradient(135deg, rgba(129, 140, 248, 0.2) 0%, rgba(167, 139, 250, 0.2) 100%) !important;
+}
+
+/* Add subtle pulse animation on hover */
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 4px 16px var(--shadow-primary);
+  }
+  50% {
+    box-shadow: 0 6px 24px var(--shadow-primary), 0 0 0 4px rgba(99, 102, 241, 0.1);
+  }
+}
+
+.container .to-do-list .title .navbar > div .profileimg:hover {
+  animation: pulse 2s ease-in-out infinite !important;
+}
+
+/* Add online status indicator */
+.container .to-do-list .title .navbar > div .profileimg::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 12px;
+  height: 12px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border: 2px solid var(--bg-secondary);
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.4);
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+body.dark-mode .container .to-do-list .title .navbar > div .profileimg::after {
+  border-color: var(--bg-secondary);
+}
+
+@keyframes statusPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container .to-do-list .title .navbar > div .profileimg .user-icon {
+    width: 24px !important;
+    height: 24px !important;
+  }
+  
+  .container .to-do-list .title .navbar > div .profileimg::after {
+    width: 10px !important;
+    height: 10px !important;
+  }
+}
+
+
+/* ========================================
+   HIDE OLD NAVBAR PROFILE (MOVED TO HEADER)
+   ======================================== */
+
+/* Hide the old navbar profile section when user is logged in */
+.container .to-do-list .title .navbar {
+  display: none !important;
+}
+
+/* Keep the title visible but hide navbar */
+.container .to-do-list .title {
+  margin-bottom: 20px !important;
+}

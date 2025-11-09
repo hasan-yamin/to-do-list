@@ -139,19 +139,31 @@ async function showUserInfo() {
     let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
     todo.classList.add('show')
     tasks()
+    
+    // Update header user profile
+    let headerUserProfile: HTMLDivElement | null = <HTMLDivElement>document.getElementById('header-user-profile');
+    if (headerUserProfile !== null) {
+        headerUserProfile.classList.add('show')
+    }
+    let headerUserName: HTMLSpanElement | null = <HTMLSpanElement>document.getElementById('header-user-name');
+    if (headerUserName !== null) {
+        headerUserName.innerHTML = userName
+    }
+    
+    // Keep old profile for backward compatibility (hidden in CSS)
     let showUserName: HTMLFormElement | null = <HTMLFormElement>document.getElementById('user-name');
-    showUserName.innerHTML = userName
+    if (showUserName !== null) {
+        showUserName.innerHTML = userName
+    }
     let showprofileImg: HTMLImageElement | null = <HTMLImageElement>document.getElementById('profileimg');
     if (showprofileImg !== null) {
         showprofileImg.setAttribute('src', userphoto)
     }
-
-    // console.log('src', userphoto)
 }
 /* *********** End show Profile data**************/
 /* *********** Start Logout **************/
-let logOut: HTMLButtonElement | null = <HTMLButtonElement>document.getElementById('logout');
-logOut.addEventListener('click', function () {
+// Handle both old and new logout buttons
+function handleLogout() {
     userId = '';
     userAuth = '';
     userName = '';
@@ -160,10 +172,25 @@ logOut.addEventListener('click', function () {
     // delete session data from local storage
     localStorage.removeItem('userAuth');
     localStorage.removeItem('userId');
+    
+    // Hide old setting menu
     let settingMenu: HTMLUListElement | null = <HTMLUListElement>document.getElementById('setting-menu')
     if (settingMenu !== null) {
         settingMenu.classList.remove('show')
     }
+    
+    // Hide header setting menu
+    let headerSettingMenu: HTMLUListElement | null = <HTMLUListElement>document.getElementById('header-setting-menu')
+    if (headerSettingMenu !== null) {
+        headerSettingMenu.classList.remove('show')
+    }
+    
+    // Hide header user profile
+    let headerUserProfile: HTMLDivElement | null = <HTMLDivElement>document.getElementById('header-user-profile');
+    if (headerUserProfile !== null) {
+        headerUserProfile.classList.remove('show')
+    }
+    
     //Hide to do list
     let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
     todo.classList.remove('show')
@@ -175,7 +202,17 @@ logOut.addEventListener('click', function () {
     //Hide error message
     let ErrorMsg: HTMLDivElement | null = <HTMLDivElement>document.getElementById('error');
     ErrorMsg.style.display = 'none'
-})
+}
+
+let logOut: HTMLButtonElement | null = <HTMLButtonElement>document.getElementById('logout');
+if (logOut !== null) {
+    logOut.addEventListener('click', handleLogout)
+}
+
+let headerLogout: HTMLButtonElement | null = <HTMLButtonElement>document.getElementById('header-logout');
+if (headerLogout !== null) {
+    headerLogout.addEventListener('click', handleLogout)
+}
 /* *********** End Logout **************/
 /* *********** Start Update rofile **************/
 let updateProfileBtn: HTMLLIElement | null = <HTMLLIElement>document.getElementById('update-profile')
@@ -296,6 +333,82 @@ if (usrNam !== null) {
     })
 }
 /* *********** End Settings **************/
+
+/* *********** Start Header User Profile Menu **************/
+let headerUserProfile: HTMLDivElement | null = <HTMLDivElement>document.getElementById('header-user-profile')
+if (headerUserProfile !== null) {
+    headerUserProfile.addEventListener('click', function (e) {
+        e.stopPropagation()
+        let headerSettingMenu: HTMLUListElement | null = <HTMLUListElement>document.getElementById('header-setting-menu')
+        if (headerSettingMenu !== null) {
+            headerSettingMenu.classList.toggle('show')
+            headerUserProfile.classList.toggle('menu-open')
+        }
+    })
+}
+
+// Handle header update profile button
+let headerUpdateProfile: HTMLLIElement | null = <HTMLLIElement>document.getElementById('header-update-profile')
+if (headerUpdateProfile !== null) {
+    headerUpdateProfile.addEventListener('click', function () {
+        // Close header menu
+        let headerSettingMenu: HTMLUListElement | null = <HTMLUListElement>document.getElementById('header-setting-menu')
+        if (headerSettingMenu !== null) {
+            headerSettingMenu.classList.remove('show')
+        }
+        
+        // Show settings modal
+        let settings: HTMLDivElement | null = <HTMLDivElement>document.getElementById('settings')
+        if (settings !== null) {
+            settings.classList.add('show')
+            //hide to do list
+            let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
+            todo.classList.remove('show')
+            let updateProfileForm: HTMLFormElement | null = <HTMLFormElement>document.getElementById('update-info');
+            // show user name
+            let updateUsername: HTMLInputElement | null = <HTMLInputElement>document.getElementById('update-username');
+            updateUsername.value = userName;
+            // show email address
+            let updateEmail: HTMLInputElement | null = <HTMLInputElement>document.getElementById('update-email');
+            updateEmail.value = email;
+
+            if (updateProfileForm !== null) {
+                updateProfileForm.addEventListener('submit', async function (e) {
+                    e.preventDefault();
+                    const newUsername: string | null = e.target.updateUsername.value.trim()
+                    if (newUsername != null && newUsername.length > 3) {
+                        try {
+                            await updateProfile(userAuth, newUsername, 'noimage.png')
+                            if (settings !== null) {
+                                settings.classList.remove('show')
+                            }
+                            //Show to do list
+                            let todo: HTMLDivElement | null = <HTMLDivElement>document.getElementById('to-do-list');
+                            todo.classList.add('show')
+                            getProfileData(userAuth)
+                        } catch (err) {
+                            console.log('update Error', err)
+                        }
+                    }
+                })
+            }
+        }
+    })
+}
+
+// Close header menu when clicking outside
+document.addEventListener('click', function(event: MouseEvent) {
+    let headerUserProfile: HTMLDivElement | null = <HTMLDivElement>document.getElementById('header-user-profile')
+    let headerSettingMenu: HTMLUListElement | null = <HTMLUListElement>document.getElementById('header-setting-menu')
+    
+    if (headerUserProfile !== null && headerSettingMenu !== null) {
+        if (!headerUserProfile.contains(event.target as Node) && !headerSettingMenu.contains(event.target as Node)) {
+            headerSettingMenu.classList.remove('show')
+            headerUserProfile.classList.remove('menu-open')
+        }
+    }
+})
+/* *********** End Header User Profile Menu **************/
 
 
 class Task {
@@ -806,3 +919,9 @@ async function deleteAccount(userAuth: string) {
     localStorage.removeItem('userId');
 }
     /* *********** End Delete Account **************/
+
+/*************************************************************************************
+********************************* THEME TOGGLE ***************************************
+**************************************************************************************/
+// Theme toggle is handled by inline script in index.html
+// This ensures it loads immediately before the page renders

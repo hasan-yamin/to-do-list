@@ -141,19 +141,30 @@ function showUserInfo() {
         let todo = document.getElementById('to-do-list');
         todo.classList.add('show');
         tasks();
+        // Update header user profile
+        let headerUserProfile = document.getElementById('header-user-profile');
+        if (headerUserProfile !== null) {
+            headerUserProfile.classList.add('show');
+        }
+        let headerUserName = document.getElementById('header-user-name');
+        if (headerUserName !== null) {
+            headerUserName.innerHTML = userName;
+        }
+        // Keep old profile for backward compatibility (hidden in CSS)
         let showUserName = document.getElementById('user-name');
-        showUserName.innerHTML = userName;
+        if (showUserName !== null) {
+            showUserName.innerHTML = userName;
+        }
         let showprofileImg = document.getElementById('profileimg');
         if (showprofileImg !== null) {
             showprofileImg.setAttribute('src', userphoto);
         }
-        // console.log('src', userphoto)
     });
 }
 /* *********** End show Profile data**************/
 /* *********** Start Logout **************/
-let logOut = document.getElementById('logout');
-logOut.addEventListener('click', function () {
+// Handle both old and new logout buttons
+function handleLogout() {
     userId = '';
     userAuth = '';
     userName = '';
@@ -162,9 +173,20 @@ logOut.addEventListener('click', function () {
     // delete session data from local storage
     localStorage.removeItem('userAuth');
     localStorage.removeItem('userId');
+    // Hide old setting menu
     let settingMenu = document.getElementById('setting-menu');
     if (settingMenu !== null) {
         settingMenu.classList.remove('show');
+    }
+    // Hide header setting menu
+    let headerSettingMenu = document.getElementById('header-setting-menu');
+    if (headerSettingMenu !== null) {
+        headerSettingMenu.classList.remove('show');
+    }
+    // Hide header user profile
+    let headerUserProfile = document.getElementById('header-user-profile');
+    if (headerUserProfile !== null) {
+        headerUserProfile.classList.remove('show');
     }
     //Hide to do list
     let todo = document.getElementById('to-do-list');
@@ -177,7 +199,15 @@ logOut.addEventListener('click', function () {
     //Hide error message
     let ErrorMsg = document.getElementById('error');
     ErrorMsg.style.display = 'none';
-});
+}
+let logOut = document.getElementById('logout');
+if (logOut !== null) {
+    logOut.addEventListener('click', handleLogout);
+}
+let headerLogout = document.getElementById('header-logout');
+if (headerLogout !== null) {
+    headerLogout.addEventListener('click', handleLogout);
+}
 /* *********** End Logout **************/
 /* *********** Start Update rofile **************/
 let updateProfileBtn = document.getElementById('update-profile');
@@ -300,6 +330,50 @@ if (usrNam !== null) {
     });
 }
 /* *********** End Settings **************/
+/* *********** Start Header User Profile Menu **************/
+let headerUserProfile = document.getElementById('header-user-profile');
+if (headerUserProfile !== null) {
+    headerUserProfile.addEventListener('click', function (e) {
+        e.stopPropagation();
+        let headerSettingMenu = document.getElementById('header-setting-menu');
+        if (headerSettingMenu !== null) {
+            headerSettingMenu.classList.toggle('show');
+            headerUserProfile.classList.toggle('menu-open');
+        }
+    });
+}
+// Handle header update profile button
+let headerUpdateProfile = document.getElementById('header-update-profile');
+if (headerUpdateProfile !== null) {
+    headerUpdateProfile.addEventListener('click', function () {
+        let headerSettingMenu = document.getElementById('header-setting-menu');
+        if (headerSettingMenu !== null) {
+            headerSettingMenu.classList.remove('show');
+        }
+        let settings = document.getElementById('settings');
+        if (settings !== null) {
+            settings.classList.add('show');
+            let todo = document.getElementById('to-do-list');
+            todo.classList.remove('show');
+            let updateUsername = document.getElementById('update-username');
+            updateUsername.value = userName;
+            let updateEmail = document.getElementById('update-email');
+            updateEmail.value = email;
+        }
+    });
+}
+// Close header menu when clicking outside
+document.addEventListener('click', function (event) {
+    let headerUserProfile = document.getElementById('header-user-profile');
+    let headerSettingMenu = document.getElementById('header-setting-menu');
+    if (headerUserProfile !== null && headerSettingMenu !== null) {
+        if (!headerUserProfile.contains(event.target) && !headerSettingMenu.contains(event.target)) {
+            headerSettingMenu.classList.remove('show');
+            headerUserProfile.classList.remove('menu-open');
+        }
+    }
+});
+/* *********** End Header User Profile Menu **************/
 class Task {
     constructor(taskName, deadLine, priorty, done, jsonId, taskId) {
         this._taskName = taskName;
@@ -813,3 +887,9 @@ function deleteAccount(userAuth) {
     });
 }
 /* *********** End Delete Account **************/
+
+/*************************************************************************************
+********************************* THEME TOGGLE ***************************************
+**************************************************************************************/
+// Theme toggle is handled by inline script in index.html
+// This ensures it loads immediately before the page renders
